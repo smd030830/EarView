@@ -1,2 +1,2 @@
-# Ear_View
+# EarView
 earview 프로젝트
