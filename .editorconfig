@@ -1,0 +1,23 @@
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.{kt,kts}]
+indent_style = space
+indent_size = 2
+# Match the code style already used in this project (IntelliJ/Android Studio).
+ktlint_code_style = intellij_idea
+
+# Jetpack Compose UI functions are conventionally PascalCase (e.g. MainScreen,
+# EarViewTheme). The standard function-naming rule flags these, so exempt
+# functions annotated with @Composable.
+ktlint_function_naming_ignore_when_annotated_with = Composable
+
+# Compose projects keep several related top-level declarations in one
+# descriptively named file (e.g. NavigationKeys.kt). Do not force a file to be
+# renamed after its single top-level declaration.
+ktlint_standard_filename = disabled
