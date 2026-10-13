@@ -1,3 +1,35 @@
 <resources>
     <string name="app_name">EarView</string>
+
+    <!-- Danger sounds -->
+    <string name="sound_fire_alarm">화재경보</string>
+    <string name="sound_siren">사이렌</string>
+    <string name="sound_baby_crying">아기 울음</string>
+    <string name="sound_doorbell">초인종</string>
+    <string name="sound_car_horn">차량 경적</string>
+    <string name="sound_separator">, </string>
+
+    <!-- Status text (shown on screen) -->
+    <string name="status_off">꺼져 있음</string>
+    <string name="status_idle">정상 대기 중</string>
+    <string name="status_detected">%1$s 감지</string>
+    <string name="status_detected_overflow">%1$s 외 %2$d건 감지</string>
+    <string name="status_detected_generic">위험한 소리 감지</string>
+
+    <!-- Status text (read by TalkBack) -->
+    <string name="status_off_a11y">감지 꺼져 있음</string>
+    <string name="status_idle_a11y">정상 대기 중</string>
+    <string name="status_detected_a11y">%1$s 감지됨</string>
+    <string name="status_detected_overflow_a11y">%1$s 외 %2$d건 감지됨</string>
+    <string name="status_detected_generic_a11y">위험한 소리 감지됨</string>
+
+    <!-- Controls -->
+    <string name="button_start">시작</string>
+    <string name="button_stop">종료</string>
+    <string name="button_start_a11y">소리 감지 시작</string>
+    <string name="button_stop_a11y">소리 감지 종료</string>
+    <string name="action_dismiss_detection">알림을 닫고 정상 대기 상태로 돌아가기</string>
+
+    <!-- Target list -->
+    <string name="target_sounds">감지 대상: %1$s</string>
 </resources>
