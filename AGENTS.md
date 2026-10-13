@@ -1,52 +1,27 @@
-## Project Overview
+# AGENTS.md
 
-EarView is an on-device Android app that helps deaf and hard-of-hearing users stay aware of danger. It listens to ambient sound with YAMNet, recognizes a set of hazardous sounds, and alerts the user with vibration patterns and screen colors. The app runs in the background through a foreground service. All audio processing happens on the device, and no audio or inference results leave it.
+## Project
+Android app (Kotlin, Jetpack Compose) that listens to ambient sound and alerts deeply hard-of-hearing users when one of 5 danger sounds is detected: fire alarm, doorbell, baby crying, car horn, siren.
+Detection runs on-device with YAMNet (TensorFlow Lite). Min SDK 26.
 
-Target classes (7): Siren, Fire alarm, Vehicle horn, Screaming, Baby cry, Glass shatter, Gunshot.
+## Hard rules
+- Never store, log, or transmit audio. Process it in memory only. No network calls for detection.
+- Every status must use color + icon + text. Never rely on color alone.
+- All screens must work with TalkBack (contentDescription, readable state labels).
+- Detection runs in a Foreground Service and only while the user has started it.
+- Keep the app to two screens: permission onboarding and main. Do not add a settings screen.
 
+## Docs (read before making changes)
+- `docs/prd.md`: product requirements, scope, screen states, acceptance criteria. Source of truth for behavior.
+- `docs/backlog.md`: user stories with IDs (BL-xxx) and acceptance criteria. Reference the story ID in commits and PRs.
 
-## Documentation
+If a change conflicts with these docs, stop and ask before implementing.
 
-Read the relevant doc before starting a task. Keep this file short; details live in `docs/`.
+## Conventions
+- Use Compose for all UI. Keep state in a ViewModel.
+- Detection logic goes behind an interface so it can be tested without a microphone.
+- Thresholds are internal constants per sound class, not user settings.
+- Write tests for state transitions: off, idle (green), detected (red), auto-return after 10s, tap-to-return.
 
-- `docs/spec.md`: Source of truth for features, the 7 classes, thresholds, and alert patterns. Read it before changing detection or alert logic.
-- `docs/architecture.md`: Feature-first clean architecture, data flow, module boundaries, permissions, and service structure.
-- `docs/conventions.md`: Code rules beyond ktlint, and testing principles.
-- `docs/git.md`: Trunk-based branch, commit, and PR rules.
-- `docs/decisions.md`: Dated decision log.
-
-If a doc conflicts with this file, `spec.md` wins for product behavior and this file wins for process rules.
-
-
-## Tech Stack
-
-- Language: Kotlin, Java 17 target
-- UI: Jetpack Compose with Material3
-- Build: Gradle Kotlin DSL with a version catalog (`gradle/libs.versions.toml`)
-- Lint and format: ktlint
-- Android: minSdk 24, compileSdk 36, targetSdk 36
-- Dev tool versions are managed in `mise.toml`
-
-
-## Architecture & Git
-
-- Architecture: feature-first clean architecture. Details in `docs/architecture.md`.
-- Git: trunk-based development. Details in `docs/git.md`.
-
-
-## Rules
-
-- Keep the package name `com.example.earview`.
-- Do not add network calls or analytics. Do not store audio or inference results.
-- Do not add libraries or plugins without asking first.
-- Do not invent thresholds, colors, or alert patterns that are not in `docs/spec.md`.
-- Keep `main` green. Merge changes through PRs.
-- Record changed decisions in `docs/decisions.md`.
-
-
-## Command
-
-- Check: `./gradlew ktlintCheck lint test assembleDebug`
-- Format: `./gradlew ktlintFormat`
-
-Run the check before every commit.
+## Out of scope for MVP
+Settings screen, per-sound toggles, sensitivity control, notification history, boot auto-start, wearables, cloud, iOS, voice guidance, gas alarm.
