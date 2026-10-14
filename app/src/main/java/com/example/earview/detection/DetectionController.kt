@@ -53,7 +53,11 @@ enum class StopReason {
  * state while the UI comes and goes (BL-018). All calls must come from the thread [scope] runs on
  * (the main thread in production).
  */
-class DetectionController(private val detector: SoundDetector, private val scope: CoroutineScope) {
+class DetectionController(
+  private val detector: SoundDetector,
+  private val vibrator: AlertVibrator,
+  private val scope: CoroutineScope,
+) {
   private val _state = MutableStateFlow<DetectionState>(DetectionState.Off)
   val state: StateFlow<DetectionState> = _state.asStateFlow()
 
@@ -105,7 +109,8 @@ class DetectionController(private val detector: SoundDetector, private val scope
   private fun onSoundDetected(sound: DangerSound) {
     if (!isRunning) return
     alerting = true
-    activeSounds += sound
+    // Vibrate only when the sound newly appears; a sound that keeps going vibrates once (FR-02).
+    if (activeSounds.add(sound)) vibrator.vibrate(sound)
 
     expiryJobs.remove(sound)?.cancel()
     expiryJobs[sound] =
@@ -128,6 +133,7 @@ class DetectionController(private val detector: SoundDetector, private val scope
   }
 
   private fun clearAlert() {
+    vibrator.cancel()
     alerting = false
     activeSounds.clear()
     expiryJobs.values.forEach(Job::cancel)

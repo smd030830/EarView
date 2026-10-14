@@ -4,6 +4,7 @@ import com.example.earview.detection.DangerSound
 import com.example.earview.detection.DetectionController
 import com.example.earview.detection.DetectionServiceStarter
 import com.example.earview.detection.DetectionState
+import com.example.earview.detection.FakeAlertVibrator
 import com.example.earview.detection.SoundDetector
 import com.example.earview.permission.FakePermissionChecker
 import kotlinx.coroutines.CoroutineScope
@@ -38,7 +39,7 @@ class MainScreenViewModelTest {
   private fun TestScope.fixture(scope: CoroutineScope = backgroundScope): Fixture {
     lateinit var controller: DetectionController
     val starter = FakeServiceStarter { controller }
-    controller = DetectionController(detector, scope)
+    controller = DetectionController(detector, FakeAlertVibrator(), scope)
     return Fixture(controller, MainScreenViewModel(controller, starter, permissions), starter).also { runCurrent() }
   }
 

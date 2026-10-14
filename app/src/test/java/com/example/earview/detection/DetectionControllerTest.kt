@@ -20,8 +20,9 @@ import org.junit.Test
 @OptIn(ExperimentalCoroutinesApi::class)
 class DetectionControllerTest {
   private val detector = FakeSoundDetector()
+  private val vibrator = FakeAlertVibrator()
 
-  private fun TestScope.createController() = DetectionController(detector, backgroundScope).also { runCurrent() }
+  private fun TestScope.createController() = DetectionController(detector, vibrator, backgroundScope).also { runCurrent() }
 
   private fun TestScope.start(controller: DetectionController) {
     controller.start()
@@ -313,6 +314,101 @@ class DetectionControllerTest {
     assertEquals(DetectionState.Idle, controller.state.value)
   }
 
+  // Vibration (FR-02)
+
+  @Test
+  fun firstDetection_vibratesWithThatSoundsPattern() = runTest {
+    val controller = createController()
+    start(controller)
+
+    detect(DangerSound.DOORBELL)
+
+    assertEquals(listOf(DangerSound.DOORBELL), vibrator.vibrations)
+  }
+
+  @Test
+  fun idle_doesNotVibrate() = runTest {
+    val controller = createController()
+    start(controller)
+
+    assertTrue(vibrator.vibrations.isEmpty())
+  }
+
+  @Test
+  fun sameSoundKeepsGoing_vibratesOnlyOnce() = runTest {
+    val controller = createController()
+    start(controller)
+
+    detect(DangerSound.FIRE_ALARM)
+    advance(1_000)
+    detect(DangerSound.FIRE_ALARM)
+    advance(1_000)
+    detect(DangerSound.FIRE_ALARM)
+
+    assertEquals(listOf(DangerSound.FIRE_ALARM), vibrator.vibrations)
+  }
+
+  @Test
+  fun soundDetectedAgainAfterExpiry_vibratesAgain() = runTest {
+    val controller = createController()
+    start(controller)
+    detect(DangerSound.CAR_HORN)
+
+    advance(SOUND_EXPIRY_MILLIS)
+    detect(DangerSound.CAR_HORN)
+
+    assertEquals(listOf(DangerSound.CAR_HORN, DangerSound.CAR_HORN), vibrator.vibrations)
+  }
+
+  @Test
+  fun anotherSoundWhileAlerting_vibratesWithItsOwnPattern() = runTest {
+    val controller = createController()
+    start(controller)
+
+    detect(DangerSound.CAR_HORN)
+    detect(DangerSound.SIREN)
+
+    assertEquals(listOf(DangerSound.CAR_HORN, DangerSound.SIREN), vibrator.vibrations)
+  }
+
+  @Test
+  fun tapToReturn_cancelsVibration_andDetectionAfterwardsVibratesAgain() = runTest {
+    val controller = createController()
+    start(controller)
+    detect(DangerSound.FIRE_ALARM)
+    val cancelsBefore = vibrator.cancelCount
+
+    controller.dismissAlert()
+    assertEquals(cancelsBefore + 1, vibrator.cancelCount)
+
+    detect(DangerSound.FIRE_ALARM)
+    assertEquals(listOf(DangerSound.FIRE_ALARM, DangerSound.FIRE_ALARM), vibrator.vibrations)
+  }
+
+  @Test
+  fun stop_cancelsVibration() = runTest {
+    val controller = createController()
+    start(controller)
+    detect(DangerSound.FIRE_ALARM)
+    val cancelsBefore = vibrator.cancelCount
+
+    controller.stop()
+
+    assertTrue(vibrator.cancelCount > cancelsBefore)
+  }
+
+  @Test
+  fun soundAfterStop_doesNotVibrate() = runTest {
+    val controller = createController()
+    start(controller)
+    controller.stop()
+    runCurrent()
+
+    detect(DangerSound.FIRE_ALARM)
+
+    assertTrue(vibrator.vibrations.isEmpty())
+  }
+
   // Stop events (FR-10)
 
   @Test
@@ -343,7 +439,7 @@ class DetectionControllerTest {
   @Test
   fun detectorFailure_emitsUnexpectedStopEvent() = runTest {
     val failingDetector = SoundDetector { flow { throw IllegalStateException("microphone lost") } }
-    val controller = DetectionController(failingDetector, backgroundScope)
+    val controller = DetectionController(failingDetector, vibrator, backgroundScope)
     val events = mutableListOf<StopReason>()
     backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { controller.stopEvents.toList(events) }
 
@@ -382,7 +478,7 @@ class DetectionControllerTest {
   @Test
   fun detectorFailure_movesToOff() = runTest {
     val failingDetector = SoundDetector { flow { throw IllegalStateException("microphone lost") } }
-    val controller = DetectionController(failingDetector, backgroundScope)
+    val controller = DetectionController(failingDetector, vibrator, backgroundScope)
 
     start(controller)
 
@@ -393,7 +489,7 @@ class DetectionControllerTest {
   fun detectorCompletion_movesToOff_andCanBeRestarted() = runTest {
     var completes = true
     val detector = SoundDetector { if (completes) flow { } else flow<DangerSound> { awaitCancellation() } }
-    val controller = DetectionController(detector, backgroundScope)
+    val controller = DetectionController(detector, vibrator, backgroundScope)
     start(controller)
     assertEquals(DetectionState.Off, controller.state.value)
 

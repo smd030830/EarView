@@ -2,6 +2,7 @@ package com.example.earview
 
 import android.app.Application
 import android.content.Context
+import com.example.earview.detection.AndroidAlertVibrator
 import com.example.earview.detection.DetectionController
 import com.example.earview.detection.NoOpSoundDetector
 import kotlinx.coroutines.CoroutineScope
@@ -12,7 +13,11 @@ class EarViewApplication : Application() {
   /** The one detection state holder shared by the UI and the detection service. */
   val detectionController: DetectionController by lazy {
     // TODO(BL-005, BL-006): replace with the on-device YAMNet detector.
-    DetectionController(NoOpSoundDetector(), CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate))
+    DetectionController(
+      NoOpSoundDetector(),
+      AndroidAlertVibrator(this),
+      CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate),
+    )
   }
 }
 
