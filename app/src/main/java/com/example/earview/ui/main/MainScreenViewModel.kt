@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.earview.detection.DangerSound
 import com.example.earview.detection.SoundDetector
+import com.example.earview.permission.PermissionChecker
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -21,9 +22,17 @@ internal const val ALERT_AUTO_RETURN_MILLIS = 10_000L
 /** At most this many sounds are listed; the rest are summarized as "N more" (FR-04). */
 internal const val MAX_DISPLAYED_SOUNDS = 3
 
-class MainScreenViewModel(private val detector: SoundDetector) : ViewModel() {
+class MainScreenViewModel(
+  private val detector: SoundDetector,
+  private val permissions: PermissionChecker,
+) : ViewModel() {
   private val _uiState = MutableStateFlow<MainScreenUiState>(MainScreenUiState.Off)
   val uiState: StateFlow<MainScreenUiState> = _uiState.asStateFlow()
+
+  private val _permissionGuideVisible = MutableStateFlow(false)
+
+  /** True while the "microphone permission needed" guidance is shown (BL-022). */
+  val permissionGuideVisible: StateFlow<Boolean> = _permissionGuideVisible.asStateFlow()
 
   private var running = false
   private var alerting = false
@@ -32,9 +41,17 @@ class MainScreenViewModel(private val detector: SoundDetector) : ViewModel() {
   private var detectionJob: Job? = null
   private var autoReturnJob: Job? = null
 
-  /** Start/stop button (FR-08). */
+  /** Start/stop button (FR-08). Starting without the microphone permission shows guidance instead (FR-11). */
   fun onToggleDetection() {
-    if (running) stopDetection() else startDetection()
+    when {
+      running -> stopDetection()
+      !permissions.isMicrophoneGranted() -> _permissionGuideVisible.value = true
+      else -> startDetection()
+    }
+  }
+
+  fun onDismissPermissionGuide() {
+    _permissionGuideVisible.value = false
   }
 
   /** Tap on the screen while in the detected state (FR-07). Ignored in other states. */

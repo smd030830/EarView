@@ -19,17 +19,20 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Warning
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.contentDescription
@@ -44,6 +47,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.earview.R
 import com.example.earview.detection.DangerSound
 import com.example.earview.detection.NoOpSoundDetector
+import com.example.earview.permission.AndroidPermissionChecker
+import com.example.earview.permission.openAppSettings
 import com.example.earview.theme.EarViewTheme
 import com.example.earview.theme.StatusDetected
 import com.example.earview.theme.StatusIdle
@@ -52,15 +57,29 @@ import com.example.earview.theme.StatusOff
 @Composable
 fun MainScreen(
   modifier: Modifier = Modifier,
-  viewModel: MainScreenViewModel = viewModel { MainScreenViewModel(NoOpSoundDetector()) },
+  viewModel: MainScreenViewModel = defaultMainScreenViewModel(),
 ) {
+  val context = LocalContext.current
   val state by viewModel.uiState.collectAsStateWithLifecycle()
+  val permissionGuideVisible by viewModel.permissionGuideVisible.collectAsStateWithLifecycle()
   MainScreenContent(
     state = state,
     onToggleDetection = viewModel::onToggleDetection,
     onDismissDetection = viewModel::onDismissDetection,
     modifier = modifier,
+    permissionGuideVisible = permissionGuideVisible,
+    onDismissPermissionGuide = viewModel::onDismissPermissionGuide,
+    onOpenSettings = {
+      viewModel.onDismissPermissionGuide()
+      context.openAppSettings()
+    },
   )
+}
+
+@Composable
+private fun defaultMainScreenViewModel(): MainScreenViewModel {
+  val context = LocalContext.current.applicationContext
+  return viewModel { MainScreenViewModel(NoOpSoundDetector(), AndroidPermissionChecker(context)) }
 }
 
 /** Stateless main screen. Every status is shown with color + icon + text (FR-12). */
@@ -70,6 +89,9 @@ internal fun MainScreenContent(
   onToggleDetection: () -> Unit,
   onDismissDetection: () -> Unit,
   modifier: Modifier = Modifier,
+  permissionGuideVisible: Boolean = false,
+  onDismissPermissionGuide: () -> Unit = {},
+  onOpenSettings: () -> Unit = {},
 ) {
   val background = state.backgroundColor()
   val dismissLabel = stringResource(R.string.action_dismiss_detection)
@@ -92,6 +114,23 @@ internal fun MainScreenContent(
       TargetSoundList()
     }
   }
+
+  if (permissionGuideVisible) {
+    PermissionGuideDialog(onOpenSettings = onOpenSettings, onDismiss = onDismissPermissionGuide)
+  }
+}
+
+/** Explains why detection did not start and offers a way to the settings screen (BL-022, BL-023). */
+@Composable
+private fun PermissionGuideDialog(onOpenSettings: () -> Unit, onDismiss: () -> Unit) {
+  AlertDialog(
+    onDismissRequest = onDismiss,
+    icon = { Icon(imageVector = Icons.Filled.Warning, contentDescription = null) },
+    title = { Text(stringResource(R.string.permission_guide_title)) },
+    text = { Text(stringResource(R.string.permission_guide_message)) },
+    confirmButton = { TextButton(onClick = onOpenSettings) { Text(stringResource(R.string.permission_guide_open_settings)) } },
+    dismissButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.permission_guide_close)) } },
+  )
 }
 
 @Composable

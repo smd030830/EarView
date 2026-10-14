@@ -94,4 +94,32 @@ class MainScreenTest {
 
     composeTestRule.onNode(hasText("감지 대상:", substring = true)).assertExists()
   }
+
+  @Test
+  fun permissionGuide_isShown_withSettingsButton() {
+    var opened = 0
+    composeTestRule.setContent {
+      EarViewTheme {
+        MainScreenContent(
+          MainScreenUiState.Off,
+          onToggleDetection = {},
+          onDismissDetection = {},
+          permissionGuideVisible = true,
+          onOpenSettings = { opened++ },
+        )
+      }
+    }
+
+    composeTestRule.onNodeWithText("마이크 권한이 필요합니다").assertExists()
+    composeTestRule.onNodeWithText("설정 열기").performClick()
+
+    assertEquals(1, opened)
+  }
+
+  @Test
+  fun permissionGuide_isHidden_byDefault() {
+    show(MainScreenUiState.Off)
+
+    composeTestRule.onNodeWithText("마이크 권한이 필요합니다").assertDoesNotExist()
+  }
 }

@@ -2,6 +2,7 @@ package com.example.earview.ui.main
 
 import com.example.earview.detection.DangerSound
 import com.example.earview.detection.SoundDetector
+import com.example.earview.permission.FakePermissionChecker
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.awaitCancellation
@@ -25,6 +26,7 @@ import org.junit.Test
 @OptIn(ExperimentalCoroutinesApi::class)
 class MainScreenViewModelTest {
   private val detector = FakeSoundDetector()
+  private val permissions = FakePermissionChecker()
 
   @Before
   fun setUp() {
@@ -36,7 +38,7 @@ class MainScreenViewModelTest {
     Dispatchers.resetMain()
   }
 
-  private fun TestScope.createViewModel() = MainScreenViewModel(detector).also { runCurrent() }
+  private fun TestScope.createViewModel() = MainScreenViewModel(detector, permissions).also { runCurrent() }
 
   private fun TestScope.start(viewModel: MainScreenViewModel) {
     viewModel.onToggleDetection()
@@ -328,12 +330,72 @@ class MainScreenViewModelTest {
     assertEquals(MainScreenUiState.Idle, viewModel.uiState.value)
   }
 
+  // Microphone permission (BL-022)
+
+  @Test
+  fun startWithoutMicrophonePermission_doesNotStart_andShowsGuide() = runTest {
+    permissions.microphoneGranted = false
+    val viewModel = createViewModel()
+
+    start(viewModel)
+
+    assertEquals(MainScreenUiState.Off, viewModel.uiState.value)
+    assertFalse(detector.isListening)
+    assertTrue(viewModel.permissionGuideVisible.value)
+  }
+
+  @Test
+  fun dismissPermissionGuide_hidesIt() = runTest {
+    permissions.microphoneGranted = false
+    val viewModel = createViewModel()
+    start(viewModel)
+
+    viewModel.onDismissPermissionGuide()
+
+    assertFalse(viewModel.permissionGuideVisible.value)
+    assertEquals(MainScreenUiState.Off, viewModel.uiState.value)
+  }
+
+  @Test
+  fun startAfterGrantingPermission_starts_withoutGuide() = runTest {
+    permissions.microphoneGranted = false
+    val viewModel = createViewModel()
+    start(viewModel)
+    viewModel.onDismissPermissionGuide()
+
+    permissions.microphoneGranted = true
+    start(viewModel)
+
+    assertEquals(MainScreenUiState.Idle, viewModel.uiState.value)
+    assertTrue(detector.isListening)
+    assertFalse(viewModel.permissionGuideVisible.value)
+  }
+
+  @Test
+  fun startWithPermission_doesNotShowGuide() = runTest {
+    val viewModel = createViewModel()
+
+    start(viewModel)
+
+    assertFalse(viewModel.permissionGuideVisible.value)
+  }
+
+  @Test
+  fun notificationPermissionMissing_doesNotBlockStart() = runTest {
+    permissions.notificationGranted = false
+    val viewModel = createViewModel()
+
+    start(viewModel)
+
+    assertEquals(MainScreenUiState.Idle, viewModel.uiState.value)
+  }
+
   // Detector ending on its own
 
   @Test
   fun detectorFailure_movesToOff() = runTest {
     val failingDetector = SoundDetector { flow { throw IllegalStateException("microphone lost") } }
-    val viewModel = MainScreenViewModel(failingDetector)
+    val viewModel = MainScreenViewModel(failingDetector, permissions)
 
     start(viewModel)
 
@@ -344,7 +406,7 @@ class MainScreenViewModelTest {
   fun detectorCompletion_movesToOff_andCanBeRestarted() = runTest {
     var completes = true
     val detector = SoundDetector { if (completes) flow { } else flow<DangerSound> { awaitCancellation() } }
-    val viewModel = MainScreenViewModel(detector)
+    val viewModel = MainScreenViewModel(detector, permissions)
     start(viewModel)
     assertEquals(MainScreenUiState.Off, viewModel.uiState.value)
 
