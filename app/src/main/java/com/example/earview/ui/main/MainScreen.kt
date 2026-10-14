@@ -45,8 +45,10 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.earview.R
+import com.example.earview.detection.AndroidDetectionServiceStarter
 import com.example.earview.detection.DangerSound
-import com.example.earview.detection.NoOpSoundDetector
+import com.example.earview.detection.DetectionState
+import com.example.earview.detectionController
 import com.example.earview.permission.AndroidPermissionChecker
 import com.example.earview.permission.openAppSettings
 import com.example.earview.theme.EarViewTheme
@@ -79,13 +81,15 @@ fun MainScreen(
 @Composable
 private fun defaultMainScreenViewModel(): MainScreenViewModel {
   val context = LocalContext.current.applicationContext
-  return viewModel { MainScreenViewModel(NoOpSoundDetector(), AndroidPermissionChecker(context)) }
+  return viewModel {
+    MainScreenViewModel(context.detectionController, AndroidDetectionServiceStarter(context), AndroidPermissionChecker(context))
+  }
 }
 
 /** Stateless main screen. Every status is shown with color + icon + text (FR-12). */
 @Composable
 internal fun MainScreenContent(
-  state: MainScreenUiState,
+  state: DetectionState,
   onToggleDetection: () -> Unit,
   onDismissDetection: () -> Unit,
   modifier: Modifier = Modifier,
@@ -96,7 +100,7 @@ internal fun MainScreenContent(
   val background = state.backgroundColor()
   val dismissLabel = stringResource(R.string.action_dismiss_detection)
   val dismissModifier =
-    if (state is MainScreenUiState.Detected) {
+    if (state is DetectionState.Detected) {
       Modifier.clickable(onClickLabel = dismissLabel, onClick = onDismissDetection)
     } else {
       Modifier
@@ -109,7 +113,7 @@ internal fun MainScreenContent(
     ) {
       StatusHeader(state)
       Box(modifier = Modifier.weight(1f).fillMaxWidth(), contentAlignment = Alignment.Center) {
-        ToggleButton(isRunning = state != MainScreenUiState.Off, contentColor = background, onClick = onToggleDetection)
+        ToggleButton(isRunning = state != DetectionState.Off, contentColor = background, onClick = onToggleDetection)
       }
       TargetSoundList()
     }
@@ -134,7 +138,7 @@ private fun PermissionGuideDialog(onOpenSettings: () -> Unit, onDismiss: () -> U
 }
 
 @Composable
-private fun StatusHeader(state: MainScreenUiState, modifier: Modifier = Modifier) {
+private fun StatusHeader(state: DetectionState, modifier: Modifier = Modifier) {
   val text = state.statusText()
   val spoken = state.spokenText()
   Row(
@@ -183,36 +187,36 @@ private fun TargetSoundList(modifier: Modifier = Modifier) {
   )
 }
 
-private fun MainScreenUiState.backgroundColor(): Color = when (this) {
-  MainScreenUiState.Off -> StatusOff
-  MainScreenUiState.Idle -> StatusIdle
-  is MainScreenUiState.Detected -> StatusDetected
+private fun DetectionState.backgroundColor(): Color = when (this) {
+  DetectionState.Off -> StatusOff
+  DetectionState.Idle -> StatusIdle
+  is DetectionState.Detected -> StatusDetected
 }
 
-private fun MainScreenUiState.icon(): ImageVector = when (this) {
-  MainScreenUiState.Off -> Icons.Filled.Close
-  MainScreenUiState.Idle -> Icons.Filled.CheckCircle
-  is MainScreenUiState.Detected -> Icons.Filled.Warning
+private fun DetectionState.icon(): ImageVector = when (this) {
+  DetectionState.Off -> Icons.Filled.Close
+  DetectionState.Idle -> Icons.Filled.CheckCircle
+  is DetectionState.Detected -> Icons.Filled.Warning
 }
 
 @Composable
-private fun MainScreenUiState.statusText(): String = when (this) {
-  MainScreenUiState.Off -> stringResource(R.string.status_off)
-  MainScreenUiState.Idle -> stringResource(R.string.status_idle)
-  is MainScreenUiState.Detected ->
+private fun DetectionState.statusText(): String = when (this) {
+  DetectionState.Off -> stringResource(R.string.status_off)
+  DetectionState.Idle -> stringResource(R.string.status_idle)
+  is DetectionState.Detected ->
     detectedText(R.string.status_detected, R.string.status_detected_overflow, R.string.status_detected_generic)
 }
 
 @Composable
-private fun MainScreenUiState.spokenText(): String = when (this) {
-  MainScreenUiState.Off -> stringResource(R.string.status_off_a11y)
-  MainScreenUiState.Idle -> stringResource(R.string.status_idle_a11y)
-  is MainScreenUiState.Detected ->
+private fun DetectionState.spokenText(): String = when (this) {
+  DetectionState.Off -> stringResource(R.string.status_off_a11y)
+  DetectionState.Idle -> stringResource(R.string.status_idle_a11y)
+  is DetectionState.Detected ->
     detectedText(R.string.status_detected_a11y, R.string.status_detected_overflow_a11y, R.string.status_detected_generic_a11y)
 }
 
 @Composable
-private fun MainScreenUiState.Detected.detectedText(
+private fun DetectionState.Detected.detectedText(
   @StringRes listRes: Int,
   @StringRes overflowRes: Int,
   @StringRes genericRes: Int,
@@ -240,13 +244,13 @@ private fun DangerSound.labelRes(): Int = when (this) {
 @Preview(showBackground = true)
 @Composable
 private fun MainScreenOffPreview() {
-  EarViewTheme { MainScreenContent(MainScreenUiState.Off, onToggleDetection = {}, onDismissDetection = {}) }
+  EarViewTheme { MainScreenContent(DetectionState.Off, onToggleDetection = {}, onDismissDetection = {}) }
 }
 
 @Preview(showBackground = true)
 @Composable
 private fun MainScreenIdlePreview() {
-  EarViewTheme { MainScreenContent(MainScreenUiState.Idle, onToggleDetection = {}, onDismissDetection = {}) }
+  EarViewTheme { MainScreenContent(DetectionState.Idle, onToggleDetection = {}, onDismissDetection = {}) }
 }
 
 @Preview(showBackground = true)
@@ -254,7 +258,7 @@ private fun MainScreenIdlePreview() {
 private fun MainScreenDetectedPreview() {
   EarViewTheme {
     MainScreenContent(
-      MainScreenUiState.Detected(listOf(DangerSound.FIRE_ALARM, DangerSound.SIREN, DangerSound.BABY_CRYING), overflowCount = 2),
+      DetectionState.Detected(listOf(DangerSound.FIRE_ALARM, DangerSound.SIREN, DangerSound.BABY_CRYING), overflowCount = 2),
       onToggleDetection = {},
       onDismissDetection = {},
     )

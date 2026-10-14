@@ -8,6 +8,7 @@ import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import com.example.earview.detection.DangerSound
+import com.example.earview.detection.DetectionState
 import com.example.earview.theme.EarViewTheme
 import org.junit.Assert.assertEquals
 import org.junit.Rule
@@ -17,7 +18,7 @@ import org.junit.Test
 class MainScreenTest {
   @get:Rule val composeTestRule = createAndroidComposeRule<ComponentActivity>()
 
-  private fun show(state: MainScreenUiState, onToggle: () -> Unit = {}, onDismiss: () -> Unit = {}) {
+  private fun show(state: DetectionState, onToggle: () -> Unit = {}, onDismiss: () -> Unit = {}) {
     composeTestRule.setContent {
       EarViewTheme { MainScreenContent(state, onToggleDetection = onToggle, onDismissDetection = onDismiss) }
     }
@@ -25,7 +26,7 @@ class MainScreenTest {
 
   @Test
   fun off_showsStatusText_andStartButton() {
-    show(MainScreenUiState.Off)
+    show(DetectionState.Off)
 
     composeTestRule.onNodeWithText("꺼져 있음").assertExists()
     composeTestRule.onNodeWithText("시작").assertExists()
@@ -34,7 +35,7 @@ class MainScreenTest {
 
   @Test
   fun idle_showsStatusText_andStopButton() {
-    show(MainScreenUiState.Idle)
+    show(DetectionState.Idle)
 
     composeTestRule.onNodeWithText("정상 대기 중").assertExists()
     composeTestRule.onNodeWithText("종료").assertExists()
@@ -43,7 +44,7 @@ class MainScreenTest {
 
   @Test
   fun detected_showsSoundNames() {
-    show(MainScreenUiState.Detected(listOf(DangerSound.FIRE_ALARM, DangerSound.SIREN), overflowCount = 0))
+    show(DetectionState.Detected(listOf(DangerSound.FIRE_ALARM, DangerSound.SIREN), overflowCount = 0))
 
     composeTestRule.onNodeWithText("화재경보, 사이렌 감지").assertExists()
     composeTestRule.onNodeWithText("종료").assertExists()
@@ -52,7 +53,7 @@ class MainScreenTest {
   @Test
   fun detected_withOverflow_showsOverflowCount() {
     show(
-      MainScreenUiState.Detected(
+      DetectionState.Detected(
         listOf(DangerSound.FIRE_ALARM, DangerSound.SIREN, DangerSound.BABY_CRYING),
         overflowCount = 2,
       ),
@@ -63,7 +64,7 @@ class MainScreenTest {
 
   @Test
   fun detected_isReadByTalkBackAsOneSentence() {
-    show(MainScreenUiState.Detected(listOf(DangerSound.FIRE_ALARM, DangerSound.SIREN), overflowCount = 0))
+    show(DetectionState.Detected(listOf(DangerSound.FIRE_ALARM, DangerSound.SIREN), overflowCount = 0))
 
     composeTestRule.onNode(hasContentDescription("화재경보, 사이렌 감지됨")).assertExists()
   }
@@ -71,7 +72,7 @@ class MainScreenTest {
   @Test
   fun toggleButton_invokesCallback() {
     var toggles = 0
-    show(MainScreenUiState.Off, onToggle = { toggles++ })
+    show(DetectionState.Off, onToggle = { toggles++ })
 
     composeTestRule.onNodeWithText("시작").performClick()
 
@@ -81,7 +82,7 @@ class MainScreenTest {
   @Test
   fun tapOnScreenWhileDetected_invokesDismiss() {
     var dismissals = 0
-    show(MainScreenUiState.Detected(listOf(DangerSound.SIREN), overflowCount = 0), onDismiss = { dismissals++ })
+    show(DetectionState.Detected(listOf(DangerSound.SIREN), overflowCount = 0), onDismiss = { dismissals++ })
 
     composeTestRule.onNodeWithText("사이렌 감지").performClick()
 
@@ -90,7 +91,7 @@ class MainScreenTest {
 
   @Test
   fun listsAllTargetSounds() {
-    show(MainScreenUiState.Idle)
+    show(DetectionState.Idle)
 
     composeTestRule.onNode(hasText("감지 대상:", substring = true)).assertExists()
   }
@@ -101,7 +102,7 @@ class MainScreenTest {
     composeTestRule.setContent {
       EarViewTheme {
         MainScreenContent(
-          MainScreenUiState.Off,
+          DetectionState.Off,
           onToggleDetection = {},
           onDismissDetection = {},
           permissionGuideVisible = true,
@@ -118,7 +119,7 @@ class MainScreenTest {
 
   @Test
   fun permissionGuide_isHidden_byDefault() {
-    show(MainScreenUiState.Off)
+    show(DetectionState.Off)
 
     composeTestRule.onNodeWithText("마이크 권한이 필요합니다").assertDoesNotExist()
   }
