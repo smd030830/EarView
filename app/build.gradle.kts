@@ -63,6 +63,9 @@ dependencies {
   implementation(libs.androidx.compose.ui.tooling.preview)
   implementation(libs.androidx.compose.material3)
   implementation(libs.androidx.compose.material.icons.core)
+  // On-device sound classification (TensorFlow Lite runtime, now LiteRT)
+  implementation(libs.litert)
+
   // Tooling
   debugImplementation(libs.androidx.compose.ui.tooling)
   // Instrumented tests

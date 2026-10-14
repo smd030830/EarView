@@ -1,8 +1,6 @@
 package com.example.earview.detection
 
-import kotlinx.coroutines.awaitCancellation
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 
 /**
  * Source of danger-sound detections.
@@ -17,9 +15,4 @@ fun interface SoundDetector {
    * The flow completing or failing means detection stopped unexpectedly.
    */
   fun detect(): Flow<DangerSound>
-}
-
-/** Placeholder until the on-device YAMNet detector (BL-005, BL-006) is implemented. */
-class NoOpSoundDetector : SoundDetector {
-  override fun detect(): Flow<DangerSound> = flow { awaitCancellation() }
 }
