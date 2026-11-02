@@ -65,7 +65,7 @@ class OnboardingScreenTest {
     show(OnboardingUiState(PermissionStatus.Denied, PermissionStatus.Required), onMicrophone = { clicks++ })
 
     composeTestRule.onNode(hasContentDescription("마이크 권한, 허용되지 않음")).assertExists()
-    composeTestRule.onNodeWithText("설정에서 마이크 허용").performClick()
+    composeTestRule.onNodeWithText("설정에서 마이크 허용").performScrollTo().performClick()
 
     assertEquals(1, clicks)
   }

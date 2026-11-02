@@ -15,3 +15,7 @@
 local.properties
 /.venv-ml/
 /.tmp-video-tools/
+/.omx/state/
+/docs/ui-review.md
+/docs/ui/
+/docs/report-assets/

@@ -1,0 +1,10 @@
+<resources>
+    <string name="main_ui_tagline">소리를 눈으로, 진동으로</string>
+    <string name="main_ui_off_description">준비되면 시작을 눌러 주세요</string>
+    <string name="main_ui_idle_description">주변 소리에 귀 기울이고 있어요</string>
+    <string name="main_ui_detected_description">주변 상황을 확인해 주세요</string>
+    <string name="main_ui_privacy">소리는 기기 안에서만 분석해요</string>
+    <string name="main_ui_dismiss_hint">화면을 누르면 대기 상태로 돌아가요</string>
+    <string name="main_ui_targets">감지하는 소리</string>
+    <string name="main_ui_target_count">6종</string>
+</resources>

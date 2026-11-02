@@ -7,6 +7,7 @@ import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performScrollTo
 import com.example.earview.detection.DangerSound
 import com.example.earview.detection.DetectionState
 import com.example.earview.theme.EarViewTheme
@@ -93,7 +94,7 @@ class MainScreenTest {
   fun listsAllTargetSounds() {
     show(DetectionState.Idle)
 
-    composeTestRule.onNodeWithText("감지 대상: 화재경보, 사이렌, 유리 깨짐, 초인종, 문 두드림, 차량 경적").assertExists()
+    composeTestRule.onNodeWithContentDescription("감지 대상: 화재경보, 사이렌, 유리 깨짐, 초인종, 문 두드림, 차량 경적").performScrollTo().assertExists()
     composeTestRule.onNode(hasText("아기 울음", substring = true)).assertDoesNotExist()
   }
 
