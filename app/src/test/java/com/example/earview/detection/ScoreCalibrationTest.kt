@@ -100,11 +100,26 @@ class ScoreCalibrationTest {
   }
 
   @Test
-  fun productionDefaultsPreserveScoresForEveryModelUntilFittedValuesExist() {
+  fun productionCorrectionsRemainBoundedAndPreserveUnfittedSounds() {
     val raw = floatArrayOf(0f, 0.1f, 0.3f, 0.5f, 0.8f, 1f)
     SoundModel.entries.forEach { model ->
-      assertArrayEquals(raw, SoundScoreCalibrations.forModel(model).apply(raw), 0f)
+      val actual = SoundScoreCalibrations.forModel(model).apply(raw)
+      assertTrue(actual.all { it.isFinite() && it in 0f..1f })
+      listOf(DangerSound.FIRE_ALARM, DangerSound.SIREN, DangerSound.DOORBELL).forEach { sound ->
+        assertEquals(raw[sound.ordinal], actual[sound.ordinal], 0f)
+      }
+      assertArrayEquals(FloatArray(raw.size), SoundScoreCalibrations.forModel(model).apply(FloatArray(raw.size)), 0f)
     }
+  }
+
+  @Test
+  fun productionPilotCorrectionsAreAppliedBeforeTheGlassDecision() {
+    val sound = DangerSound.GLASS_BREAKING
+    val models = SoundModel.entries.map { model ->
+      CalibratedSoundClassifier(Model(scores(sound, 0.03f)), SoundScoreCalibrations.forModel(model))
+    }
+    // A raw mean of .03 is below .5; the measured pilot scaling moves it above .5.
+    assertTrue(EnsembleClassifier(models).dangerScores(FloatArray(4))[sound.ordinal] >= sound.rule.threshold)
   }
 
   @Test

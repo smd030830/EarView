@@ -26,7 +26,11 @@ Bundled `assets/ensemble/validation.json` records conversion parity and asset ha
 - Convert each mapped confidence with its model/sound-specific internal correction,
   then take the arithmetic mean of the three corrected scores for each sound.
 
-## Score correction before averaging (2026-11-01, BL-003/BL-006)
+## Initial score correction implementation (2026-11-01, BL-003/BL-006)
+
+This section records the initial identity configuration. The current pilot
+coefficients and acceptance results are in [mentoring-follow-up.md](mentoring-follow-up.md)
+and `tools/model_evaluation/tuning-report.json` (2026-11-02).
 
 `ScoreCalibration.kt` is the single configuration point for 18 corrections:
 YAMNet, EfficientAT and PANNs each have one entry for every target sound.

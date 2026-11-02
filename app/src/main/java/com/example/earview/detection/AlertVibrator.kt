@@ -2,7 +2,7 @@ package com.example.earview.detection
 
 /** Vibrates the phone when a danger sound is detected (FR-02). */
 interface AlertVibrator {
-  /** Vibrates with the pattern of [sound], replacing any vibration in progress. */
+  /** Requests [sound]'s pattern; a priority-aware driver may suppress less urgent requests. */
   fun vibrate(sound: DangerSound)
 
   /** Stops any vibration in progress. */

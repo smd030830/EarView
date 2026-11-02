@@ -38,39 +38,40 @@ internal class ModelScoreCalibration(corrections: Map<DangerSound, ScoreCorrecti
 /**
  * Single configuration point for the 18 model/sound corrections (BL-003, BL-006).
  *
- * Identity values are intentional: no validated fitted coefficients exist yet. Example numbers
- * belong in tests, not production. These conversions do not establish calibrated probabilities.
+ * Pilot scale-only coefficients for glass/knock/horn passed one source-disjoint ESC-50
+ * acceptance check; see tools/model_evaluation/tuning-report.json. Other sounds keep identity.
+ * These are not calibrated probabilities or independently validated real-device coefficients.
  */
 internal object SoundScoreCalibrations {
   private val byModel = mapOf(
     SoundModel.YAMNET to ModelScoreCalibration(
       mapOf(
-        DangerSound.FIRE_ALARM to ScoreCorrection(),
-        DangerSound.SIREN to ScoreCorrection(),
-        DangerSound.GLASS_BREAKING to ScoreCorrection(),
-        DangerSound.DOORBELL to ScoreCorrection(),
-        DangerSound.DOOR_KNOCK to ScoreCorrection(),
-        DangerSound.CAR_HORN to ScoreCorrection(),
+        DangerSound.FIRE_ALARM to ScoreCorrection(scale = 1f),
+        DangerSound.SIREN to ScoreCorrection(scale = 1f),
+        DangerSound.GLASS_BREAKING to ScoreCorrection(scale = 11.636364f),
+        DangerSound.DOORBELL to ScoreCorrection(scale = 1f),
+        DangerSound.DOOR_KNOCK to ScoreCorrection(scale = 3.36842108f),
+        DangerSound.CAR_HORN to ScoreCorrection(scale = 1.50588238f),
       ),
     ),
     SoundModel.EFFICIENTAT to ModelScoreCalibration(
       mapOf(
-        DangerSound.FIRE_ALARM to ScoreCorrection(),
-        DangerSound.SIREN to ScoreCorrection(),
-        DangerSound.GLASS_BREAKING to ScoreCorrection(),
-        DangerSound.DOORBELL to ScoreCorrection(),
-        DangerSound.DOOR_KNOCK to ScoreCorrection(),
-        DangerSound.CAR_HORN to ScoreCorrection(),
+        DangerSound.FIRE_ALARM to ScoreCorrection(scale = 1f),
+        DangerSound.SIREN to ScoreCorrection(scale = 1f),
+        DangerSound.GLASS_BREAKING to ScoreCorrection(scale = 21.1146584f),
+        DangerSound.DOORBELL to ScoreCorrection(scale = 1f),
+        DangerSound.DOOR_KNOCK to ScoreCorrection(scale = 5.8444047f),
+        DangerSound.CAR_HORN to ScoreCorrection(scale = 5.94003296f),
       ),
     ),
     SoundModel.PANNS to ModelScoreCalibration(
       mapOf(
-        DangerSound.FIRE_ALARM to ScoreCorrection(),
-        DangerSound.SIREN to ScoreCorrection(),
-        DangerSound.GLASS_BREAKING to ScoreCorrection(),
-        DangerSound.DOORBELL to ScoreCorrection(),
-        DangerSound.DOOR_KNOCK to ScoreCorrection(),
-        DangerSound.CAR_HORN to ScoreCorrection(),
+        DangerSound.FIRE_ALARM to ScoreCorrection(scale = 1f),
+        DangerSound.SIREN to ScoreCorrection(scale = 1f),
+        DangerSound.GLASS_BREAKING to ScoreCorrection(scale = 22.8264236f),
+        DangerSound.DOORBELL to ScoreCorrection(scale = 1f),
+        DangerSound.DOOR_KNOCK to ScoreCorrection(scale = 1.70174873f),
+        DangerSound.CAR_HORN to ScoreCorrection(scale = 4.56649971f),
       ),
     ),
   )

@@ -39,3 +39,29 @@ previous five-output assets; it does not describe current model behavior.
 This PC test does not measure acoustic playback through a phone microphone,
 Android runtime behavior, notification latency, battery, or calibrated accuracy.
 These recordings are not asserted to be independent of upstream pretraining.
+
+## Mentoring follow-up: one-shot pilot score tuning
+
+```powershell
+.venv-ml/Scripts/python.exe tools/model_evaluation/tune.py
+# Apply only the automatically gated sound-specific candidate coefficients:
+.venv-ml/Scripts/python.exe tools/model_evaluation/tune.py --apply
+```
+
+This separate experiment uses 620 ESC-50 clips: all 40 for each of four available
+targets and two clips per fold from each of the other 46 categories. Folds 1–3
+calibrate; folds 4–5 determine one-shot candidate acceptance. Original recording
+IDs are checked for overlap. Per-model scale-only candidates maximize calibration
+clip recall at <=1% nominal clip FPR, with raw boundary >=.02; offsets remain zero.
+Corrections are clipped per model before taking the aligned frame mean, matching
+the Kotlin pipeline. A class is accepted only when its held-out fused recall
+increases without additional nominal false-positive clips. Other classes stay
+at identity, including fire alarm and doorbell which have no positive examples.
+`tuning-report.json` records both denominators, results, applied coefficients,
+fixture hashes and model hashes. Source audio is cached locally, never committed.
+
+This is a pilot acceptance test, not probability calibration. Using held-out data
+to accept a candidate still requires further independent release evaluation.
+Nominal negatives may contain unannotated sounds, and clip FPR is not false
+alarms/hour. Do not repeatedly tune against the acceptance folds. `evaluate.py`
+and its older `report.json` still describe the pre-correction baseline.

@@ -1,0 +1,4602 @@
+{
+  "dataset_revision": "33c8ce9eb2cf0b1c2f8bcf322eb349b6be34dbb6",
+  "runtime": "PC TensorFlow 2.21.0",
+  "output_order": [
+    "FIRE_ALARM",
+    "SIREN",
+    "GLASS_BREAKING",
+    "DOORBELL",
+    "DOOR_KNOCK",
+    "CAR_HORN"
+  ],
+  "models": [
+    "YAMNET",
+    "EFFICIENTAT",
+    "PANNS"
+  ],
+  "model_hashes": {
+    "YAMNET": "10c95ea3eb9a7bb4cb8bddf6feb023250381008177ac162ce169694d05c317de",
+    "EFFICIENTAT": "06eae4a7c9c00652d292be324d0557b36c15e0fce08391d4b02d5b19cc62d31a",
+    "PANNS": "407c06bda7f61975a917a29a004fb679bbb304191edc72279c63c967c53348d6"
+  },
+  "protocol": "Calibration folds 1-3, held-out acceptance folds 4-5; source-disjoint; one candidate per sound",
+  "fit": "Per-model clip recall maximized at <=1% nominal calibration clip FPR; minimum raw boundary .02; zero offset",
+  "gate": "Apply only if fused held-out recall increases with no additional nominal false-positive clips",
+  "limitation": "Pilot acceptance uses held-out data once; further independent release/real-device validation needed. Scores are not probabilities.",
+  "calibration_clips": 372,
+  "validation_clips": 248,
+  "results": {
+    "FIRE_ALARM": {
+      "accepted": false,
+      "baseline": {
+        "positives": 0,
+        "true_positives": 0,
+        "negatives": 248,
+        "false_positive_clips": 0,
+        "recall": null
+      },
+      "candidate": {
+        "positives": 0,
+        "true_positives": 0,
+        "negatives": 248,
+        "false_positive_clips": 0,
+        "recall": null
+      },
+      "candidate_scales": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "applied_scales": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "applied": {
+        "positives": 0,
+        "true_positives": 0,
+        "negatives": 248,
+        "false_positive_clips": 0,
+        "recall": null
+      }
+    },
+    "SIREN": {
+      "accepted": false,
+      "baseline": {
+        "positives": 16,
+        "true_positives": 15,
+        "negatives": 232,
+        "false_positive_clips": 0,
+        "recall": 0.9375
+      },
+      "candidate": {
+        "positives": 16,
+        "true_positives": 15,
+        "negatives": 232,
+        "false_positive_clips": 0,
+        "recall": 0.9375
+      },
+      "candidate_scales": [
+        1.0,
+        0.8585240840911865,
+        2.120701313018799
+      ],
+      "applied_scales": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "applied": {
+        "positives": 16,
+        "true_positives": 15,
+        "negatives": 232,
+        "false_positive_clips": 0,
+        "recall": 0.9375
+      }
+    },
+    "GLASS_BREAKING": {
+      "accepted": true,
+      "baseline": {
+        "positives": 16,
+        "true_positives": 2,
+        "negatives": 232,
+        "false_positive_clips": 0,
+        "recall": 0.125
+      },
+      "candidate": {
+        "positives": 16,
+        "true_positives": 4,
+        "negatives": 232,
+        "false_positive_clips": 0,
+        "recall": 0.25
+      },
+      "candidate_scales": [
+        11.636363983154297,
+        21.11465835571289,
+        22.82642364501953
+      ],
+      "applied_scales": [
+        11.636363983154297,
+        21.11465835571289,
+        22.82642364501953
+      ],
+      "applied": {
+        "positives": 16,
+        "true_positives": 4,
+        "negatives": 232,
+        "false_positive_clips": 0,
+        "recall": 0.25
+      }
+    },
+    "DOORBELL": {
+      "accepted": false,
+      "baseline": {
+        "positives": 0,
+        "true_positives": 0,
+        "negatives": 248,
+        "false_positive_clips": 0,
+        "recall": null
+      },
+      "candidate": {
+        "positives": 0,
+        "true_positives": 0,
+        "negatives": 248,
+        "false_positive_clips": 0,
+        "recall": null
+      },
+      "candidate_scales": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "applied_scales": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "applied": {
+        "positives": 0,
+        "true_positives": 0,
+        "negatives": 248,
+        "false_positive_clips": 0,
+        "recall": null
+      }
+    },
+    "DOOR_KNOCK": {
+      "accepted": true,
+      "baseline": {
+        "positives": 16,
+        "true_positives": 9,
+        "negatives": 232,
+        "false_positive_clips": 1,
+        "recall": 0.5625
+      },
+      "candidate": {
+        "positives": 16,
+        "true_positives": 14,
+        "negatives": 232,
+        "false_positive_clips": 1,
+        "recall": 0.875
+      },
+      "candidate_scales": [
+        3.3684210777282715,
+        5.844404697418213,
+        1.7017487287521362
+      ],
+      "applied_scales": [
+        3.3684210777282715,
+        5.844404697418213,
+        1.7017487287521362
+      ],
+      "applied": {
+        "positives": 16,
+        "true_positives": 14,
+        "negatives": 232,
+        "false_positive_clips": 1,
+        "recall": 0.875
+      }
+    },
+    "CAR_HORN": {
+      "accepted": true,
+      "baseline": {
+        "positives": 16,
+        "true_positives": 9,
+        "negatives": 232,
+        "false_positive_clips": 1,
+        "recall": 0.5625
+      },
+      "candidate": {
+        "positives": 16,
+        "true_positives": 15,
+        "negatives": 232,
+        "false_positive_clips": 1,
+        "recall": 0.9375
+      },
+      "candidate_scales": [
+        1.5058823823928833,
+        5.940032958984375,
+        4.566499710083008
+      ],
+      "applied_scales": [
+        1.5058823823928833,
+        5.940032958984375,
+        4.566499710083008
+      ],
+      "applied": {
+        "positives": 16,
+        "true_positives": 15,
+        "negatives": 232,
+        "false_positive_clips": 1,
+        "recall": 0.9375
+      }
+    }
+  },
+  "applied_scales": [
+    [
+      1.0,
+      1.0,
+      11.636363983154297,
+      1.0,
+      3.3684210777282715,
+      1.5058823823928833
+    ],
+    [
+      1.0,
+      1.0,
+      21.11465835571289,
+      1.0,
+      5.844404697418213,
+      5.940032958984375
+    ],
+    [
+      1.0,
+      1.0,
+      22.82642364501953,
+      1.0,
+      1.7017487287521362,
+      4.566499710083008
+    ]
+  ],
+  "records": [
+    {
+      "filename": "1-11687-A-47.wav",
+      "fold": 1,
+      "source": "11687",
+      "category": "airplane",
+      "sha256": "e622a52d904f2ec8f39c78e6f2487b84a14a927d1f9852e67a4c3c8e5dcf9419"
+    },
+    {
+      "filename": "1-24796-A-47.wav",
+      "fold": 1,
+      "source": "24796",
+      "category": "airplane",
+      "sha256": "68937dd7e09efa68aa4afe588e933fd77fd60558c337c241f072e2cd99b5fe03"
+    },
+    {
+      "filename": "2-105270-A-47.wav",
+      "fold": 2,
+      "source": "105270",
+      "category": "airplane",
+      "sha256": "9058480c04267c89a12e39ac7483922dd2300d7c84bfa39b52faea84f482d88d"
+    },
+    {
+      "filename": "2-106849-A-47.wav",
+      "fold": 2,
+      "source": "106849",
+      "category": "airplane",
+      "sha256": "e611957cdd6bbf6e9d28a965cda8b07f3839ed6a2abbcd0d9e72dab56678355b"
+    },
+    {
+      "filename": "3-115387-A-47.wav",
+      "fold": 3,
+      "source": "115387",
+      "category": "airplane",
+      "sha256": "b6bdfb70ce903dc3de5d02fa80206a025741336e904e4e2ce12edb93d55ed9aa"
+    },
+    {
+      "filename": "3-115387-B-47.wav",
+      "fold": 3,
+      "source": "115387",
+      "category": "airplane",
+      "sha256": "23bacf231c1d2d0beb6f7810ddfead3a9eec9a341151e40b8f40e0989db10f32"
+    },
+    {
+      "filename": "4-161099-A-47.wav",
+      "fold": 4,
+      "source": "161099",
+      "category": "airplane",
+      "sha256": "2264c8830b42634fb6df30886667ea375dd988d38c005662b1218adbd46755dd"
+    },
+    {
+      "filename": "4-161099-B-47.wav",
+      "fold": 4,
+      "source": "161099",
+      "category": "airplane",
+      "sha256": "fb70ad4860e19a0d905a6edcb9ab2f26472358d63ee2c41d9a7658e00f494d67"
+    },
+    {
+      "filename": "5-215445-A-47.wav",
+      "fold": 5,
+      "source": "215445",
+      "category": "airplane",
+      "sha256": "e906fe37233150c750c2025849bf5b9fd2eeb96b6f9f9abe9f3a2e40d2704e54"
+    },
+    {
+      "filename": "5-215447-A-47.wav",
+      "fold": 5,
+      "source": "215447",
+      "category": "airplane",
+      "sha256": "55946234e8f695bd8648f8b3360a273319b5becd7908dc9b8f9ef4d6272da0e2"
+    },
+    {
+      "filename": "1-18631-A-23.wav",
+      "fold": 1,
+      "source": "18631",
+      "category": "breathing",
+      "sha256": "cdbd39617f2955d86ec18a4032ecd9090369c23f3d8c6d650f62e9e1ee19ea6a"
+    },
+    {
+      "filename": "1-30709-A-23.wav",
+      "fold": 1,
+      "source": "30709",
+      "category": "breathing",
+      "sha256": "8b546dc3be7448c10a7fe8c5b0b48b556e860827e28d559c3a8ec19961e3cce3"
+    },
+    {
+      "filename": "2-50774-A-23.wav",
+      "fold": 2,
+      "source": "50774",
+      "category": "breathing",
+      "sha256": "904b4b8ef9936cd620d2ae7cb2c973eef8721bdeedd82ff3f6f01efee4d12dd1"
+    },
+    {
+      "filename": "2-54961-A-23.wav",
+      "fold": 2,
+      "source": "54961",
+      "category": "breathing",
+      "sha256": "24b8f6d0546944665fac10e7f791a0eccfd069debfdfbe053fd03d44ec193598"
+    },
+    {
+      "filename": "3-108160-A-23.wav",
+      "fold": 3,
+      "source": "108160",
+      "category": "breathing",
+      "sha256": "ac2f39f46311814f3679cde364547ba2ae2c99007f608e73290456af72ac0871"
+    },
+    {
+      "filename": "3-112557-A-23.wav",
+      "fold": 3,
+      "source": "112557",
+      "category": "breathing",
+      "sha256": "6b695e7b721726a6a3a486ea8688b2398c0bc33a08087445c7ba82d6c7fd66fa"
+    },
+    {
+      "filename": "4-171706-A-23.wav",
+      "fold": 4,
+      "source": "171706",
+      "category": "breathing",
+      "sha256": "ee25fd0604d283d805076c3a5a0bbe807a8db5754bf19d0ed48e5d036d9ef646"
+    },
+    {
+      "filename": "4-176914-A-23.wav",
+      "fold": 4,
+      "source": "176914",
+      "category": "breathing",
+      "sha256": "f48da96a4e3491e42c6b2d13e4086c3b81c9cf21fb2c188fd50fd9de9329c885"
+    },
+    {
+      "filename": "5-213293-A-23.wav",
+      "fold": 5,
+      "source": "213293",
+      "category": "breathing",
+      "sha256": "177356c127eb7793473cbcbc6ac86cb47c8aabafa6fce2a1ad222b4a040111ef"
+    },
+    {
+      "filename": "5-232816-A-23.wav",
+      "fold": 5,
+      "source": "232816",
+      "category": "breathing",
+      "sha256": "551296188c0001066f4fbffb01eb89d71f6954b11728c52c9903fe63d452f1a1"
+    },
+    {
+      "filename": "1-17092-A-27.wav",
+      "fold": 1,
+      "source": "17092",
+      "category": "brushing_teeth",
+      "sha256": "e33131d7061ffa8e8fa234083dfd5c95b7da7d233f4d5ffaf2c34758f936964e"
+    },
+    {
+      "filename": "1-17092-B-27.wav",
+      "fold": 1,
+      "source": "17092",
+      "category": "brushing_teeth",
+      "sha256": "cfdcb4cb00c9af6e3f5613993d0c2c2babe1c0ebe442f8aa97017c092fad17f1"
+    },
+    {
+      "filename": "2-73544-A-27.wav",
+      "fold": 2,
+      "source": "73544",
+      "category": "brushing_teeth",
+      "sha256": "1b975b204b54fdae01d980b65437a79fe335e8fed965792e70dc12c45504b3dd"
+    },
+    {
+      "filename": "2-82071-A-27.wav",
+      "fold": 2,
+      "source": "82071",
+      "category": "brushing_teeth",
+      "sha256": "44e9fb08031664f031c2539e8797f72343be389b63babbf62cbdb77f2941fd35"
+    },
+    {
+      "filename": "3-100024-A-27.wav",
+      "fold": 3,
+      "source": "100024",
+      "category": "brushing_teeth",
+      "sha256": "dbf2eb4ef849fb9c67fa6bdd3b87173f7cfe323993d13c030049cd32bd6cbd5b"
+    },
+    {
+      "filename": "3-100024-B-27.wav",
+      "fold": 3,
+      "source": "100024",
+      "category": "brushing_teeth",
+      "sha256": "dfd3497eed344ceccb2bb476e5dd58e00b1e3d3a4d09b3014709a83c294e4387"
+    },
+    {
+      "filename": "4-144468-A-27.wav",
+      "fold": 4,
+      "source": "144468",
+      "category": "brushing_teeth",
+      "sha256": "8b5c7835867b138b517ca6a94d8cdde57469cce6c8ed6fde731921aef31c9ef6"
+    },
+    {
+      "filename": "4-144468-B-27.wav",
+      "fold": 4,
+      "source": "144468",
+      "category": "brushing_teeth",
+      "sha256": "2fa690f12d994168413f962ccff9a6936d430b0dc0cf4dcd337e4434a3bd0e58"
+    },
+    {
+      "filename": "5-147297-A-27.wav",
+      "fold": 5,
+      "source": "147297",
+      "category": "brushing_teeth",
+      "sha256": "e2c80265c553f566504fc98a8099e14be982694594be7be0205dac52fd63827f"
+    },
+    {
+      "filename": "5-180229-A-27.wav",
+      "fold": 5,
+      "source": "180229",
+      "category": "brushing_teeth",
+      "sha256": "121349be5757ede7af52ef057fa23c456d2b137dc67b1e94e6479603237f8824"
+    },
+    {
+      "filename": "1-101404-A-34.wav",
+      "fold": 1,
+      "source": "101404",
+      "category": "can_opening",
+      "sha256": "a5e9ca3a735d31404f93194af687d2eca85e4a940ccda0675755b410342e8474"
+    },
+    {
+      "filename": "1-41615-A-34.wav",
+      "fold": 1,
+      "source": "41615",
+      "category": "can_opening",
+      "sha256": "2d31544f7e5ba3eb21f20e115d7bf8dc1ad23508806625ed628436c8a77852ca"
+    },
+    {
+      "filename": "2-130245-A-34.wav",
+      "fold": 2,
+      "source": "130245",
+      "category": "can_opening",
+      "sha256": "1aa1ddc82930831bc1c283fe0d47a47b03dc07ee5fe7c6c191acd78f445acf87"
+    },
+    {
+      "filename": "2-144031-A-34.wav",
+      "fold": 2,
+      "source": "144031",
+      "category": "can_opening",
+      "sha256": "f887a7acfab69408344b0c0db0ef50acb9af610d032c890c228fd103ef254446"
+    },
+    {
+      "filename": "3-147342-A-34.wav",
+      "fold": 3,
+      "source": "147342",
+      "category": "can_opening",
+      "sha256": "758f2901b65e7b7e64c0b0186dc6c299fa2dc3ea09cba7b759d00d8bc37964bc"
+    },
+    {
+      "filename": "3-147343-A-34.wav",
+      "fold": 3,
+      "source": "147343",
+      "category": "can_opening",
+      "sha256": "8539860d4b640e73bff147f0c00a4dd7ce9d490ee295fba644a8617701701720"
+    },
+    {
+      "filename": "4-175025-A-34.wav",
+      "fold": 4,
+      "source": "175025",
+      "category": "can_opening",
+      "sha256": "63ec7782d27e6922d81519fa352f7379d6a6e5da5cf77e2380c06dc340dc2c66"
+    },
+    {
+      "filename": "4-179836-A-34.wav",
+      "fold": 4,
+      "source": "179836",
+      "category": "can_opening",
+      "sha256": "7dc5dedd346bd53cbbb38c2ae58f450dcd03fa1917f850440813b1cb5a2ca146"
+    },
+    {
+      "filename": "5-221878-A-34.wav",
+      "fold": 5,
+      "source": "221878",
+      "category": "can_opening",
+      "sha256": "81e429727451050e6cfee85e9dddd72c4912d4e97856d6d69f8fe8eb0a692a9a"
+    },
+    {
+      "filename": "5-236299-A-34.wav",
+      "fold": 5,
+      "source": "236299",
+      "category": "can_opening",
+      "sha256": "a2042c3fe183862dadf1a1ae7f90bd11404d370290bf4560844927f974a9e09c"
+    },
+    {
+      "filename": "1-17124-A-43.wav",
+      "fold": 1,
+      "source": "17124",
+      "category": "car_horn",
+      "sha256": "9d5e01e07a386ee36c2e73f40817d132a54d91c936eccc01414280abca5a4209"
+    },
+    {
+      "filename": "1-19026-A-43.wav",
+      "fold": 1,
+      "source": "19026",
+      "category": "car_horn",
+      "sha256": "67bb2fe5cf138930eb6a6a84bedeb7284093076738cd47ef73cc8b3b8393ff40"
+    },
+    {
+      "filename": "1-24074-A-43.wav",
+      "fold": 1,
+      "source": "24074",
+      "category": "car_horn",
+      "sha256": "ebdbc03e89c6a41c8ce1df7b12d4e2c4bb3f91345c43e7d75a1ed1357ff5f7e0"
+    },
+    {
+      "filename": "1-24076-A-43.wav",
+      "fold": 1,
+      "source": "24076",
+      "category": "car_horn",
+      "sha256": "723edafd5bda638184bab5038745b6cafc9c813440b236175074d4d42b142d94"
+    },
+    {
+      "filename": "1-254507-A-43.wav",
+      "fold": 1,
+      "source": "254507",
+      "category": "car_horn",
+      "sha256": "ebe976ccd285cb44e6585d889f2a8759c5de47e9940f638ecaa300def46e544a"
+    },
+    {
+      "filename": "1-26176-A-43.wav",
+      "fold": 1,
+      "source": "26176",
+      "category": "car_horn",
+      "sha256": "f1972b41b111a56e84d4fff30dd2e628521d6c699693adc60c14985c4cfdbf25"
+    },
+    {
+      "filename": "1-26177-A-43.wav",
+      "fold": 1,
+      "source": "26177",
+      "category": "car_horn",
+      "sha256": "65655fc14cb749884c5965a42912decebf922aa6b51f1e27f56da7f35d1d381f"
+    },
+    {
+      "filename": "1-28808-A-43.wav",
+      "fold": 1,
+      "source": "28808",
+      "category": "car_horn",
+      "sha256": "23c54679c820a7f6a71674df1ef064afffd3344d8ea859d9c5978301ce2736a5"
+    },
+    {
+      "filename": "2-100648-A-43.wav",
+      "fold": 2,
+      "source": "100648",
+      "category": "car_horn",
+      "sha256": "d52b04e2cd6fee1467d9faae0297b5eb2e3c7a68575bf6f982ca0c738f91df68"
+    },
+    {
+      "filename": "2-125520-A-43.wav",
+      "fold": 2,
+      "source": "125520",
+      "category": "car_horn",
+      "sha256": "79e2335cf1fa4b0a6be7d2a93007f630acd89e178405ae2fabf45ee3af801fda"
+    },
+    {
+      "filename": "2-128465-A-43.wav",
+      "fold": 2,
+      "source": "128465",
+      "category": "car_horn",
+      "sha256": "3ea14ee5f81618b2f7575597fd5ea84b81e9f6cad8be31925c8146e593c4223c"
+    },
+    {
+      "filename": "2-128465-B-43.wav",
+      "fold": 2,
+      "source": "128465",
+      "category": "car_horn",
+      "sha256": "33b2d69540813ddad41ec1fd472d0a488badd3f584d6d2866b1c01cc8bf3f4fc"
+    },
+    {
+      "filename": "2-138465-A-43.wav",
+      "fold": 2,
+      "source": "138465",
+      "category": "car_horn",
+      "sha256": "380ec3e24401d866e349066951383dce4d58b6244fce3780f1b40c37b2aad242"
+    },
+    {
+      "filename": "2-144137-A-43.wav",
+      "fold": 2,
+      "source": "144137",
+      "category": "car_horn",
+      "sha256": "47a434e6db6ed5f323cb3c27db65d6bb3e8b63190126ede88e0b5d07597df8bd"
+    },
+    {
+      "filename": "2-42101-A-43.wav",
+      "fold": 2,
+      "source": "42101",
+      "category": "car_horn",
+      "sha256": "7dbb349df688e552e85413d808b6338aa9e8fcc8a907d905817820a6dc603d49"
+    },
+    {
+      "filename": "2-54086-A-43.wav",
+      "fold": 2,
+      "source": "54086",
+      "category": "car_horn",
+      "sha256": "66d57ce16595c23b696ce37858261d98342005f1b07c2b9c2e6a9e4b76480d33"
+    },
+    {
+      "filename": "3-145577-A-43.wav",
+      "fold": 3,
+      "source": "145577",
+      "category": "car_horn",
+      "sha256": "0cfe3103f197d1f8d23cb7afb5b81468f44a66ca86e7cc1b6051fc2892f9c4e3"
+    },
+    {
+      "filename": "3-146697-A-43.wav",
+      "fold": 3,
+      "source": "146697",
+      "category": "car_horn",
+      "sha256": "eecf11e6945781d89a689d5e691329935ca865a23827d4d57e79b6b84bd6b631"
+    },
+    {
+      "filename": "3-153057-A-43.wav",
+      "fold": 3,
+      "source": "153057",
+      "category": "car_horn",
+      "sha256": "d9ef718570e5f58436d84a45a0619d1b812eac187282dad30fbf166432f6cf79"
+    },
+    {
+      "filename": "3-155130-A-43.wav",
+      "fold": 3,
+      "source": "155130",
+      "category": "car_horn",
+      "sha256": "3e0868245e2f29e1c437f21d9e9da69ca15187c9c54d8339150f677e8ed3c34b"
+    },
+    {
+      "filename": "3-155234-A-43.wav",
+      "fold": 3,
+      "source": "155234",
+      "category": "car_horn",
+      "sha256": "d3dd9ebc885f00e0857e10fc2c42716c078506c88bb4c28b1eceff75dbf21100"
+    },
+    {
+      "filename": "3-161010-A-43.wav",
+      "fold": 3,
+      "source": "161010",
+      "category": "car_horn",
+      "sha256": "b44f3e2b3e75394ab4f475cad59304852c64f5d9c3e3ee7735913cc4de176346"
+    },
+    {
+      "filename": "3-174840-A-43.wav",
+      "fold": 3,
+      "source": "174840",
+      "category": "car_horn",
+      "sha256": "86c2d00015c345e5aef746eedd00068d941c298a8408f01a4b0e7dfccbbafc44"
+    },
+    {
+      "filename": "3-243726-A-43.wav",
+      "fold": 3,
+      "source": "243726",
+      "category": "car_horn",
+      "sha256": "59d89e8d5ec2897522d4f9ff35dc381f751e3af6253db49ddc7865e75b35121e"
+    },
+    {
+      "filename": "4-175845-A-43.wav",
+      "fold": 4,
+      "source": "175845",
+      "category": "car_horn",
+      "sha256": "aeaf26bd07b54964985f7c5726b2724f57b9912b6e70c0af2f8bf3758ca0f18c"
+    },
+    {
+      "filename": "4-175846-A-43.wav",
+      "fold": 4,
+      "source": "175846",
+      "category": "car_horn",
+      "sha256": "5d8600b8472cd713a5ab9953a78ab4c47e1d400b91b23dada33fbeb2597a6daf"
+    },
+    {
+      "filename": "4-175855-A-43.wav",
+      "fold": 4,
+      "source": "175855",
+      "category": "car_horn",
+      "sha256": "b7b7a822f27aa7af474e69404c0694f4c3811769e99f64f58493d99b85dc5e45"
+    },
+    {
+      "filename": "4-175856-A-43.wav",
+      "fold": 4,
+      "source": "175856",
+      "category": "car_horn",
+      "sha256": "2ef0a166b66435ecd822f654692dc8e128835fb438bc8a5b061502271176e3d2"
+    },
+    {
+      "filename": "4-176631-A-43.wav",
+      "fold": 4,
+      "source": "176631",
+      "category": "car_horn",
+      "sha256": "81a26b475d2206ffc57c1e1bead922dee628bf6ce8f3cc1f7e0d95a1692e384c"
+    },
+    {
+      "filename": "4-176638-A-43.wav",
+      "fold": 4,
+      "source": "176638",
+      "category": "car_horn",
+      "sha256": "6e2cf0e0671f26167772c0aa34bcdeb711fec40b62b79311433bf4dd9497ce5a"
+    },
+    {
+      "filename": "4-178402-A-43.wav",
+      "fold": 4,
+      "source": "178402",
+      "category": "car_horn",
+      "sha256": "9ec40aa83ad3ae9a7a5c2184b7db241f6e288d13e4d6cce1ceac97ddffe2faff"
+    },
+    {
+      "filename": "4-191015-A-43.wav",
+      "fold": 4,
+      "source": "191015",
+      "category": "car_horn",
+      "sha256": "ca89718085b0dff144e5e7833dce424364f1ca1b737eb8d45df70cf8e1d1250a"
+    },
+    {
+      "filename": "5-179860-A-43.wav",
+      "fold": 5,
+      "source": "179860",
+      "category": "car_horn",
+      "sha256": "9be96b2f8cd6a81053fea7e8be03a5936070490ce3b193b47936140536c0a3c2"
+    },
+    {
+      "filename": "5-179863-A-43.wav",
+      "fold": 5,
+      "source": "179863",
+      "category": "car_horn",
+      "sha256": "9a777c790a2476a3de0efd0318e6fb369ad5af8bee0d007193ce08913dd9ae33"
+    },
+    {
+      "filename": "5-179865-A-43.wav",
+      "fold": 5,
+      "source": "179865",
+      "category": "car_horn",
+      "sha256": "0a452b37b0c8c89f33babe75c5c6af3d6bb80daf683559130a1716fb1f0c0948"
+    },
+    {
+      "filename": "5-179866-A-43.wav",
+      "fold": 5,
+      "source": "179866",
+      "category": "car_horn",
+      "sha256": "aecc03f051ef2dc592a3a62e51e95c61267e835a2e4a70492104e312edebaf6c"
+    },
+    {
+      "filename": "5-179868-A-43.wav",
+      "fold": 5,
+      "source": "179868",
+      "category": "car_horn",
+      "sha256": "9bcfe1420d2d11be38661f2f8099633736f940f1859d49f2d5d6716c0d840ae6"
+    },
+    {
+      "filename": "5-180156-A-43.wav",
+      "fold": 5,
+      "source": "180156",
+      "category": "car_horn",
+      "sha256": "cbf7bc438e26a813e1317a2dd28232e039b0ce00df0e3f567cafbd2a998b3fa3"
+    },
+    {
+      "filename": "5-180156-B-43.wav",
+      "fold": 5,
+      "source": "180156",
+      "category": "car_horn",
+      "sha256": "0593cc83b35ce0a14c18f6a176f90044a38600e77e8cfe6806a5ccbd3f2e0d1a"
+    },
+    {
+      "filename": "5-180156-C-43.wav",
+      "fold": 5,
+      "source": "180156",
+      "category": "car_horn",
+      "sha256": "d3aa6e92a3cd40effe68ea87a37b1930ab0f4c346367bdbdebab451ee35d80ab"
+    },
+    {
+      "filename": "1-34094-A-5.wav",
+      "fold": 1,
+      "source": "34094",
+      "category": "cat",
+      "sha256": "ceddf296bcdda3996d35d3f4c292c338050bcb4c5a05a96ca22a69d33e33e4de"
+    },
+    {
+      "filename": "1-34094-B-5.wav",
+      "fold": 1,
+      "source": "34094",
+      "category": "cat",
+      "sha256": "43814c96e62a5c2fbf14b84828cc929e381e53c0add7c1e8211d212e1da97734"
+    },
+    {
+      "filename": "2-110010-A-5.wav",
+      "fold": 2,
+      "source": "110010",
+      "category": "cat",
+      "sha256": "e3777378fd307de79c32e6f3e035001343bb0e9d6726fd5d871833bd8522c731"
+    },
+    {
+      "filename": "2-110011-A-5.wav",
+      "fold": 2,
+      "source": "110011",
+      "category": "cat",
+      "sha256": "8b5c8afd02a5a79ab464446bec0a06b345ca092eb408660c13e3d76e68e8cdba"
+    },
+    {
+      "filename": "3-146964-A-5.wav",
+      "fold": 3,
+      "source": "146964",
+      "category": "cat",
+      "sha256": "75cb3eeb2419bd4bbcf43cfa5a94d1c5d2c25f48baf00cdf65bfb9f86d186b14"
+    },
+    {
+      "filename": "3-146965-A-5.wav",
+      "fold": 3,
+      "source": "146965",
+      "category": "cat",
+      "sha256": "055f22434ebd4aaa2963ec9463f29d02b9c2caa5eeabe58042047c648a136bdd"
+    },
+    {
+      "filename": "4-120160-A-5.wav",
+      "fold": 4,
+      "source": "120160",
+      "category": "cat",
+      "sha256": "5828c0621dddd37ba88c08d99edb9c3860bf2e7f9c3b8adcc02f845bbf6e7211"
+    },
+    {
+      "filename": "4-133047-A-5.wav",
+      "fold": 4,
+      "source": "133047",
+      "category": "cat",
+      "sha256": "28e3fb5e2dbc18984b5e5e82eb85e7301093fa60f46341ae1f682dc111ffedc1"
+    },
+    {
+      "filename": "5-169983-A-5.wav",
+      "fold": 5,
+      "source": "169983",
+      "category": "cat",
+      "sha256": "a473f44b79e20f2797d6e69a87c1a97472083b46a0632e65aec1201992c123b8"
+    },
+    {
+      "filename": "5-172299-A-5.wav",
+      "fold": 5,
+      "source": "172299",
+      "category": "cat",
+      "sha256": "e833bb52adbcb409becfa6fedfd3d549eb1a7e0dd8bc4814cf8b6db045b446a8"
+    },
+    {
+      "filename": "1-116765-A-41.wav",
+      "fold": 1,
+      "source": "116765",
+      "category": "chainsaw",
+      "sha256": "1199ff6d4f5040bf20f06a441276bcd6448b1e1de4f098ce3e47d856ee97ce33"
+    },
+    {
+      "filename": "1-19898-A-41.wav",
+      "fold": 1,
+      "source": "19898",
+      "category": "chainsaw",
+      "sha256": "02afa3102978b5fb16f9c6237d90231abb74318873309600f01caf4776746944"
+    },
+    {
+      "filename": "2-50667-A-41.wav",
+      "fold": 2,
+      "source": "50667",
+      "category": "chainsaw",
+      "sha256": "b099e90db935a98b053d2a13db180ed783d35c89d600c07fa4f3aa8261cbf1ef"
+    },
+    {
+      "filename": "2-50667-B-41.wav",
+      "fold": 2,
+      "source": "50667",
+      "category": "chainsaw",
+      "sha256": "c8d73fbda3f8b2ed27df38e09ced22fe2d59c46160a92ba985c37d9fdcb6f474"
+    },
+    {
+      "filename": "3-118656-A-41.wav",
+      "fold": 3,
+      "source": "118656",
+      "category": "chainsaw",
+      "sha256": "c8b03e975750a6c264f839e6adc68a5450a5d44d4db808b443522d918fe3185f"
+    },
+    {
+      "filename": "3-118657-A-41.wav",
+      "fold": 3,
+      "source": "118657",
+      "category": "chainsaw",
+      "sha256": "e3ea73b1d6c8390853acf5e390eae7d90b314d749c03cdab3a4560d924687aba"
+    },
+    {
+      "filename": "4-149294-A-41.wav",
+      "fold": 4,
+      "source": "149294",
+      "category": "chainsaw",
+      "sha256": "6f17cda330dc854816ff6fa810a4535882077f1db34f7da8f6a046661164b958"
+    },
+    {
+      "filename": "4-149294-B-41.wav",
+      "fold": 4,
+      "source": "149294",
+      "category": "chainsaw",
+      "sha256": "93988074f02db3b15f57181ee8bf2707a2151190dd7b674d110bd88e32a57506"
+    },
+    {
+      "filename": "5-170338-A-41.wav",
+      "fold": 5,
+      "source": "170338",
+      "category": "chainsaw",
+      "sha256": "db6e46d327b67ba496c758b58e18dcbef90ab832ed84596985ff84ad5bce8538"
+    },
+    {
+      "filename": "5-170338-B-41.wav",
+      "fold": 5,
+      "source": "170338",
+      "category": "chainsaw",
+      "sha256": "cd356d4499a30a75b976d45500bff121d0c13d68fcb3864a76d44731ac87f9aa"
+    },
+    {
+      "filename": "1-100038-A-14.wav",
+      "fold": 1,
+      "source": "100038",
+      "category": "chirping_birds",
+      "sha256": "2faa39d8e59e8f292dfbdbe72bd8a00294f9535714b3c19b39904c2c17e14675"
+    },
+    {
+      "filename": "1-34495-A-14.wav",
+      "fold": 1,
+      "source": "34495",
+      "category": "chirping_birds",
+      "sha256": "3641b914303dca50d01c2ab5aceaaf918ce977028f4ee752c22beb64d09eeec3"
+    },
+    {
+      "filename": "2-108760-A-14.wav",
+      "fold": 2,
+      "source": "108760",
+      "category": "chirping_birds",
+      "sha256": "c8b166433114f83cb401192a7f485e501698c9ebc091bf8c4c21a17b9b3040fc"
+    },
+    {
+      "filename": "2-108760-B-14.wav",
+      "fold": 2,
+      "source": "108760",
+      "category": "chirping_birds",
+      "sha256": "717fd2c117208dde97da875c237918141c66c7a4b92818fd7d236c9fb3fc0783"
+    },
+    {
+      "filename": "3-155577-A-14.wav",
+      "fold": 3,
+      "source": "155577",
+      "category": "chirping_birds",
+      "sha256": "962fc83526ff70ac2392023ad032ae0f2f898d609775b438f22a4e3b639cbe7d"
+    },
+    {
+      "filename": "3-155578-A-14.wav",
+      "fold": 3,
+      "source": "155578",
+      "category": "chirping_birds",
+      "sha256": "3203e75865f750f362b9c0b8d8265b4a4332631d8b2d48b5d7e5324f79456fdf"
+    },
+    {
+      "filename": "4-159609-A-14.wav",
+      "fold": 4,
+      "source": "159609",
+      "category": "chirping_birds",
+      "sha256": "186ec9ba8f6288e2b37a3642287a7b2f06add4357adb91ad84b8c1495aa9cd42"
+    },
+    {
+      "filename": "4-159609-B-14.wav",
+      "fold": 4,
+      "source": "159609",
+      "category": "chirping_birds",
+      "sha256": "0f00302ed01916e1a1c0ed885aae5c96fc4dac3a65cc31a920b3292de016e13f"
+    },
+    {
+      "filename": "5-242490-A-14.wav",
+      "fold": 5,
+      "source": "242490",
+      "category": "chirping_birds",
+      "sha256": "101ad1a679e4de3a874bc9402d535cfdf56fa79152fac06d2913a98616eb217b"
+    },
+    {
+      "filename": "5-242491-A-14.wav",
+      "fold": 5,
+      "source": "242491",
+      "category": "chirping_birds",
+      "sha256": "009963196c07e3a3e3c7297031684cf22e4ecf1012ee28bebdd37db6beaeabec"
+    },
+    {
+      "filename": "1-13571-A-46.wav",
+      "fold": 1,
+      "source": "13571",
+      "category": "church_bells",
+      "sha256": "92baf64d0e246d513e7a94e3778459558dcc222ec7cd30b12c58092a3d903142"
+    },
+    {
+      "filename": "1-13572-A-46.wav",
+      "fold": 1,
+      "source": "13572",
+      "category": "church_bells",
+      "sha256": "fdbfa0391e7433b24a268a0f716afd057ca7f75c79fe0245f5072869baf19018"
+    },
+    {
+      "filename": "2-56926-A-46.wav",
+      "fold": 2,
+      "source": "56926",
+      "category": "church_bells",
+      "sha256": "1583d0be06e9869e2647770cc58c35018337157ca1652bfb7b911e6139e6cb03"
+    },
+    {
+      "filename": "2-57191-A-46.wav",
+      "fold": 2,
+      "source": "57191",
+      "category": "church_bells",
+      "sha256": "9a8b14997744a923922052ac97d9a43ac1ec9d39e04b8a89649dc0d58177d8f1"
+    },
+    {
+      "filename": "3-111102-A-46.wav",
+      "fold": 3,
+      "source": "111102",
+      "category": "church_bells",
+      "sha256": "d8761cb9528326a37bd8fba7ab3d9330dcdb6d1cc73798a21a6d069ba1c539cb"
+    },
+    {
+      "filename": "3-111102-B-46.wav",
+      "fold": 3,
+      "source": "111102",
+      "category": "church_bells",
+      "sha256": "ae91dd8bd047cd9046ab7f429a4a34d32254749dc9bdde00ed6a22444fa5d37a"
+    },
+    {
+      "filename": "4-125825-A-46.wav",
+      "fold": 4,
+      "source": "125825",
+      "category": "church_bells",
+      "sha256": "796a0d8975ce9db3eb4e6d8ce438f6dbbd4ad4a1a8a6a18de4521face6eeb28a"
+    },
+    {
+      "filename": "4-125825-B-46.wav",
+      "fold": 4,
+      "source": "125825",
+      "category": "church_bells",
+      "sha256": "c6a4d689547aa3ac03eb683104f00f8be7b6eed00b57c9a7a64e06a935f9d9a4"
+    },
+    {
+      "filename": "5-179294-A-46.wav",
+      "fold": 5,
+      "source": "179294",
+      "category": "church_bells",
+      "sha256": "cf3361dd0aa9599293f29f1f5a090fbb58b02dbbc0c8d2f366752c0387ded722"
+    },
+    {
+      "filename": "5-188716-A-46.wav",
+      "fold": 5,
+      "source": "188716",
+      "category": "church_bells",
+      "sha256": "db92bfce468a286fe4cad679bac89e05bd8ed32e40d9edde5fe0bb157df30d85"
+    },
+    {
+      "filename": "1-104089-A-22.wav",
+      "fold": 1,
+      "source": "104089",
+      "category": "clapping",
+      "sha256": "2b6ec14aafc6ed98c833c5c7e56780d283f3ceaea0d4c3c142b2f49fcc2fd215"
+    },
+    {
+      "filename": "1-104089-B-22.wav",
+      "fold": 1,
+      "source": "104089",
+      "category": "clapping",
+      "sha256": "61adeef196a98fc7b2c22104cd160bded3ce89b7e9867814b22e40a08e993291"
+    },
+    {
+      "filename": "2-25292-A-22.wav",
+      "fold": 2,
+      "source": "25292",
+      "category": "clapping",
+      "sha256": "a34f340fe36d0d55a5b47f69593e7f49d7ac59e68e26571f53784b79e37722eb"
+    },
+    {
+      "filename": "2-25293-A-22.wav",
+      "fold": 2,
+      "source": "25293",
+      "category": "clapping",
+      "sha256": "c8ddf76965ae2928c07e61d083825398c20ea06fe09d3a999c1a99492c771006"
+    },
+    {
+      "filename": "3-130330-A-22.wav",
+      "fold": 3,
+      "source": "130330",
+      "category": "clapping",
+      "sha256": "2b08bf04f38ce08b05f00ab62eeccb5b8dd1996020ade19a1e8e8505783340b5"
+    },
+    {
+      "filename": "3-138114-A-22.wav",
+      "fold": 3,
+      "source": "138114",
+      "category": "clapping",
+      "sha256": "0dd59218eee6155a51d69b3f2a6d618550d55f56260bf12032b46dbdd3ca5d0b"
+    },
+    {
+      "filename": "4-189828-A-22.wav",
+      "fold": 4,
+      "source": "189828",
+      "category": "clapping",
+      "sha256": "13a9c47cba0d2dab78358fa78a6ffe10d7fd209b94b4f062b260dd7ea1b67243"
+    },
+    {
+      "filename": "4-189830-A-22.wav",
+      "fold": 4,
+      "source": "189830",
+      "category": "clapping",
+      "sha256": "af85ee4f6c5441e6a92956b69bee17f45207ef8fe3f2917c6a02fdb06bea38bc"
+    },
+    {
+      "filename": "5-209989-A-22.wav",
+      "fold": 5,
+      "source": "209989",
+      "category": "clapping",
+      "sha256": "541bf9f04ee89bb9a6e1ac1780e2bc0715d60d2343329d4d4f092c36d1adc4aa"
+    },
+    {
+      "filename": "5-218494-A-22.wav",
+      "fold": 5,
+      "source": "218494",
+      "category": "clapping",
+      "sha256": "c8641fdb05314f3ae6da3cab60963c2bdd61a8823e602958ec6ad73dd0c3247b"
+    },
+    {
+      "filename": "1-13613-A-37.wav",
+      "fold": 1,
+      "source": "13613",
+      "category": "clock_alarm",
+      "sha256": "2e28b25e14611723cdcc0becfa36468a8d0329a0c141e4f1d894bd6bb5773f34"
+    },
+    {
+      "filename": "1-14262-A-37.wav",
+      "fold": 1,
+      "source": "14262",
+      "category": "clock_alarm",
+      "sha256": "220c3d127df2f0d8979a2edde5318aaaa3aed19d8c5d3b4a40d529f979bba453"
+    },
+    {
+      "filename": "2-102435-A-37.wav",
+      "fold": 2,
+      "source": "102435",
+      "category": "clock_alarm",
+      "sha256": "6917ce398c3cb7cb426c65224f59e63794eeabd732ad2f399c23f5b091bbcd12"
+    },
+    {
+      "filename": "2-104475-A-37.wav",
+      "fold": 2,
+      "source": "104475",
+      "category": "clock_alarm",
+      "sha256": "3b2f085ba02fd9a1070e28f42ba5c132bde45be96753349258f566bb24172d69"
+    },
+    {
+      "filename": "3-117793-A-37.wav",
+      "fold": 3,
+      "source": "117793",
+      "category": "clock_alarm",
+      "sha256": "403a522c137b94195bdf3d9175aa3432a76018e41fd049f74cbd6da900f38cd4"
+    },
+    {
+      "filename": "3-117883-A-37.wav",
+      "fold": 3,
+      "source": "117883",
+      "category": "clock_alarm",
+      "sha256": "93064c312872ee32c74e893a7b2a7fa2b8fa83170a17ce6267227186178ddcdb"
+    },
+    {
+      "filename": "4-151242-A-37.wav",
+      "fold": 4,
+      "source": "151242",
+      "category": "clock_alarm",
+      "sha256": "c83789199d3a2794323f9151cae42fa478b7ae408a624f483399316bd44cf899"
+    },
+    {
+      "filename": "4-169508-A-37.wav",
+      "fold": 4,
+      "source": "169508",
+      "category": "clock_alarm",
+      "sha256": "1b78f0e61352c9d8d4c95987ba852cc3f9e84c3d6a4f3be7424e2704057570a2"
+    },
+    {
+      "filename": "5-210612-A-37.wav",
+      "fold": 5,
+      "source": "210612",
+      "category": "clock_alarm",
+      "sha256": "c08a0615afcfbe6b30ba536eeb3cc555d4bd25580a36f12f8b32330b83228dfb"
+    },
+    {
+      "filename": "5-211408-A-37.wav",
+      "fold": 5,
+      "source": "211408",
+      "category": "clock_alarm",
+      "sha256": "c78db93c244fafc7d835cc32e64959c93ce3fdfc0ffd5b58067cbc99f845a239"
+    },
+    {
+      "filename": "1-21934-A-38.wav",
+      "fold": 1,
+      "source": "21934",
+      "category": "clock_tick",
+      "sha256": "8d26e40e0e382b0d2d7f6dafcb132cfe703ee3f7f32780e878fdb5a1aaffcc28"
+    },
+    {
+      "filename": "1-21935-A-38.wav",
+      "fold": 1,
+      "source": "21935",
+      "category": "clock_tick",
+      "sha256": "4d7ad80cf2733e2d9260061afbbdb0bd3d64cfcbc3df5c8a0258639716a7329d"
+    },
+    {
+      "filename": "2-119748-A-38.wav",
+      "fold": 2,
+      "source": "119748",
+      "category": "clock_tick",
+      "sha256": "7bb645903e539845643c4162d619f51b3648307fbe1966b19d15f01ceb8ecde5"
+    },
+    {
+      "filename": "2-127108-A-38.wav",
+      "fold": 2,
+      "source": "127108",
+      "category": "clock_tick",
+      "sha256": "23f4cb882b12e8da2ab06a9b8f2f58affb715007b1846d6a041b0717aeb04ec0"
+    },
+    {
+      "filename": "3-142593-A-38.wav",
+      "fold": 3,
+      "source": "142593",
+      "category": "clock_tick",
+      "sha256": "8eb0915dab65e09fd489c3ccac93e620892cb795abe4b16e7a103c5bbc92446b"
+    },
+    {
+      "filename": "3-143933-A-38.wav",
+      "fold": 3,
+      "source": "143933",
+      "category": "clock_tick",
+      "sha256": "02809701aa82027a54a463637255b4e26ef3ccd1a47d69b59289e185b28ed675"
+    },
+    {
+      "filename": "4-175945-A-38.wav",
+      "fold": 4,
+      "source": "175945",
+      "category": "clock_tick",
+      "sha256": "e21894f4cd41eeb1423fe7d6eadda4dfd32cbd686c639bbadbf3ab3bbb90bc28"
+    },
+    {
+      "filename": "4-179984-A-38.wav",
+      "fold": 4,
+      "source": "179984",
+      "category": "clock_tick",
+      "sha256": "c39eef951ebd527500e4c8bae4e7d5c6638017dc093125f0d46d462573a8fea5"
+    },
+    {
+      "filename": "5-201194-A-38.wav",
+      "fold": 5,
+      "source": "201194",
+      "category": "clock_tick",
+      "sha256": "61599b9d388e887b0318d4b008ca3f545b28f327ba3ecb12afdff7a128162c28"
+    },
+    {
+      "filename": "5-208624-A-38.wav",
+      "fold": 5,
+      "source": "208624",
+      "category": "clock_tick",
+      "sha256": "536288f95505f82775b97445bfb95839520ebd4e11fb28d4be175f99adcd5060"
+    },
+    {
+      "filename": "1-19111-A-24.wav",
+      "fold": 1,
+      "source": "19111",
+      "category": "coughing",
+      "sha256": "ab2afe6d0ee0de5edc1f0107448077919c6ac94dcf59243497e6fcb333685438"
+    },
+    {
+      "filename": "1-19118-A-24.wav",
+      "fold": 1,
+      "source": "19118",
+      "category": "coughing",
+      "sha256": "4fb6197f72791e50c465de8f1f715a7a3f93f7afab62dfa130f28d500303d8d9"
+    },
+    {
+      "filename": "2-108017-A-24.wav",
+      "fold": 2,
+      "source": "108017",
+      "category": "coughing",
+      "sha256": "0835f06693f5560d89f59de280351f1afbb90b839edacde718bb336726a5fa25"
+    },
+    {
+      "filename": "2-123896-A-24.wav",
+      "fold": 2,
+      "source": "123896",
+      "category": "coughing",
+      "sha256": "4e1720d93a23e4e005b688fdddeed30a6cb3ff04ebf706921de8d01d0d1dfa3e"
+    },
+    {
+      "filename": "3-125418-A-24.wav",
+      "fold": 3,
+      "source": "125418",
+      "category": "coughing",
+      "sha256": "120275342f1cd23c1ace8f4c334dd7673b727821f9bdd9c710baff75c61123b4"
+    },
+    {
+      "filename": "3-132601-A-24.wav",
+      "fold": 3,
+      "source": "132601",
+      "category": "coughing",
+      "sha256": "2a8cac7228cf69c63838c96b7381b807d518a75d60fa0e8b51ac589c35dbe2a7"
+    },
+    {
+      "filename": "4-152995-A-24.wav",
+      "fold": 4,
+      "source": "152995",
+      "category": "coughing",
+      "sha256": "ca9a065e5c3c2427954a9d4fb74dff3891ce63e9bda66878e19448237e194e71"
+    },
+    {
+      "filename": "4-154443-A-24.wav",
+      "fold": 4,
+      "source": "154443",
+      "category": "coughing",
+      "sha256": "a797267e864e22e93777a5822b91f029fe7dd0686003dec30e0fa708afca2e86"
+    },
+    {
+      "filename": "5-178997-A-24.wav",
+      "fold": 5,
+      "source": "178997",
+      "category": "coughing",
+      "sha256": "c7aba9fe825d201275860a99588bf8ee1cf26c2d6232f9d89eb52e47cab19221"
+    },
+    {
+      "filename": "5-184871-A-24.wav",
+      "fold": 5,
+      "source": "184871",
+      "category": "coughing",
+      "sha256": "94215401f4f1c623c0fa515c44cd3d4940205302a69727b5467ad59f56654d74"
+    },
+    {
+      "filename": "1-16568-A-3.wav",
+      "fold": 1,
+      "source": "16568",
+      "category": "cow",
+      "sha256": "5fe40ae706ec97d016fd1d74407cde66bbfa033ffa4ebc26546c0dac341ffc8f"
+    },
+    {
+      "filename": "1-202111-A-3.wav",
+      "fold": 1,
+      "source": "202111",
+      "category": "cow",
+      "sha256": "d033c6572aaaa4ac451327ba5fbf3cdcada06c681f05d8188043b39f1346be98"
+    },
+    {
+      "filename": "2-103423-A-3.wav",
+      "fold": 2,
+      "source": "103423",
+      "category": "cow",
+      "sha256": "8fea1be61f324f3ab5a98655cac91f027542aa2ab609d5c45e603cf9bda5d15e"
+    },
+    {
+      "filename": "2-103424-A-3.wav",
+      "fold": 2,
+      "source": "103424",
+      "category": "cow",
+      "sha256": "c68819bc481c1f5b9827406dad3d5d0d03ca8d5ff40fd2e4ac6b3b12224ef6a5"
+    },
+    {
+      "filename": "3-124376-A-3.wav",
+      "fold": 3,
+      "source": "124376",
+      "category": "cow",
+      "sha256": "d5c8646f91a42c5fdfb6c6cadb7d881456c1a4dd1330f797f3f06ddab6a0c773"
+    },
+    {
+      "filename": "3-124376-B-3.wav",
+      "fold": 3,
+      "source": "124376",
+      "category": "cow",
+      "sha256": "6e6b296ed924cec17d9126be81143eb34725e1d85c85bb667c65721edc1013aa"
+    },
+    {
+      "filename": "4-174860-A-3.wav",
+      "fold": 4,
+      "source": "174860",
+      "category": "cow",
+      "sha256": "6aa928dc1f18ea6e82845263e70f1799bd4179a31b6a488354a98e3ececcb368"
+    },
+    {
+      "filename": "4-174860-B-3.wav",
+      "fold": 4,
+      "source": "174860",
+      "category": "cow",
+      "sha256": "a40aa5588a6f76c0cac8ed91f307176b1838ff4e3c35efd1957aaf4ddbd1b1dd"
+    },
+    {
+      "filename": "5-194899-A-3.wav",
+      "fold": 5,
+      "source": "194899",
+      "category": "cow",
+      "sha256": "5250b8ec60b7dec29eac9d8ea2edddf111405741bceb6a0efd43d85096421164"
+    },
+    {
+      "filename": "5-194899-B-3.wav",
+      "fold": 5,
+      "source": "194899",
+      "category": "cow",
+      "sha256": "f8451570253be99a68e1f6f9b88fad1d2eeb3a94179a833cc65fbb68067384df"
+    },
+    {
+      "filename": "1-17150-A-12.wav",
+      "fold": 1,
+      "source": "17150",
+      "category": "crackling_fire",
+      "sha256": "3d278bc2034dfb83881491a8eec97de6f1239f0a5b8a7c02be46b5aab0a51609"
+    },
+    {
+      "filename": "1-17565-A-12.wav",
+      "fold": 1,
+      "source": "17565",
+      "category": "crackling_fire",
+      "sha256": "bf16e25363a2d5824c07e96dc05defcb87e1d9dcd47bfd241a9d25e01b411209"
+    },
+    {
+      "filename": "2-18766-A-12.wav",
+      "fold": 2,
+      "source": "18766",
+      "category": "crackling_fire",
+      "sha256": "10a98a61a73baee8028c19b9de330261f2dae87f57b2792457d81e46a544697a"
+    },
+    {
+      "filename": "2-18766-B-12.wav",
+      "fold": 2,
+      "source": "18766",
+      "category": "crackling_fire",
+      "sha256": "ce9d67f6f6b8d093d3dc2d14088251d76b2772210733908d01b0ecc08c349fe4"
+    },
+    {
+      "filename": "3-104632-A-12.wav",
+      "fold": 3,
+      "source": "104632",
+      "category": "crackling_fire",
+      "sha256": "415e6d92371447377a916760fdda326f55f6f88cf428dc45b3edfe45b1d2b0a5"
+    },
+    {
+      "filename": "3-104958-A-12.wav",
+      "fold": 3,
+      "source": "104958",
+      "category": "crackling_fire",
+      "sha256": "d538428b1a51d450809757d169ba16f77c85721c267a46d29f5d538dfc846563"
+    },
+    {
+      "filename": "4-164661-A-12.wav",
+      "fold": 4,
+      "source": "164661",
+      "category": "crackling_fire",
+      "sha256": "5dba3d3689ad470168a93c321674fb1d0e152a939bc034dcfe88c7a055e6d5f5"
+    },
+    {
+      "filename": "4-164661-B-12.wav",
+      "fold": 4,
+      "source": "164661",
+      "category": "crackling_fire",
+      "sha256": "e8db809460aaf1d4cad3458762e5b60c31e88efdc00b33a6d6a7c3bd83306ec4"
+    },
+    {
+      "filename": "5-186924-A-12.wav",
+      "fold": 5,
+      "source": "186924",
+      "category": "crackling_fire",
+      "sha256": "963758fc0a9bb51fbc0659ac0ab75f2aede097519f46b92efecac22baae215cc"
+    },
+    {
+      "filename": "5-189212-A-12.wav",
+      "fold": 5,
+      "source": "189212",
+      "category": "crackling_fire",
+      "sha256": "bd9983a6e739ea7df03c9363b17834a71ba0b74cbb59d8766d48ccb0fedd2138"
+    },
+    {
+      "filename": "1-57316-A-13.wav",
+      "fold": 1,
+      "source": "57316",
+      "category": "crickets",
+      "sha256": "2df85254c1ba9c2bcb8517c8d2b36caeaf60ab6197e2e3b7285680720ecd638c"
+    },
+    {
+      "filename": "1-57318-A-13.wav",
+      "fold": 1,
+      "source": "57318",
+      "category": "crickets",
+      "sha256": "0e02985a93837d58cfaaf3da12e49bb0438bcd007afc22b46a8bb05002bcb849"
+    },
+    {
+      "filename": "2-106019-A-13.wav",
+      "fold": 2,
+      "source": "106019",
+      "category": "crickets",
+      "sha256": "8728828af8b276092646dd7d734502d6dae960aa2f4dc4a585e001645e03d41e"
+    },
+    {
+      "filename": "2-110613-A-13.wav",
+      "fold": 2,
+      "source": "110613",
+      "category": "crickets",
+      "sha256": "2d52254a00d857f7ac022fa4ab0bcb6cd3cd082d631876c5456994c1e465e9a3"
+    },
+    {
+      "filename": "3-129338-A-13.wav",
+      "fold": 3,
+      "source": "129338",
+      "category": "crickets",
+      "sha256": "2b2bd8a6bca8ba75fc635a6028e4e906c028f59f818de1bf929aa6eb710b0376"
+    },
+    {
+      "filename": "3-129678-A-13.wav",
+      "fold": 3,
+      "source": "129678",
+      "category": "crickets",
+      "sha256": "f6ae5649cfa7ef7276fbe0d04694edf9524b425213fe06a446648e5dbf2912b9"
+    },
+    {
+      "filename": "4-163697-A-13.wav",
+      "fold": 4,
+      "source": "163697",
+      "category": "crickets",
+      "sha256": "8b02f23af70a2035464c83a3da2c7d1424cd0af658f4c8c20c40e8abdc1a0444"
+    },
+    {
+      "filename": "4-171823-A-13.wav",
+      "fold": 4,
+      "source": "171823",
+      "category": "crickets",
+      "sha256": "28e90df696050c77041c2d97c0d7f495440afbe7ed34cf20b9b1969ab1524371"
+    },
+    {
+      "filename": "5-204352-A-13.wav",
+      "fold": 5,
+      "source": "204352",
+      "category": "crickets",
+      "sha256": "e85d36d6ed59b76c774a019ee2e74ca234aedd1cd70d7566ec20d74855d6b3ce"
+    },
+    {
+      "filename": "5-204352-B-13.wav",
+      "fold": 5,
+      "source": "204352",
+      "category": "crickets",
+      "sha256": "f607788b6fd6b4ff90f3e8e916d13906ceb60620e7b6c767430a9c1f67f94b80"
+    },
+    {
+      "filename": "1-103298-A-9.wav",
+      "fold": 1,
+      "source": "103298",
+      "category": "crow",
+      "sha256": "e75bd5e27e7d68b15bf17bc348d8cf4ab338e9089dc1a1564f2c434ce22db27c"
+    },
+    {
+      "filename": "1-39835-A-9.wav",
+      "fold": 1,
+      "source": "39835",
+      "category": "crow",
+      "sha256": "403db280f38092be1ff41cf1e412750f01b5fe0df042125373b6f1cd340cc767"
+    },
+    {
+      "filename": "2-108763-A-9.wav",
+      "fold": 2,
+      "source": "108763",
+      "category": "crow",
+      "sha256": "2da6b40b7023cb501e248d73263031a1a84dda1890557fe2c475f964221db067"
+    },
+    {
+      "filename": "2-108766-A-9.wav",
+      "fold": 2,
+      "source": "108766",
+      "category": "crow",
+      "sha256": "315db3b94e2cde16b34d942c3bb2f1838f7de6d49119444cce5cf2489db72c84"
+    },
+    {
+      "filename": "3-112397-A-9.wav",
+      "fold": 3,
+      "source": "112397",
+      "category": "crow",
+      "sha256": "4e50aa38fbfc6c7dc673c60f3beadad56bf5d2a18d9e4bd041ff44c426c91e10"
+    },
+    {
+      "filename": "3-117293-A-9.wav",
+      "fold": 3,
+      "source": "117293",
+      "category": "crow",
+      "sha256": "dc15712702cb75cfb2d3ba036107508d59e1547573901d436203a2699f941c5c"
+    },
+    {
+      "filename": "4-136381-A-9.wav",
+      "fold": 4,
+      "source": "136381",
+      "category": "crow",
+      "sha256": "6b0bfda34b4001b23559ef2485eeb56c58e85347b65524da1cd87e6204ea0478"
+    },
+    {
+      "filename": "4-138344-A-9.wav",
+      "fold": 4,
+      "source": "138344",
+      "category": "crow",
+      "sha256": "67b10b27be5bb2ce6e1b78cd50b0c841c48f0b71e76b8f6058aa65923f7b3e12"
+    },
+    {
+      "filename": "5-213836-A-9.wav",
+      "fold": 5,
+      "source": "213836",
+      "category": "crow",
+      "sha256": "087ef97c732c455272038f5b09c96bc7fcb7d43c3b1c14d5fae4877e57a0a894"
+    },
+    {
+      "filename": "5-213836-B-9.wav",
+      "fold": 5,
+      "source": "213836",
+      "category": "crow",
+      "sha256": "864bef106e4aa7c495161f67169d27ae9ef7edd2b40e84300ff42020c204190a"
+    },
+    {
+      "filename": "1-187207-A-20.wav",
+      "fold": 1,
+      "source": "187207",
+      "category": "crying_baby",
+      "sha256": "ddf5bf45f73bc73d1838bf0cb6af530584f324aef513112ee15c210e83ecbd6b"
+    },
+    {
+      "filename": "1-211527-A-20.wav",
+      "fold": 1,
+      "source": "211527",
+      "category": "crying_baby",
+      "sha256": "3cbcd59a0db21f0ed8c252c74ea1bc193117d2c13ed99821885c46c564010b3e"
+    },
+    {
+      "filename": "2-107351-A-20.wav",
+      "fold": 2,
+      "source": "107351",
+      "category": "crying_baby",
+      "sha256": "f89a24c9494eab238d80013b9409e6da4058b8097c665a789e48de1aef1bcef5"
+    },
+    {
+      "filename": "2-107351-B-20.wav",
+      "fold": 2,
+      "source": "107351",
+      "category": "crying_baby",
+      "sha256": "ebb3365010813cec4b951d1294d3376fc598116a1f86115a3e279ea013160a6a"
+    },
+    {
+      "filename": "3-151080-A-20.wav",
+      "fold": 3,
+      "source": "151080",
+      "category": "crying_baby",
+      "sha256": "e673e80074c99c9a8426ff708ca40d5f7a146605cf7b1625532276a7b95fd801"
+    },
+    {
+      "filename": "3-151081-A-20.wav",
+      "fold": 3,
+      "source": "151081",
+      "category": "crying_baby",
+      "sha256": "48a0009a2b2f7e97d19c020c1292e17ee0775dc7537bca3109c4128fb17ac7de"
+    },
+    {
+      "filename": "4-167077-A-20.wav",
+      "fold": 4,
+      "source": "167077",
+      "category": "crying_baby",
+      "sha256": "43a894a23a4a1bed053e2ca040f7029a5d9029269173d8bac1c650c52c03e937"
+    },
+    {
+      "filename": "4-167077-B-20.wav",
+      "fold": 4,
+      "source": "167077",
+      "category": "crying_baby",
+      "sha256": "0dd0122251e1b989c8309596e92ea95d06989db8b37d28fee3c485842f9f0014"
+    },
+    {
+      "filename": "5-151085-A-20.wav",
+      "fold": 5,
+      "source": "151085",
+      "category": "crying_baby",
+      "sha256": "e46d87b3673136a4d97b42f0ac6411ed299075bb2c88d61f7c456c0afe6804db"
+    },
+    {
+      "filename": "5-198411-A-20.wav",
+      "fold": 5,
+      "source": "198411",
+      "category": "crying_baby",
+      "sha256": "efa9989fa053f1bcb7916965791c7bf55c05e4e5acf0bd6d61c649d833659494"
+    },
+    {
+      "filename": "1-100032-A-0.wav",
+      "fold": 1,
+      "source": "100032",
+      "category": "dog",
+      "sha256": "f40a849a2375c8c63312a73dd2dd6c74007301fcc21b4be2ece29a642831e3d8"
+    },
+    {
+      "filename": "1-110389-A-0.wav",
+      "fold": 1,
+      "source": "110389",
+      "category": "dog",
+      "sha256": "4a18f3f834eb184b9f02595ac74c7de37ef8048a3da92f58f27018fec580b36a"
+    },
+    {
+      "filename": "2-114280-A-0.wav",
+      "fold": 2,
+      "source": "114280",
+      "category": "dog",
+      "sha256": "23cd06e6c8b2e054d13ad6392d34d91588cd8572041d6f4c1c337048fd5deb69"
+    },
+    {
+      "filename": "2-114587-A-0.wav",
+      "fold": 2,
+      "source": "114587",
+      "category": "dog",
+      "sha256": "34d7f9c32c2cda9b6b68483028bb85326259d1c5f2956eac2ecc48b18b06f999"
+    },
+    {
+      "filename": "3-136288-A-0.wav",
+      "fold": 3,
+      "source": "136288",
+      "category": "dog",
+      "sha256": "8293b4fe3c40cf9bbe243fa27d153bbef86217f855e4295e89f41411267c9f8d"
+    },
+    {
+      "filename": "3-144028-A-0.wav",
+      "fold": 3,
+      "source": "144028",
+      "category": "dog",
+      "sha256": "2828c40f81b8bdfded734b1ea057444f780d1ada4241a2dc2ab70c646f963b47"
+    },
+    {
+      "filename": "4-182395-A-0.wav",
+      "fold": 4,
+      "source": "182395",
+      "category": "dog",
+      "sha256": "c249bcb8ef81d12516ad17c8a77f88c01952cdf70b9413732af5fb8b803f9c7d"
+    },
+    {
+      "filename": "4-183992-A-0.wav",
+      "fold": 4,
+      "source": "183992",
+      "category": "dog",
+      "sha256": "96bf2e0efce166f347db6ae02b3c17d24acadffc45d67ad6015de7b1162f54dc"
+    },
+    {
+      "filename": "5-203128-A-0.wav",
+      "fold": 5,
+      "source": "203128",
+      "category": "dog",
+      "sha256": "435e476d5d429aa1cc51c23c9b5e5f8f472faf022846996ade18a457621d0552"
+    },
+    {
+      "filename": "5-203128-B-0.wav",
+      "fold": 5,
+      "source": "203128",
+      "category": "dog",
+      "sha256": "2a253659c2c3c86a0fbaf1e928d8a30933e90c7e7d4be43a3e4b4217e5be0c26"
+    },
+    {
+      "filename": "1-51805-A-33.wav",
+      "fold": 1,
+      "source": "51805",
+      "category": "door_wood_creaks",
+      "sha256": "4cb5f7267a35b54ee111306445dd3cb1ee73dc4993c3d31ddb81ca9728fdc873"
+    },
+    {
+      "filename": "1-51805-B-33.wav",
+      "fold": 1,
+      "source": "51805",
+      "category": "door_wood_creaks",
+      "sha256": "b38f246af1e037ac5abb6e3f68164bd95a2d98c8c93383b01fe811a8085d0be0"
+    },
+    {
+      "filename": "2-123712-A-33.wav",
+      "fold": 2,
+      "source": "123712",
+      "category": "door_wood_creaks",
+      "sha256": "dbc24b5fb968382149fb92d8327c6d212bf473c08818d2557f81d4d4db67dc00"
+    },
+    {
+      "filename": "2-70344-A-33.wav",
+      "fold": 2,
+      "source": "70344",
+      "category": "door_wood_creaks",
+      "sha256": "92265676ae4fc90fc3d48d4a7d90f0f839b0374772262ebd5e3bdadecfa38066"
+    },
+    {
+      "filename": "3-101381-A-33.wav",
+      "fold": 3,
+      "source": "101381",
+      "category": "door_wood_creaks",
+      "sha256": "426f8e0f4be9ecf0cb1c90ba93a32d8326b7a9f310d4e40922927984cec4d021"
+    },
+    {
+      "filename": "3-101381-B-33.wav",
+      "fold": 3,
+      "source": "101381",
+      "category": "door_wood_creaks",
+      "sha256": "12153d901fe1444cfedfa958cf69ddf4706b5a7000e47fe41f97a2d43d4c7a1f"
+    },
+    {
+      "filename": "4-107117-A-33.wav",
+      "fold": 4,
+      "source": "107117",
+      "category": "door_wood_creaks",
+      "sha256": "d6a08ce8c51ecfa83c89bac9741e0af29f245230cbb60141a275f3464e6e521b"
+    },
+    {
+      "filename": "4-107120-A-33.wav",
+      "fold": 4,
+      "source": "107120",
+      "category": "door_wood_creaks",
+      "sha256": "d803f4401007c030d0945e322aee546816cd376e557dc565a7353869bd620105"
+    },
+    {
+      "filename": "5-161270-A-33.wav",
+      "fold": 5,
+      "source": "161270",
+      "category": "door_wood_creaks",
+      "sha256": "c6f04bac09047ed1ccd4f596bf26d945b18839235baa1198e0c70dbea7636cb1"
+    },
+    {
+      "filename": "5-161270-B-33.wav",
+      "fold": 5,
+      "source": "161270",
+      "category": "door_wood_creaks",
+      "sha256": "6a2f509767223d519988b752b2b8ede5500012fb4efe91feaf2c02e2a9643bdc"
+    },
+    {
+      "filename": "1-101336-A-30.wav",
+      "fold": 1,
+      "source": "101336",
+      "category": "door_wood_knock",
+      "sha256": "e738266e395e378102f74e0920b05ff5937543788420d5b2a6b8d3df8bdb3910"
+    },
+    {
+      "filename": "1-103995-A-30.wav",
+      "fold": 1,
+      "source": "103995",
+      "category": "door_wood_knock",
+      "sha256": "1c1d3e65b7a58658766180d2faeeb9bdd1fe7405119bf100d9cd2f671a6e2b11"
+    },
+    {
+      "filename": "1-103999-A-30.wav",
+      "fold": 1,
+      "source": "103999",
+      "category": "door_wood_knock",
+      "sha256": "f33db9ec0b036d0dd17c911d456c33a59c0fc85974245a85fed56b8d2568724e"
+    },
+    {
+      "filename": "1-26188-A-30.wav",
+      "fold": 1,
+      "source": "26188",
+      "category": "door_wood_knock",
+      "sha256": "655277d3f1c75ddc67aada3ab350bd6029fea04d288b9c747e10bc84cc802de1"
+    },
+    {
+      "filename": "1-52290-A-30.wav",
+      "fold": 1,
+      "source": "52290",
+      "category": "door_wood_knock",
+      "sha256": "09082f42b1ee2bc467eab41e2251419eb29fbf0b8bb7ab72a4b04812641c5dc6"
+    },
+    {
+      "filename": "1-81001-A-30.wav",
+      "fold": 1,
+      "source": "81001",
+      "category": "door_wood_knock",
+      "sha256": "9f3bb3b76f7094b8f0df0385cc1feb208b55823efb08ab0cc50799a303400f48"
+    },
+    {
+      "filename": "1-81001-B-30.wav",
+      "fold": 1,
+      "source": "81001",
+      "category": "door_wood_knock",
+      "sha256": "bab8493c0ffff799ecfc8f1f112ec52a9efbf522535ad0007dedaf53e9c766b9"
+    },
+    {
+      "filename": "1-82817-A-30.wav",
+      "fold": 1,
+      "source": "82817",
+      "category": "door_wood_knock",
+      "sha256": "acfb2591c6a5430b3abbfe59c8a3c866e849576bb4327ac668721b91367220cf"
+    },
+    {
+      "filename": "2-114254-A-30.wav",
+      "fold": 2,
+      "source": "114254",
+      "category": "door_wood_knock",
+      "sha256": "5717c5c7a3bce7f38c9c444ef54f4c702cca53a6e368a6dc5b1cfb8388f7f9eb"
+    },
+    {
+      "filename": "2-118624-A-30.wav",
+      "fold": 2,
+      "source": "118624",
+      "category": "door_wood_knock",
+      "sha256": "9da7306a102bb32df6375513c35f7211c002b078b5d1161e3d8ca234867216e6"
+    },
+    {
+      "filename": "2-118625-A-30.wav",
+      "fold": 2,
+      "source": "118625",
+      "category": "door_wood_knock",
+      "sha256": "547e4a4b40cbc54a390e4e20ca8740bae55659dcd6dfaf3f872147fc7b87eb93"
+    },
+    {
+      "filename": "2-120218-A-30.wav",
+      "fold": 2,
+      "source": "120218",
+      "category": "door_wood_knock",
+      "sha256": "dae3ed8868e44ec84033f246f4e52817cb8805804083fd8d8aee9c109322d88c"
+    },
+    {
+      "filename": "2-120218-B-30.wav",
+      "fold": 2,
+      "source": "120218",
+      "category": "door_wood_knock",
+      "sha256": "a9a1af8ac24e54bd91cb8d6127baf42fca8502f49cf3d1cea1e9806d262aeab7"
+    },
+    {
+      "filename": "2-133889-A-30.wav",
+      "fold": 2,
+      "source": "133889",
+      "category": "door_wood_knock",
+      "sha256": "107b60bc008ec68f0cd71632c12b7518ed4dfd5183538fc31b80db3800ee6e3b"
+    },
+    {
+      "filename": "2-134915-A-30.wav",
+      "fold": 2,
+      "source": "134915",
+      "category": "door_wood_knock",
+      "sha256": "18d40b05f1f00bde85437275e099b2bc1d1ef55d98e9b086858b0506b270d9ee"
+    },
+    {
+      "filename": "2-140841-A-30.wav",
+      "fold": 2,
+      "source": "140841",
+      "category": "door_wood_knock",
+      "sha256": "1641e186482eb7088b54b56bfe3a2c4526b00e7f4ec046dddea6effe945e7298"
+    },
+    {
+      "filename": "3-144510-A-30.wav",
+      "fold": 3,
+      "source": "144510",
+      "category": "door_wood_knock",
+      "sha256": "c7fbb4cbda9d1f2950bf205212115a372b840382228c3baeb6451ae83366ee34"
+    },
+    {
+      "filename": "3-151089-A-30.wav",
+      "fold": 3,
+      "source": "151089",
+      "category": "door_wood_knock",
+      "sha256": "77f3f8c26ea85756b565e142b920908a443bc95cc2b3e1e2546e7a69746bc06c"
+    },
+    {
+      "filename": "3-152594-A-30.wav",
+      "fold": 3,
+      "source": "152594",
+      "category": "door_wood_knock",
+      "sha256": "8d897589e0bf01b2f19f4cc90253688711a522a05306ecc13fa7903f7be8bbdd"
+    },
+    {
+      "filename": "3-154378-A-30.wav",
+      "fold": 3,
+      "source": "154378",
+      "category": "door_wood_knock",
+      "sha256": "1621d5c3bb3b77d5e24a13751cb53e5924578c71bd1617578e12cc525d949a67"
+    },
+    {
+      "filename": "3-170574-A-30.wav",
+      "fold": 3,
+      "source": "170574",
+      "category": "door_wood_knock",
+      "sha256": "d017959970fb74e3ba50b976fbf3841a26b9ae38e29da0d1b82c31b8eb703c60"
+    },
+    {
+      "filename": "3-180147-A-30.wav",
+      "fold": 3,
+      "source": "180147",
+      "category": "door_wood_knock",
+      "sha256": "ce82be45dfc494abcefd7c0337d883d2ded12775dff29acc4de0b9a44b9a76e2"
+    },
+    {
+      "filename": "3-182023-A-30.wav",
+      "fold": 3,
+      "source": "182023",
+      "category": "door_wood_knock",
+      "sha256": "a5bc28b75bb25bd3f3cf0afb845a930e78e02aba383b31f593e1c9abf865736f"
+    },
+    {
+      "filename": "3-182025-A-30.wav",
+      "fold": 3,
+      "source": "182025",
+      "category": "door_wood_knock",
+      "sha256": "183c8545811df752f9c9a0a4c13ba03c9385dd87a645f5b84cff00b28b84eece"
+    },
+    {
+      "filename": "4-182034-A-30.wav",
+      "fold": 4,
+      "source": "182034",
+      "category": "door_wood_knock",
+      "sha256": "8548390103bfa9097087ea552b42e6b493697f9fbe0b9d78a1aefdbf8b18219f"
+    },
+    {
+      "filename": "4-182039-A-30.wav",
+      "fold": 4,
+      "source": "182039",
+      "category": "door_wood_knock",
+      "sha256": "64ba4dcfb42f253c93cf7b52d52584be213bcd058a9a8aa35055d76f10cc7920"
+    },
+    {
+      "filename": "4-182041-A-30.wav",
+      "fold": 4,
+      "source": "182041",
+      "category": "door_wood_knock",
+      "sha256": "9ccf22ef141031359b6547ef7b3b0cceef5ea7798ee90f5de87a84064dba23f7"
+    },
+    {
+      "filename": "4-186518-A-30.wav",
+      "fold": 4,
+      "source": "186518",
+      "category": "door_wood_knock",
+      "sha256": "20ac1b533d72043c8370ca5de40826e50d9a8c6cfaa098650e2044bda7ca12a0"
+    },
+    {
+      "filename": "4-187284-A-30.wav",
+      "fold": 4,
+      "source": "187284",
+      "category": "door_wood_knock",
+      "sha256": "c653e16e3ef1954e3ee3bf9ebb80bd80472cf59c05c211c1ada00fc9b10b0ac0"
+    },
+    {
+      "filename": "4-188878-A-30.wav",
+      "fold": 4,
+      "source": "188878",
+      "category": "door_wood_knock",
+      "sha256": "072852ce3b23b40d58774570a5758fae5b114be54a3d8242cf26a722ff735a07"
+    },
+    {
+      "filename": "4-211502-A-30.wav",
+      "fold": 4,
+      "source": "211502",
+      "category": "door_wood_knock",
+      "sha256": "8c6e71d485494707a94ce0563deaa5c4599a219e0a512151e8e77ed907775ad8"
+    },
+    {
+      "filename": "4-261068-A-30.wav",
+      "fold": 4,
+      "source": "261068",
+      "category": "door_wood_knock",
+      "sha256": "5f9bef85798486a2a5cdf712ef24f5ef12e84858dc7708fd5478d713cb243548"
+    },
+    {
+      "filename": "5-218980-A-30.wav",
+      "fold": 5,
+      "source": "218980",
+      "category": "door_wood_knock",
+      "sha256": "c917686cc7048be91d4dec61539344094a01233e649989264187388c9e95f82f"
+    },
+    {
+      "filename": "5-218981-A-30.wav",
+      "fold": 5,
+      "source": "218981",
+      "category": "door_wood_knock",
+      "sha256": "b699b80f84ba074526d993750226ec6723b5679393a92fa3d266ea67767d5cca"
+    },
+    {
+      "filename": "5-235644-A-30.wav",
+      "fold": 5,
+      "source": "235644",
+      "category": "door_wood_knock",
+      "sha256": "e8104799065c308f8a9c5909f088333ea88e1de05c5a08cf511e9c1387f25fc0"
+    },
+    {
+      "filename": "5-250026-A-30.wav",
+      "fold": 5,
+      "source": "250026",
+      "category": "door_wood_knock",
+      "sha256": "6d249f1a956ff78b494ddd919f2ff032f092e2ca0adccb47fef00e8cc03edf6d"
+    },
+    {
+      "filename": "5-250026-B-30.wav",
+      "fold": 5,
+      "source": "250026",
+      "category": "door_wood_knock",
+      "sha256": "bf4afd0d31614ca48977c54525fd0655c9c9df13a0f4467557c308d4f41e888b"
+    },
+    {
+      "filename": "5-251426-A-30.wav",
+      "fold": 5,
+      "source": "251426",
+      "category": "door_wood_knock",
+      "sha256": "076bf69727d6ea75ecc891992f728b66deff2d4be6b68d636865ccc77841bdda"
+    },
+    {
+      "filename": "5-251426-B-30.wav",
+      "fold": 5,
+      "source": "251426",
+      "category": "door_wood_knock",
+      "sha256": "2738fe71989e18f2e8e0800c678793af2eeba6ca84551f8745f64d21e738ab81"
+    },
+    {
+      "filename": "5-256512-A-30.wav",
+      "fold": 5,
+      "source": "256512",
+      "category": "door_wood_knock",
+      "sha256": "df74f2bee45f36c528a27035f0a8b50c71b833a6e7c8c39f42a0f4448f968dbf"
+    },
+    {
+      "filename": "1-17295-A-29.wav",
+      "fold": 1,
+      "source": "17295",
+      "category": "drinking_sipping",
+      "sha256": "e601deb1b2033c14d36562eb79bb2dbda60fd8f337d8c5d0d810ea65f2ef7c2f"
+    },
+    {
+      "filename": "1-32579-A-29.wav",
+      "fold": 1,
+      "source": "32579",
+      "category": "drinking_sipping",
+      "sha256": "09aadaee91c6b1d80037cc2772e3504346af133331d18357c68b9d0ae2d96f76"
+    },
+    {
+      "filename": "2-102581-A-29.wav",
+      "fold": 2,
+      "source": "102581",
+      "category": "drinking_sipping",
+      "sha256": "763fc1ec762d5b56f89fe46e07a1b5118b06772ed9e4db918a8705616d07ea2b"
+    },
+    {
+      "filename": "2-102581-B-29.wav",
+      "fold": 2,
+      "source": "102581",
+      "category": "drinking_sipping",
+      "sha256": "e1b4c94a0b2cb944c6a25f205d6e519f98303d5cf40a08b1f69165c9859e601f"
+    },
+    {
+      "filename": "3-133977-A-29.wav",
+      "fold": 3,
+      "source": "133977",
+      "category": "drinking_sipping",
+      "sha256": "127ab2b80563a740c639e293d477469b1bbcb00965f9684155149863a8457a9b"
+    },
+    {
+      "filename": "3-140323-A-29.wav",
+      "fold": 3,
+      "source": "140323",
+      "category": "drinking_sipping",
+      "sha256": "893519966b06f16371201e4401a7f30bb893095894c99e6cccdb6a244b292c44"
+    },
+    {
+      "filename": "4-188191-A-29.wav",
+      "fold": 4,
+      "source": "188191",
+      "category": "drinking_sipping",
+      "sha256": "401d8a4c4594bc8cb8b13bd3fb0d1f0c4b847c6f86651659302ea2b5df1dfa39"
+    },
+    {
+      "filename": "4-188191-B-29.wav",
+      "fold": 4,
+      "source": "188191",
+      "category": "drinking_sipping",
+      "sha256": "1e279878eecd227515dedbdda515ab3f26d073a4a36c4dfae1b9f4f9e78ee5dc"
+    },
+    {
+      "filename": "5-204114-A-29.wav",
+      "fold": 5,
+      "source": "204114",
+      "category": "drinking_sipping",
+      "sha256": "994383e744a6f4d248ecc1a1a786aaf6a53517db706498705b70459a59759a88"
+    },
+    {
+      "filename": "5-207836-A-29.wav",
+      "fold": 5,
+      "source": "207836",
+      "category": "drinking_sipping",
+      "sha256": "c32f9fbd06cab882ed9d3f6e9dd8c95558b4be46a01df951a0b8b4fb3d3cb0b1"
+    },
+    {
+      "filename": "1-18527-A-44.wav",
+      "fold": 1,
+      "source": "18527",
+      "category": "engine",
+      "sha256": "83eb3e6065246fd87d1acbbe414aa5bfb7c2081a57c188713cdc017819ffc38f"
+    },
+    {
+      "filename": "1-18527-B-44.wav",
+      "fold": 1,
+      "source": "18527",
+      "category": "engine",
+      "sha256": "40f0ab8a2fa68cbdf814f10fc8b2c26916b3dc54c1b0e719d4697ba58c0bdb81"
+    },
+    {
+      "filename": "2-106014-A-44.wav",
+      "fold": 2,
+      "source": "106014",
+      "category": "engine",
+      "sha256": "b996815242ac0a881ee3f7e5f57f1c11e2254ae0c502014045e44c625e43afc2"
+    },
+    {
+      "filename": "2-106015-A-44.wav",
+      "fold": 2,
+      "source": "106015",
+      "category": "engine",
+      "sha256": "f0ba6aad7c9281f54565f01bb64435407705b363f81d67f0d1eab4532b40140c"
+    },
+    {
+      "filename": "3-115382-A-44.wav",
+      "fold": 3,
+      "source": "115382",
+      "category": "engine",
+      "sha256": "4f51f65b566eef881caa7a2ed1462b48eded5873ccd2afbe8b623863adf606d5"
+    },
+    {
+      "filename": "3-119455-A-44.wav",
+      "fold": 3,
+      "source": "119455",
+      "category": "engine",
+      "sha256": "55e2db4129ffd266af0a05f00129b1f60313a5f812d078d0a7a31167f40c04e0"
+    },
+    {
+      "filename": "4-171652-A-44.wav",
+      "fold": 4,
+      "source": "171652",
+      "category": "engine",
+      "sha256": "5f0b309e3fa62f6b34763b72f641d7ce1318a1db2fcd7c5ddd27cf380fd58401"
+    },
+    {
+      "filename": "4-186935-A-44.wav",
+      "fold": 4,
+      "source": "186935",
+      "category": "engine",
+      "sha256": "d5fa3e05bb7222e031cf0fde1866e20aee5f3686d45a69337757930c46769bf4"
+    },
+    {
+      "filename": "5-209992-A-44.wav",
+      "fold": 5,
+      "source": "209992",
+      "category": "engine",
+      "sha256": "502bb337b61dfa4080eb22b9098a2b38f975c1544933187f530a5552eb7bd32d"
+    },
+    {
+      "filename": "5-209992-B-44.wav",
+      "fold": 5,
+      "source": "209992",
+      "category": "engine",
+      "sha256": "210d731a79cc9f328dfa5c7e23908732e56ff420accf60d3d1a43b5aa15207fd"
+    },
+    {
+      "filename": "1-115545-A-48.wav",
+      "fold": 1,
+      "source": "115545",
+      "category": "fireworks",
+      "sha256": "3ac50abf1e7c9b3086585d7d786c2f6b7b4b884108ceb4c4f643f8e3fa4caaab"
+    },
+    {
+      "filename": "1-115545-B-48.wav",
+      "fold": 1,
+      "source": "115545",
+      "category": "fireworks",
+      "sha256": "5f0f6888b96325412665b9265ffecfc6337f07d9e71bf98205304f9e28fd34a2"
+    },
+    {
+      "filename": "2-117615-A-48.wav",
+      "fold": 2,
+      "source": "117615",
+      "category": "fireworks",
+      "sha256": "767834d60f2684da8efbcfa1a91709670bce90919ef579cc36bb13ff514f1f08"
+    },
+    {
+      "filename": "2-117615-B-48.wav",
+      "fold": 2,
+      "source": "117615",
+      "category": "fireworks",
+      "sha256": "1dfdaa1f7b217ba393c52ce9bb70a945393ab3b73af9b1ce56627a56d38caabb"
+    },
+    {
+      "filename": "3-119120-A-48.wav",
+      "fold": 3,
+      "source": "119120",
+      "category": "fireworks",
+      "sha256": "baad57c9428d78f0e0de5eaa79fff661478c37433bfd6cb6031c0c92135a4cc0"
+    },
+    {
+      "filename": "3-119120-B-48.wav",
+      "fold": 3,
+      "source": "119120",
+      "category": "fireworks",
+      "sha256": "3dbb97983366a994bd607b064da52879a47b68f7194f202987aa45e0d947cf9e"
+    },
+    {
+      "filename": "4-119647-A-48.wav",
+      "fold": 4,
+      "source": "119647",
+      "category": "fireworks",
+      "sha256": "0ee8c78bf99e24c3733bfa9044f543f9437909ca12dc85d9322e1f45b03cc526"
+    },
+    {
+      "filename": "4-119647-B-48.wav",
+      "fold": 4,
+      "source": "119647",
+      "category": "fireworks",
+      "sha256": "7fcd04a7f1498553b18ea495a3a7ff2780a7987fda56c3269da8cabe2ea7c1c0"
+    },
+    {
+      "filename": "5-160614-A-48.wav",
+      "fold": 5,
+      "source": "160614",
+      "category": "fireworks",
+      "sha256": "57496037b7b4ab12b6b755c73d17afb8b89ec1b7fad73d7d54d37ae7af9818bd"
+    },
+    {
+      "filename": "5-160614-B-48.wav",
+      "fold": 5,
+      "source": "160614",
+      "category": "fireworks",
+      "sha256": "a07456913dcad28d93b278a68ecfdc4a2182ac707374b7f96e040de95a03ed57"
+    },
+    {
+      "filename": "1-155858-A-25.wav",
+      "fold": 1,
+      "source": "155858",
+      "category": "footsteps",
+      "sha256": "cb90f52c7fe7d0d994941b2e6de555cb36e898fb49b52cc31f08401ac464e7c6"
+    },
+    {
+      "filename": "1-155858-B-25.wav",
+      "fold": 1,
+      "source": "155858",
+      "category": "footsteps",
+      "sha256": "234358f787b98c5903fcf56f7fc4c97fda2b4f0ad5311bd35f9c6c6c9a4b2277"
+    },
+    {
+      "filename": "2-209471-A-25.wav",
+      "fold": 2,
+      "source": "209471",
+      "category": "footsteps",
+      "sha256": "cb524320343acf17254aea4035a3b83aaa3a92000720d6a90014816f7096d0bf"
+    },
+    {
+      "filename": "2-209472-A-25.wav",
+      "fold": 2,
+      "source": "209472",
+      "category": "footsteps",
+      "sha256": "1c4aa8effdf21245b610377a7a94060c0661ceb002d2c37b35ae345de1f4cca0"
+    },
+    {
+      "filename": "3-103597-A-25.wav",
+      "fold": 3,
+      "source": "103597",
+      "category": "footsteps",
+      "sha256": "4d1fca3296291bcb12ca41ebf0a1f7edb2e2c8213cc04d61e8ebb62b98bf5638"
+    },
+    {
+      "filename": "3-103598-A-25.wav",
+      "fold": 3,
+      "source": "103598",
+      "category": "footsteps",
+      "sha256": "7d07efd243f85872330deb7ed4d78dd3f03cd415228259e9dce712140a1d7cec"
+    },
+    {
+      "filename": "4-117627-A-25.wav",
+      "fold": 4,
+      "source": "117627",
+      "category": "footsteps",
+      "sha256": "bee53dc6ab282257b4a70a852d6235104ec74bdb380f0a83b706f1ab88b356ca"
+    },
+    {
+      "filename": "4-117630-A-25.wav",
+      "fold": 4,
+      "source": "117630",
+      "category": "footsteps",
+      "sha256": "70beb5f16c161f46b7c672b8bc85724ced5d69db1e29d7f137ad94f4c1215d08"
+    },
+    {
+      "filename": "5-234263-A-25.wav",
+      "fold": 5,
+      "source": "234263",
+      "category": "footsteps",
+      "sha256": "b83813a8a07ac187c280204b4ac4a015c0cff5a84bf5a7b7e3aa03b6e726910d"
+    },
+    {
+      "filename": "5-234855-A-25.wav",
+      "fold": 5,
+      "source": "234855",
+      "category": "footsteps",
+      "sha256": "d1b33538a11d787c1f9ff9e33a9160a66570e0830b2e9b349df3d10d16179f8a"
+    },
+    {
+      "filename": "1-15689-A-4.wav",
+      "fold": 1,
+      "source": "15689",
+      "category": "frog",
+      "sha256": "bdb124b7004b02ab8299f7d7389d15b5eb53e12002cff379d49dcdec4d8b1372"
+    },
+    {
+      "filename": "1-15689-B-4.wav",
+      "fold": 1,
+      "source": "15689",
+      "category": "frog",
+      "sha256": "db7a1d190931f1101d533661852e3cdebaa2b89c4b743385b201391be7de003d"
+    },
+    {
+      "filename": "2-32515-A-4.wav",
+      "fold": 2,
+      "source": "32515",
+      "category": "frog",
+      "sha256": "229efc7a3fb6c6cb96dde4ef6c8f9f0472638835249801563d88d68d34885654"
+    },
+    {
+      "filename": "2-32515-B-4.wav",
+      "fold": 2,
+      "source": "32515",
+      "category": "frog",
+      "sha256": "076124f0a17498055ab1fa51af998dd8e24a96e791e32da1224c69bfab030e95"
+    },
+    {
+      "filename": "3-102908-A-4.wav",
+      "fold": 3,
+      "source": "102908",
+      "category": "frog",
+      "sha256": "6ab7175db115e478c82e0981bead1bbd4e5766e1527aef8d1d61c1ba674dd5cc"
+    },
+    {
+      "filename": "3-70962-A-4.wav",
+      "fold": 3,
+      "source": "70962",
+      "category": "frog",
+      "sha256": "678df375c2e35eebad0f251d1ce6240139a93c87c0ec5ca6c4937b7032477145"
+    },
+    {
+      "filename": "4-130584-A-4.wav",
+      "fold": 4,
+      "source": "130584",
+      "category": "frog",
+      "sha256": "e532de799975d8f91e61e7cd5f0bf22138ccd49b43f6973f0d17ac3c1c207a4c"
+    },
+    {
+      "filename": "4-154793-A-4.wav",
+      "fold": 4,
+      "source": "154793",
+      "category": "frog",
+      "sha256": "70848cc5cfe7f2c5f3ef1266f47901c50463a4887ff6ffa8910cba9b22c89d4f"
+    },
+    {
+      "filename": "5-156026-A-4.wav",
+      "fold": 5,
+      "source": "156026",
+      "category": "frog",
+      "sha256": "ef687ba63c3d6250946a224bdb96ca9b6728b579daa64a7236e4c2acee33606a"
+    },
+    {
+      "filename": "5-156026-B-4.wav",
+      "fold": 5,
+      "source": "156026",
+      "category": "frog",
+      "sha256": "19ac15e1587e6e0d89f37ca13a5b8b4c2522eac5f6887d0b4b67f4d35073ecc6"
+    },
+    {
+      "filename": "1-20133-A-39.wav",
+      "fold": 1,
+      "source": "20133",
+      "category": "glass_breaking",
+      "sha256": "db6946133c37fbd4513fe932dbb71e0b077bf7d240beaed339eb6c88e48c903b"
+    },
+    {
+      "filename": "1-84536-A-39.wav",
+      "fold": 1,
+      "source": "84536",
+      "category": "glass_breaking",
+      "sha256": "79efba4c0c54acadc88783e83b428fc9c430db94515b25339a6b5598e2ade0c0"
+    },
+    {
+      "filename": "1-84704-A-39.wav",
+      "fold": 1,
+      "source": "84704",
+      "category": "glass_breaking",
+      "sha256": "c3e1abf0273f02b5f89e7d51cb890f3ad1575dc55fe1023650b0860b6f3abd15"
+    },
+    {
+      "filename": "1-84705-A-39.wav",
+      "fold": 1,
+      "source": "84705",
+      "category": "glass_breaking",
+      "sha256": "e8cc52dd91213cd69031e10c0fe15f77230f588ececb13cc7c906c43ece32336"
+    },
+    {
+      "filename": "1-85168-A-39.wav",
+      "fold": 1,
+      "source": "85168",
+      "category": "glass_breaking",
+      "sha256": "08fcf5a7656cc1c824122aba2a7dd1107130a0f9d6f3e3b73e7d06575b246ed5"
+    },
+    {
+      "filename": "1-85184-A-39.wav",
+      "fold": 1,
+      "source": "85184",
+      "category": "glass_breaking",
+      "sha256": "aafacfae6a441ba21f4c76a11042726f933272709a099a54a15a905a1d65b837"
+    },
+    {
+      "filename": "1-88807-A-39.wav",
+      "fold": 1,
+      "source": "88807",
+      "category": "glass_breaking",
+      "sha256": "e5c368173342c2acba450c7d3116fac74fcec86bc8dc26055c6da7ebc509d191"
+    },
+    {
+      "filename": "1-977-A-39.wav",
+      "fold": 1,
+      "source": "977",
+      "category": "glass_breaking",
+      "sha256": "67c88e07db9e2dd7a7551f0c5b99da315ce7df041f83ed57b479d8fda8fbfe27"
+    },
+    {
+      "filename": "2-106881-A-39.wav",
+      "fold": 2,
+      "source": "106881",
+      "category": "glass_breaking",
+      "sha256": "e54a661c1fff8150b7c34d54da1686a18eaeaaf454394b866a251ceb68e3f886"
+    },
+    {
+      "filename": "2-112213-A-39.wav",
+      "fold": 2,
+      "source": "112213",
+      "category": "glass_breaking",
+      "sha256": "a6b60fb2268d7f0ceda0ff6f798d2d51b4ceb08218b3ac5ca91980a42d9c706b"
+    },
+    {
+      "filename": "2-112213-B-39.wav",
+      "fold": 2,
+      "source": "112213",
+      "category": "glass_breaking",
+      "sha256": "d1d705535a4506b6e7f94c8ebff688bc0aa8bc115b42e8daf13542bec4f90ac7"
+    },
+    {
+      "filename": "2-141563-A-39.wav",
+      "fold": 2,
+      "source": "141563",
+      "category": "glass_breaking",
+      "sha256": "3ef4dae6a116b3d18a0f9f18d4373f0247debb168b0718eee89c0a30a38890c7"
+    },
+    {
+      "filename": "2-173559-A-39.wav",
+      "fold": 2,
+      "source": "173559",
+      "category": "glass_breaking",
+      "sha256": "e60d74d17651551cb82e4fd8a542ceae3f278da1a6b4393fe9e704c786ff4125"
+    },
+    {
+      "filename": "2-173607-A-39.wav",
+      "fold": 2,
+      "source": "173607",
+      "category": "glass_breaking",
+      "sha256": "55cc07864f3f8195e51bbdf10fda1601df6b5ff0d5f486a356d79b60c0beb3d6"
+    },
+    {
+      "filename": "2-173618-A-39.wav",
+      "fold": 2,
+      "source": "173618",
+      "category": "glass_breaking",
+      "sha256": "9170ecdc0903514ded47782447d6f0828d752ebc9765fa0cb257f869529dd830"
+    },
+    {
+      "filename": "2-250710-A-39.wav",
+      "fold": 2,
+      "source": "250710",
+      "category": "glass_breaking",
+      "sha256": "ca0b7286ded500bd1f1928ef96ad5c35704bec66a790181afeb17ec7d995dbac"
+    },
+    {
+      "filename": "3-203371-A-39.wav",
+      "fold": 3,
+      "source": "203371",
+      "category": "glass_breaking",
+      "sha256": "60a600ff3e1ac00b41c60b0e3979ee8b1b46ebfcbc370523389094e4fbda415b"
+    },
+    {
+      "filename": "3-203373-A-39.wav",
+      "fold": 3,
+      "source": "203373",
+      "category": "glass_breaking",
+      "sha256": "beb0605537f3fe20e98b54f19f20842d92b7a95f9408dee41e620a8955b33111"
+    },
+    {
+      "filename": "3-203374-A-39.wav",
+      "fold": 3,
+      "source": "203374",
+      "category": "glass_breaking",
+      "sha256": "d2d0b97a0ad01b927a83605cd4e5cc988c4b868e1e01a4fa874563c038e16473"
+    },
+    {
+      "filename": "3-203375-A-39.wav",
+      "fold": 3,
+      "source": "203375",
+      "category": "glass_breaking",
+      "sha256": "b6a987feb4855cf91f55498dcc04bee4fd0f8ed06290d451ce37a07fff230feb"
+    },
+    {
+      "filename": "3-203377-A-39.wav",
+      "fold": 3,
+      "source": "203377",
+      "category": "glass_breaking",
+      "sha256": "66c6c338f75f509754b454cedae44597f70c97a44f79a3079da0183a63e34562"
+    },
+    {
+      "filename": "3-216280-A-39.wav",
+      "fold": 3,
+      "source": "216280",
+      "category": "glass_breaking",
+      "sha256": "2ff2076e898eb818ee6ce5edb615126500b72f6c2fb525ea6bd411d73f8ca580"
+    },
+    {
+      "filename": "3-216281-A-39.wav",
+      "fold": 3,
+      "source": "216281",
+      "category": "glass_breaking",
+      "sha256": "6f0ae114a872f560946a6a45d474f2b9e0664325ac5b236bc396723ecfbcb5ff"
+    },
+    {
+      "filename": "3-216284-A-39.wav",
+      "fold": 3,
+      "source": "216284",
+      "category": "glass_breaking",
+      "sha256": "b494fb47b9afd88715976c1476e6115024b8869681a293ea761fea72a03abf3e"
+    },
+    {
+      "filename": "4-204115-A-39.wav",
+      "fold": 4,
+      "source": "204115",
+      "category": "glass_breaking",
+      "sha256": "3d4a520122727b384d55738c254f33103e1eee73152f4c45893736089915eff9"
+    },
+    {
+      "filename": "4-204119-A-39.wav",
+      "fold": 4,
+      "source": "204119",
+      "category": "glass_breaking",
+      "sha256": "2fbc4acd76fa931f8461c3370eeef3e417b1ea28da20eff7874d4b4e2177fc41"
+    },
+    {
+      "filename": "4-204121-A-39.wav",
+      "fold": 4,
+      "source": "204121",
+      "category": "glass_breaking",
+      "sha256": "ad42b3c91dd21d4f3a8238290c20dac179e7a7674320dab7029c5b111116d1d1"
+    },
+    {
+      "filename": "4-204123-A-39.wav",
+      "fold": 4,
+      "source": "204123",
+      "category": "glass_breaking",
+      "sha256": "a35fd2223acb65ae87ab1e3ad4c774e8cda44a5482b639f11b6aa0d8065b4a7a"
+    },
+    {
+      "filename": "4-204777-A-39.wav",
+      "fold": 4,
+      "source": "204777",
+      "category": "glass_breaking",
+      "sha256": "872608ee9201b147b13b9cdc871558b39368bd09d3eb7dc469544866e414c0f8"
+    },
+    {
+      "filename": "4-204777-B-39.wav",
+      "fold": 4,
+      "source": "204777",
+      "category": "glass_breaking",
+      "sha256": "98b930c2e4028e80749d82616ccba7640e58650a9ccf7770a77f814e3b2dcd24"
+    },
+    {
+      "filename": "4-204777-C-39.wav",
+      "fold": 4,
+      "source": "204777",
+      "category": "glass_breaking",
+      "sha256": "88bbd7af8f04d1b46f9e0c13a304223efea777c1dd908564b8eff73b9774477b"
+    },
+    {
+      "filename": "4-212698-A-39.wav",
+      "fold": 4,
+      "source": "212698",
+      "category": "glass_breaking",
+      "sha256": "4491d08becad3c0074b46fbe25eeb7536a458036ecd5eed77f5709ed77313ef8"
+    },
+    {
+      "filename": "5-221528-A-39.wav",
+      "fold": 5,
+      "source": "221528",
+      "category": "glass_breaking",
+      "sha256": "f4796e4ec53c1dee2257365e58ff5ab75cf37d9a813f07b681927e85ee472cde"
+    },
+    {
+      "filename": "5-221529-A-39.wav",
+      "fold": 5,
+      "source": "221529",
+      "category": "glass_breaking",
+      "sha256": "3863f5097117a5eebbb75ca1a9eddd13fb2cd735542313fe5aa88c940db6a758"
+    },
+    {
+      "filename": "5-233605-A-39.wav",
+      "fold": 5,
+      "source": "233605",
+      "category": "glass_breaking",
+      "sha256": "ae86e74bf03c69cb2c2962b7327b5524dda7d531e553b9fab91a375de5299bff"
+    },
+    {
+      "filename": "5-233607-A-39.wav",
+      "fold": 5,
+      "source": "233607",
+      "category": "glass_breaking",
+      "sha256": "c2988d2ecd448a3e27bc80a248355a5d3bb85c769ec25f37fda4b9ec990c94dc"
+    },
+    {
+      "filename": "5-257642-A-39.wav",
+      "fold": 5,
+      "source": "257642",
+      "category": "glass_breaking",
+      "sha256": "a93747921a23b090d444c7ecc57adace2d856abbe18c038bd52773a57512613b"
+    },
+    {
+      "filename": "5-260432-A-39.wav",
+      "fold": 5,
+      "source": "260432",
+      "category": "glass_breaking",
+      "sha256": "e1da0f73ebaca89112dfd6aff25d154c08961aab7eeea5ed033223d6cabfaef0"
+    },
+    {
+      "filename": "5-260433-A-39.wav",
+      "fold": 5,
+      "source": "260433",
+      "category": "glass_breaking",
+      "sha256": "04a46ed54d5159b4afa7015d9799901a2806f3012507fa6bc923e23124efcdfc"
+    },
+    {
+      "filename": "5-260434-A-39.wav",
+      "fold": 5,
+      "source": "260434",
+      "category": "glass_breaking",
+      "sha256": "92d7ac3de371429d81338c1233cadfbcfb3873253c005f2f6aa4be7dce8a014e"
+    },
+    {
+      "filename": "1-18810-A-49.wav",
+      "fold": 1,
+      "source": "18810",
+      "category": "hand_saw",
+      "sha256": "f3597d925f71cc6a85f03cd08edeed6657b5433d70c229484d8f6cc0236e9df8"
+    },
+    {
+      "filename": "1-23706-A-49.wav",
+      "fold": 1,
+      "source": "23706",
+      "category": "hand_saw",
+      "sha256": "578e665791e50b49fd105745ee79e3974b5fe323c7712aad4cd8bce67e21bf76"
+    },
+    {
+      "filename": "2-135860-A-49.wav",
+      "fold": 2,
+      "source": "135860",
+      "category": "hand_saw",
+      "sha256": "d454aa30999e63581e2d8aa669742f1641bc34842b86e031cd94a22a23935f83"
+    },
+    {
+      "filename": "2-184077-A-49.wav",
+      "fold": 2,
+      "source": "184077",
+      "category": "hand_saw",
+      "sha256": "e35bd5d16020ec5e0f8d89315d45c7df8dabaac3eb7b587467c347fd0ca32e2a"
+    },
+    {
+      "filename": "3-102583-A-49.wav",
+      "fold": 3,
+      "source": "102583",
+      "category": "hand_saw",
+      "sha256": "7b98b19a3cb9ecc64ddab6e9c655d0073bb4060c2c560c41cbf311efcd26534b"
+    },
+    {
+      "filename": "3-102583-B-49.wav",
+      "fold": 3,
+      "source": "102583",
+      "category": "hand_saw",
+      "sha256": "f40137ad96bbd4c0dc15ec6acefa2a50fba7cc2289daf0257f1d3c1484383ba3"
+    },
+    {
+      "filename": "4-102844-A-49.wav",
+      "fold": 4,
+      "source": "102844",
+      "category": "hand_saw",
+      "sha256": "88b8095737537853469f06c3d920fe29b91588e48e5bd687f6938cf1bbb3b438"
+    },
+    {
+      "filename": "4-102844-B-49.wav",
+      "fold": 4,
+      "source": "102844",
+      "category": "hand_saw",
+      "sha256": "10790b1820fcae676e76a7c54f6d8378cecdb5087bd60fa49e021b7df920c89d"
+    },
+    {
+      "filename": "5-250258-A-49.wav",
+      "fold": 5,
+      "source": "250258",
+      "category": "hand_saw",
+      "sha256": "7885b67aab389431fc8b3799d1d6962dce6a6c76f0187a3e98d53f9008a5e7a5"
+    },
+    {
+      "filename": "5-253094-A-49.wav",
+      "fold": 5,
+      "source": "253094",
+      "category": "hand_saw",
+      "sha256": "adef71efcffdbc20d1889b60ad57b15b7b3df8fc10628ca1ccd9fe62f6be98ea"
+    },
+    {
+      "filename": "1-172649-A-40.wav",
+      "fold": 1,
+      "source": "172649",
+      "category": "helicopter",
+      "sha256": "23ad50d792907e1caa894e6e31bb623938ae0417606b830b433da11ca2ecb2f4"
+    },
+    {
+      "filename": "1-172649-B-40.wav",
+      "fold": 1,
+      "source": "172649",
+      "category": "helicopter",
+      "sha256": "ca32a4cd05246a83b4ede5ecd48d05de0fd026169002f786f28de7eaa3693630"
+    },
+    {
+      "filename": "2-188822-A-40.wav",
+      "fold": 2,
+      "source": "188822",
+      "category": "helicopter",
+      "sha256": "b5a49dab9e1ba8bf7c694ae863d3f73747102cd73b74d3a2060fe66e9796d91d"
+    },
+    {
+      "filename": "2-188822-B-40.wav",
+      "fold": 2,
+      "source": "188822",
+      "category": "helicopter",
+      "sha256": "2c6928f5af242d0da9bfa41749ff6d606785ab179754a275c2be9d7c3b64461f"
+    },
+    {
+      "filename": "3-150979-A-40.wav",
+      "fold": 3,
+      "source": "150979",
+      "category": "helicopter",
+      "sha256": "41e05ff06cd2d710f748b0d10bf136fd6e11d489327cbeafed690918b417fc42"
+    },
+    {
+      "filename": "3-150979-B-40.wav",
+      "fold": 3,
+      "source": "150979",
+      "category": "helicopter",
+      "sha256": "60f34984d5387e02be66cd64b3170c1b2c1d953defe874930c15f8fd775dc34d"
+    },
+    {
+      "filename": "4-125929-A-40.wav",
+      "fold": 4,
+      "source": "125929",
+      "category": "helicopter",
+      "sha256": "adfb82d86a3b2a7ac8fcf85c98f6b222ef5b0e47991cf6c0047e3d99e2f11443"
+    },
+    {
+      "filename": "4-161579-A-40.wav",
+      "fold": 4,
+      "source": "161579",
+      "category": "helicopter",
+      "sha256": "74bfa5c0c1d5926aa20fa25d4b57fc3cd445208a23200e282f5f603dc2d0fdc8"
+    },
+    {
+      "filename": "5-177957-A-40.wav",
+      "fold": 5,
+      "source": "177957",
+      "category": "helicopter",
+      "sha256": "923786a6b83adcee780dc8afa78e3c4c1329ab6c679543bb08a0f56821f21f60"
+    },
+    {
+      "filename": "5-177957-B-40.wav",
+      "fold": 5,
+      "source": "177957",
+      "category": "helicopter",
+      "sha256": "0328636d7592af9a974c4939c54150aaad7b383c1d1e80793eb71af209b7c0ca"
+    },
+    {
+      "filename": "1-18074-A-6.wav",
+      "fold": 1,
+      "source": "18074",
+      "category": "hen",
+      "sha256": "26c99da1d62a3e93371e13ff1b5e29003e40e2bfdc9334f46672c1de232be243"
+    },
+    {
+      "filename": "1-18074-B-6.wav",
+      "fold": 1,
+      "source": "18074",
+      "category": "hen",
+      "sha256": "68c54aaccb36a91281ca689aaa8d4d888e7a53c571f4c00995a9f69b5ba1d333"
+    },
+    {
+      "filename": "2-120586-A-6.wav",
+      "fold": 2,
+      "source": "120586",
+      "category": "hen",
+      "sha256": "b077480a9b26ba20472e4c0263544c86a0af49351057072dde7bb2d483a054da"
+    },
+    {
+      "filename": "2-120587-A-6.wav",
+      "fold": 2,
+      "source": "120587",
+      "category": "hen",
+      "sha256": "1f8830d0c8a05a78b998e43fbfc565af636156147f7b5cadaa598ff1f12f4c64"
+    },
+    {
+      "filename": "3-164216-A-6.wav",
+      "fold": 3,
+      "source": "164216",
+      "category": "hen",
+      "sha256": "f41a1d639e47803b31e2d381429bcb575d12d70da6876e3c0242b4e51dcc30be"
+    },
+    {
+      "filename": "3-164216-B-6.wav",
+      "fold": 3,
+      "source": "164216",
+      "category": "hen",
+      "sha256": "b3d51f822f3035dc50344c9fbe40a1cf629a2a44884a4aadf51a7c01bce97f8c"
+    },
+    {
+      "filename": "4-197103-A-6.wav",
+      "fold": 4,
+      "source": "197103",
+      "category": "hen",
+      "sha256": "d0c5fbdc173e229b546b90a48df9b4e200345c8a65cba46d87854c3f06ad8a69"
+    },
+    {
+      "filename": "4-200330-A-6.wav",
+      "fold": 4,
+      "source": "200330",
+      "category": "hen",
+      "sha256": "b6cbe6028a1e03049705ac5fc2dc3dfd983f42fafc711df8848aaaa725342f2c"
+    },
+    {
+      "filename": "5-244315-A-6.wav",
+      "fold": 5,
+      "source": "244315",
+      "category": "hen",
+      "sha256": "e0ef3282ef0723fc48b884cdcb8dd03101cdd4020905658186c2565624ca9555"
+    },
+    {
+      "filename": "5-244315-B-6.wav",
+      "fold": 5,
+      "source": "244315",
+      "category": "hen",
+      "sha256": "1f849e38d13a09796a0089d2b33fcfe08e254e573d707ba7c1c41ffdcf6d27bd"
+    },
+    {
+      "filename": "1-17585-A-7.wav",
+      "fold": 1,
+      "source": "17585",
+      "category": "insects",
+      "sha256": "beb564e150ce6aab27740bb44445cc710695979362b43edea09c90552723b9ce"
+    },
+    {
+      "filename": "1-19501-A-7.wav",
+      "fold": 1,
+      "source": "19501",
+      "category": "insects",
+      "sha256": "d10dfa62d347aa2b72dc8c6e1c1d76125f59c37d08596f2b62e91e82502acb78"
+    },
+    {
+      "filename": "2-160128-A-7.wav",
+      "fold": 2,
+      "source": "160128",
+      "category": "insects",
+      "sha256": "e5b29a67400bf3ad91670d13969771c71b17d33ceb5c73b3325384b1d2b0d55a"
+    },
+    {
+      "filename": "2-81970-A-7.wav",
+      "fold": 2,
+      "source": "81970",
+      "category": "insects",
+      "sha256": "424e1adafdcaa01fc5cb9afec55f7f0fa92c73236e113f4919cbc63d58aa2930"
+    },
+    {
+      "filename": "3-104761-A-7.wav",
+      "fold": 3,
+      "source": "104761",
+      "category": "insects",
+      "sha256": "a035a81227152c0b54fb9d63bfdce5f00a0ff2a967c239fbdb15c80d73441e07"
+    },
+    {
+      "filename": "3-104761-B-7.wav",
+      "fold": 3,
+      "source": "104761",
+      "category": "insects",
+      "sha256": "b13051656d00b823f59a0678fcd133880f6f7858de77c254066188f01190f94d"
+    },
+    {
+      "filename": "4-130891-A-7.wav",
+      "fold": 4,
+      "source": "130891",
+      "category": "insects",
+      "sha256": "12c07996c260c95c96cd9125780c40c39af0c46cb4b4e49fa67c7a2625b2ea98"
+    },
+    {
+      "filename": "4-133895-A-7.wav",
+      "fold": 4,
+      "source": "133895",
+      "category": "insects",
+      "sha256": "e1d8ea898754bb96ef68854e8f37452019e3fad05a36fe349c4042eec4d25824"
+    },
+    {
+      "filename": "5-194932-A-7.wav",
+      "fold": 5,
+      "source": "194932",
+      "category": "insects",
+      "sha256": "1068b661c90b194c6bb0ad42c77ea65620ec5205e4e256f7fee89717d7a11fdf"
+    },
+    {
+      "filename": "5-195517-A-7.wav",
+      "fold": 5,
+      "source": "195517",
+      "category": "insects",
+      "sha256": "5bc17ca82342b70769a0129336aa6517a668a577b551cb4d9a705315f2b3410c"
+    },
+    {
+      "filename": "1-137-A-32.wav",
+      "fold": 1,
+      "source": "137",
+      "category": "keyboard_typing",
+      "sha256": "d68e4716f74f073be8f78f5fe8e45daf7c09b0ec0575b21f57989d803536abb3"
+    },
+    {
+      "filename": "1-53501-A-32.wav",
+      "fold": 1,
+      "source": "53501",
+      "category": "keyboard_typing",
+      "sha256": "7edf3a6b856987de4fc2da27906d70abb00c40fba3352275eec840917daf2e50"
+    },
+    {
+      "filename": "2-104168-A-32.wav",
+      "fold": 2,
+      "source": "104168",
+      "category": "keyboard_typing",
+      "sha256": "62f9d3cd5d576e5dd6f956fe11d5c50fb04f054c38e32597a16e19021536943d"
+    },
+    {
+      "filename": "2-109316-A-32.wav",
+      "fold": 2,
+      "source": "109316",
+      "category": "keyboard_typing",
+      "sha256": "29b85ff0c4551fff8893f1b70faee79f0de8edf383f15877cfdeedb4b9aeabce"
+    },
+    {
+      "filename": "3-125548-A-32.wav",
+      "fold": 3,
+      "source": "125548",
+      "category": "keyboard_typing",
+      "sha256": "786c0ab915c44c716dd70971fc8f80f0cc501164423095e3e5c97929b3796f7d"
+    },
+    {
+      "filename": "3-132830-A-32.wav",
+      "fold": 3,
+      "source": "132830",
+      "category": "keyboard_typing",
+      "sha256": "d75fa250788f499ec7faa1c5ba8ee38eff4e66460f9b2a0b7f8aa26dc2f73e3a"
+    },
+    {
+      "filename": "4-158653-A-32.wav",
+      "fold": 4,
+      "source": "158653",
+      "category": "keyboard_typing",
+      "sha256": "125691734898f9db80100600cb63a65203ac0948b4a234e136f0e369bffe3b6b"
+    },
+    {
+      "filename": "4-167155-A-32.wav",
+      "fold": 4,
+      "source": "167155",
+      "category": "keyboard_typing",
+      "sha256": "c95a4bcca8a2113cb7a20bd59d404919eb88f10dc23401815369a449a7f59344"
+    },
+    {
+      "filename": "5-205090-A-32.wav",
+      "fold": 5,
+      "source": "205090",
+      "category": "keyboard_typing",
+      "sha256": "5a8f193f14fa649248b1d645ce6dae97f5c105015b3351ffaf86406e998c36d3"
+    },
+    {
+      "filename": "5-215005-A-32.wav",
+      "fold": 5,
+      "source": "215005",
+      "category": "keyboard_typing",
+      "sha256": "b8c6b7a28f1523c4aa0a0261ed45dee934c5a8f2558893312d9d981bf1f92067"
+    },
+    {
+      "filename": "1-1791-A-26.wav",
+      "fold": 1,
+      "source": "1791",
+      "category": "laughing",
+      "sha256": "dc6cd665f3d20eed6089d9593a2b776104d8671c57ce6c48e6be030c75a53643"
+    },
+    {
+      "filename": "1-30039-A-26.wav",
+      "fold": 1,
+      "source": "30039",
+      "category": "laughing",
+      "sha256": "dcb1b2c6686b090bf63775eb79a64d96c243987e6ae66cbb96a4a66610b37809"
+    },
+    {
+      "filename": "2-109759-A-26.wav",
+      "fold": 2,
+      "source": "109759",
+      "category": "laughing",
+      "sha256": "a254709bbf039a760772033127d7ddd1b1296827c1c4bf91397c4eed47630415"
+    },
+    {
+      "filename": "2-109759-B-26.wav",
+      "fold": 2,
+      "source": "109759",
+      "category": "laughing",
+      "sha256": "b13e8ec284aaa51991b9de66ccf1ace3bc9d46fc8e76f6bc318dfa6ffddc7e52"
+    },
+    {
+      "filename": "3-107123-A-26.wav",
+      "fold": 3,
+      "source": "107123",
+      "category": "laughing",
+      "sha256": "9b6a405f45bad8af59b0c17aacbda14dc6162b434345353adaf28cd182334d0d"
+    },
+    {
+      "filename": "3-110536-A-26.wav",
+      "fold": 3,
+      "source": "110536",
+      "category": "laughing",
+      "sha256": "b3e784756507d4b37c8bc019d0d951c1a3981728a9af466dc7574584423b352e"
+    },
+    {
+      "filename": "4-132803-A-26.wav",
+      "fold": 4,
+      "source": "132803",
+      "category": "laughing",
+      "sha256": "de5e596027c88e0e27334e4dfeb024238bc0b6028dba0f96c764017e534e8233"
+    },
+    {
+      "filename": "4-132810-A-26.wav",
+      "fold": 4,
+      "source": "132810",
+      "category": "laughing",
+      "sha256": "c7f7466fe1fa3d585fbf7a1fe9692e1890f0b05d6910b81504e808b4fb885bb8"
+    },
+    {
+      "filename": "5-171118-A-26.wav",
+      "fold": 5,
+      "source": "171118",
+      "category": "laughing",
+      "sha256": "acf4fc669f782f4b85e601fb61cddef90599416c519741428e1e62ea6228e2c2"
+    },
+    {
+      "filename": "5-242932-A-26.wav",
+      "fold": 5,
+      "source": "242932",
+      "category": "laughing",
+      "sha256": "9c2021684ccd03cbb5606565178197bc1251de351c65e2e10c068e0da0499a87"
+    },
+    {
+      "filename": "1-118206-A-31.wav",
+      "fold": 1,
+      "source": "118206",
+      "category": "mouse_click",
+      "sha256": "4461fa26f119749f99a4762be421d0d64e774960be7eef9780812d48580e48fb"
+    },
+    {
+      "filename": "1-18655-A-31.wav",
+      "fold": 1,
+      "source": "18655",
+      "category": "mouse_click",
+      "sha256": "fe84ff9cb5831e21fb8cbcaa56f6e3a477daad8ffe93999e490d442bc0150e45"
+    },
+    {
+      "filename": "2-119139-A-31.wav",
+      "fold": 2,
+      "source": "119139",
+      "category": "mouse_click",
+      "sha256": "ddb156148e7cd6fc096f0d6192f4bfbad9c744be7c98c8021f8767e069c79bbf"
+    },
+    {
+      "filename": "2-138257-A-31.wav",
+      "fold": 2,
+      "source": "138257",
+      "category": "mouse_click",
+      "sha256": "0f7db8fab85711c06dfba72c2afc2469d9180b9d66f96a93dbd2703f1e88c09b"
+    },
+    {
+      "filename": "3-155556-A-31.wav",
+      "fold": 3,
+      "source": "155556",
+      "category": "mouse_click",
+      "sha256": "56000e917f3a0a68d1f1bace969a733e573655c8b9cd55153d0ab38ea63584ee"
+    },
+    {
+      "filename": "3-158056-A-31.wav",
+      "fold": 3,
+      "source": "158056",
+      "category": "mouse_click",
+      "sha256": "7e304e8eb910c86f54b749b0421072070eefef7b9b53ccd191b8cbba081ea3a4"
+    },
+    {
+      "filename": "4-192068-A-31.wav",
+      "fold": 4,
+      "source": "192068",
+      "category": "mouse_click",
+      "sha256": "fad199981761a1aa7392db104c045f6091986c26f549f6ef59d3f12425fd13dd"
+    },
+    {
+      "filename": "4-195305-A-31.wav",
+      "fold": 4,
+      "source": "195305",
+      "category": "mouse_click",
+      "sha256": "f9b5643fb1c14e0927d00bca35e34d8ea1dc7cc92606f6210a1c753407c4efbc"
+    },
+    {
+      "filename": "5-219318-A-31.wav",
+      "fold": 5,
+      "source": "219318",
+      "category": "mouse_click",
+      "sha256": "b98ad73cbc140b63e7b6bb37aab8974e2f60a357c07038ffdbacef1048fab8e6"
+    },
+    {
+      "filename": "5-223103-A-31.wav",
+      "fold": 5,
+      "source": "223103",
+      "category": "mouse_click",
+      "sha256": "e5a00c7f09302123faf9f94ba731413b8025566cdb818785169045e0248980c4"
+    },
+    {
+      "filename": "1-208757-A-2.wav",
+      "fold": 1,
+      "source": "208757",
+      "category": "pig",
+      "sha256": "866245ac085d99d72406fb80dd09535b7b62c7cafc26972a73dd4bdb8db79ebc"
+    },
+    {
+      "filename": "1-208757-B-2.wav",
+      "fold": 1,
+      "source": "208757",
+      "category": "pig",
+      "sha256": "2d041c169d58f25bc769a057bc201bdcf8c289ef16b3b93388c248407f6a5d1a"
+    },
+    {
+      "filename": "2-158746-A-2.wav",
+      "fold": 2,
+      "source": "158746",
+      "category": "pig",
+      "sha256": "a49f779f4c0a82d736af56419408a1012697d35d5f8b8791575ad9e5054cf7e4"
+    },
+    {
+      "filename": "2-158746-B-2.wav",
+      "fold": 2,
+      "source": "158746",
+      "category": "pig",
+      "sha256": "8ab130e01e109124f6b6940299ed6b3b728191b3ed41342b2e3f2c674ac808a1"
+    },
+    {
+      "filename": "3-233151-A-2.wav",
+      "fold": 3,
+      "source": "233151",
+      "category": "pig",
+      "sha256": "bce22c0bd615db7dcb5b7b05ac4249647512ac324bf4ea3eb21725c108573c5c"
+    },
+    {
+      "filename": "3-253081-A-2.wav",
+      "fold": 3,
+      "source": "253081",
+      "category": "pig",
+      "sha256": "8ed9b72315b9f5a755fa23730812367e174bdb435473b543569a3b44f7566f7a"
+    },
+    {
+      "filename": "4-132383-A-2.wav",
+      "fold": 4,
+      "source": "132383",
+      "category": "pig",
+      "sha256": "a1a29bac1f9259697b4d58c9f04948c12bfc51a4508f9eddb4dcfc418821df8c"
+    },
+    {
+      "filename": "4-132383-B-2.wav",
+      "fold": 4,
+      "source": "132383",
+      "category": "pig",
+      "sha256": "92f93d980ba878821c57255190f591d3936030cdfeb3ea205524d8d5e5ef24d3"
+    },
+    {
+      "filename": "5-103415-A-2.wav",
+      "fold": 5,
+      "source": "103415",
+      "category": "pig",
+      "sha256": "5922660ff7698b3dce589c2e3e8230cca85a82cd7f396e1b29245c3c50d7d8d7"
+    },
+    {
+      "filename": "5-103416-A-2.wav",
+      "fold": 5,
+      "source": "103416",
+      "category": "pig",
+      "sha256": "5c6603bf39c3d397db3ba6b9d985f5a5efde41c7ba67d0cb896aa0c3d8e4e8c7"
+    },
+    {
+      "filename": "1-118559-A-17.wav",
+      "fold": 1,
+      "source": "118559",
+      "category": "pouring_water",
+      "sha256": "556d465ef6d44075c1c6f881202f001e088c20415e600be9a83714aa5d86ea07"
+    },
+    {
+      "filename": "1-50625-A-17.wav",
+      "fold": 1,
+      "source": "50625",
+      "category": "pouring_water",
+      "sha256": "267bc4a3836dfc673e404bd12d8655a1e00f01e07078cb9d404d2b82cbd3aa07"
+    },
+    {
+      "filename": "2-102414-A-17.wav",
+      "fold": 2,
+      "source": "102414",
+      "category": "pouring_water",
+      "sha256": "2e8840176baf5e07f8f3239fe13f4f43c1c485e05c7f5795204f86d2e60df729"
+    },
+    {
+      "filename": "2-102414-B-17.wav",
+      "fold": 2,
+      "source": "102414",
+      "category": "pouring_water",
+      "sha256": "07eaaabafd8fa568d1899e721b6a8766d6f34ff817fdcde796eb9bfd6fd3ccea"
+    },
+    {
+      "filename": "3-108451-A-17.wav",
+      "fold": 3,
+      "source": "108451",
+      "category": "pouring_water",
+      "sha256": "b03020a9662624137b529ea76eb7f5074ca4fd906e1526b747b0ec305988cda1"
+    },
+    {
+      "filename": "3-108451-B-17.wav",
+      "fold": 3,
+      "source": "108451",
+      "category": "pouring_water",
+      "sha256": "5101384cdccfaebd28afa9acef532a3b3a1a66df4ae4b827ada0eeb2a63a93c6"
+    },
+    {
+      "filename": "4-168868-A-17.wav",
+      "fold": 4,
+      "source": "168868",
+      "category": "pouring_water",
+      "sha256": "e9d0e25a0565a8a9ebe5e26bf2c0dd65bded68eda8268cf24d7cfeb417c7c3e4"
+    },
+    {
+      "filename": "4-172377-A-17.wav",
+      "fold": 4,
+      "source": "172377",
+      "category": "pouring_water",
+      "sha256": "afc26851089039602dc86d9f1eace47ac0a852d12b27a0d113dc7c83fdac6f84"
+    },
+    {
+      "filename": "5-205589-A-17.wav",
+      "fold": 5,
+      "source": "205589",
+      "category": "pouring_water",
+      "sha256": "cdaf920749710c45af9e15dfc9dc87be1b330e4b3299b1cdebb9165b442912a5"
+    },
+    {
+      "filename": "5-205589-B-17.wav",
+      "fold": 5,
+      "source": "205589",
+      "category": "pouring_water",
+      "sha256": "96b45a43aa51cd31575888323fb5575d331d8882a911bff74cd352e4983eb41e"
+    },
+    {
+      "filename": "1-17367-A-10.wav",
+      "fold": 1,
+      "source": "17367",
+      "category": "rain",
+      "sha256": "d732acd2e0c7c40405968010f49f250740c86998fc416eff2ed5330fc8c89dea"
+    },
+    {
+      "filename": "1-21189-A-10.wav",
+      "fold": 1,
+      "source": "21189",
+      "category": "rain",
+      "sha256": "5f15ab2d8f6ef9932909b1b75c8ac254cbea46c93b4b2f0f3542abdf09b9abc0"
+    },
+    {
+      "filename": "2-101676-A-10.wav",
+      "fold": 2,
+      "source": "101676",
+      "category": "rain",
+      "sha256": "ef456a67e12d2e2c84513e9eb8bea769e343cd5e0bfe65a34dc96c526f260838"
+    },
+    {
+      "filename": "2-117625-A-10.wav",
+      "fold": 2,
+      "source": "117625",
+      "category": "rain",
+      "sha256": "26c3b6b455aeb91f6f3d9a2b00f7e06bd1fc79609606ea2ae86272657dc02e88"
+    },
+    {
+      "filename": "3-132852-A-10.wav",
+      "fold": 3,
+      "source": "132852",
+      "category": "rain",
+      "sha256": "5d4960883ceabe28c008721ea3b5f5206a6f0234cacd4c1af81dd7594b4d3503"
+    },
+    {
+      "filename": "3-140774-A-10.wav",
+      "fold": 3,
+      "source": "140774",
+      "category": "rain",
+      "sha256": "1dd994fb071b52e4232b0cbd06558dd8d179008be2e4cf1f41d4abdca4f390fe"
+    },
+    {
+      "filename": "4-160999-A-10.wav",
+      "fold": 4,
+      "source": "160999",
+      "category": "rain",
+      "sha256": "c85ef3d5cbd86ba80a7f089277d66f165e36b8dcf8070643ddc7ec73eb4f5dcb"
+    },
+    {
+      "filename": "4-161127-A-10.wav",
+      "fold": 4,
+      "source": "161127",
+      "category": "rain",
+      "sha256": "3ea9076dd2ee68b67bd0707652a0c0ca77811b0664426e10e6860c187401af89"
+    },
+    {
+      "filename": "5-181766-A-10.wav",
+      "fold": 5,
+      "source": "181766",
+      "category": "rain",
+      "sha256": "608fcc0bef32512e2a984c7d3d2cac8ea161f6337ec0056850a6d34f07f8db35"
+    },
+    {
+      "filename": "5-188655-A-10.wav",
+      "fold": 5,
+      "source": "188655",
+      "category": "rain",
+      "sha256": "9ed876436c72f36c230c275744818829912a2299bcbd8ccca6eccce9df6f8a57"
+    },
+    {
+      "filename": "1-26806-A-1.wav",
+      "fold": 1,
+      "source": "26806",
+      "category": "rooster",
+      "sha256": "9021db2a8218814e1f90957a179589c7f3167fd1f235f58019890064e23ee5be"
+    },
+    {
+      "filename": "1-27724-A-1.wav",
+      "fold": 1,
+      "source": "27724",
+      "category": "rooster",
+      "sha256": "3bb615f722d94caa848f64bf4da365fde52dc93a732b0d017d38fe9e1474649f"
+    },
+    {
+      "filename": "2-100786-A-1.wav",
+      "fold": 2,
+      "source": "100786",
+      "category": "rooster",
+      "sha256": "53704d16503042581837335ba937d399c028f788903f103abf44af1c2d2d5d71"
+    },
+    {
+      "filename": "2-65750-A-1.wav",
+      "fold": 2,
+      "source": "65750",
+      "category": "rooster",
+      "sha256": "665283baf62e962de29cbd5ffa44457c52b98ff6fa6db9469b82f33fab488d4c"
+    },
+    {
+      "filename": "3-107219-A-1.wav",
+      "fold": 3,
+      "source": "107219",
+      "category": "rooster",
+      "sha256": "18c72ca3f004fa0367a401f65ea375e46a81ce715e1993e4c67c7a8ffe364d20"
+    },
+    {
+      "filename": "3-116135-A-1.wav",
+      "fold": 3,
+      "source": "116135",
+      "category": "rooster",
+      "sha256": "0415467964520c0268ea0b5beb9465ff6a2458f508d409a9b6d039f247f74352"
+    },
+    {
+      "filename": "4-164021-A-1.wav",
+      "fold": 4,
+      "source": "164021",
+      "category": "rooster",
+      "sha256": "95b7f782e42027588c92db9665f009b042c59436dcee563a01d6d71af6e1f0e8"
+    },
+    {
+      "filename": "4-164064-A-1.wav",
+      "fold": 4,
+      "source": "164064",
+      "category": "rooster",
+      "sha256": "08b3564898604da9f5699f4dee35e79ee06c9f7025c85f98b5d35d3efdc42b0d"
+    },
+    {
+      "filename": "5-194930-A-1.wav",
+      "fold": 5,
+      "source": "194930",
+      "category": "rooster",
+      "sha256": "785615790c00a2ac8d5f4d579873a8b1bd1f5a77fc990eafbd05725974d63659"
+    },
+    {
+      "filename": "5-194930-B-1.wav",
+      "fold": 5,
+      "source": "194930",
+      "category": "rooster",
+      "sha256": "b263df738b703f0001765438cd95cdd83c8926b281ce36edce49ee91df5eb82f"
+    },
+    {
+      "filename": "1-28135-A-11.wav",
+      "fold": 1,
+      "source": "28135",
+      "category": "sea_waves",
+      "sha256": "4d04b84d490c4d9ab28a52c4c96d1b14c2f8b132fc4be38166197ae814920742"
+    },
+    {
+      "filename": "1-28135-B-11.wav",
+      "fold": 1,
+      "source": "28135",
+      "category": "sea_waves",
+      "sha256": "806548ec876df9f91ced5503f76794a42dca6b8790324f87464de5ed780189cb"
+    },
+    {
+      "filename": "2-102852-A-11.wav",
+      "fold": 2,
+      "source": "102852",
+      "category": "sea_waves",
+      "sha256": "88e893f0db59886dd96f9b2c0f839eaad0364e9d2ec948eca3ef6af1a66e64b5"
+    },
+    {
+      "filename": "2-124662-A-11.wav",
+      "fold": 2,
+      "source": "124662",
+      "category": "sea_waves",
+      "sha256": "60c6883343535fcf14bb030d30c7b79c81fad89fdc7f4e6f34d81c1d98c1e645"
+    },
+    {
+      "filename": "3-144827-A-11.wav",
+      "fold": 3,
+      "source": "144827",
+      "category": "sea_waves",
+      "sha256": "553ceeb0be8984ea22e9ae1b4c892e76c19867e9240d5f9367c62b08ee7eba4e"
+    },
+    {
+      "filename": "3-144827-B-11.wav",
+      "fold": 3,
+      "source": "144827",
+      "category": "sea_waves",
+      "sha256": "977a5b671cb9b57aea049bce2b1c139c039aa745c5c46c1f84964d8098381aa8"
+    },
+    {
+      "filename": "4-167063-A-11.wav",
+      "fold": 4,
+      "source": "167063",
+      "category": "sea_waves",
+      "sha256": "3cfc8edd94c4efc892a80151ed83aff7febcab1219d5c1e41abe5e4bf6c7d8ad"
+    },
+    {
+      "filename": "4-167063-B-11.wav",
+      "fold": 4,
+      "source": "167063",
+      "category": "sea_waves",
+      "sha256": "0dd8330a8d102d1192dca1e0c43e83602f3f308994aaf8f9f68bb8b1c682cb4a"
+    },
+    {
+      "filename": "5-200461-A-11.wav",
+      "fold": 5,
+      "source": "200461",
+      "category": "sea_waves",
+      "sha256": "f66d4da342b3ae9096593084915f57d2763bd5e90ff28fbb7c60a446d6c76a6f"
+    },
+    {
+      "filename": "5-200461-B-11.wav",
+      "fold": 5,
+      "source": "200461",
+      "category": "sea_waves",
+      "sha256": "772ed35d4a5617deb375b6532e830071b21e9b3d5d16b6b33b16c9535ef8e1a7"
+    },
+    {
+      "filename": "1-121951-A-8.wav",
+      "fold": 1,
+      "source": "121951",
+      "category": "sheep",
+      "sha256": "03ed7b103e873f07713de2d9a17fd298eb19c204eaf54a9bfa955423c95a1a14"
+    },
+    {
+      "filename": "1-196660-A-8.wav",
+      "fold": 1,
+      "source": "196660",
+      "category": "sheep",
+      "sha256": "8fd98d50c5ff6ffeea6785d306dca53e01ea2e914488115bf32da4fb11d4a53b"
+    },
+    {
+      "filename": "2-110614-A-8.wav",
+      "fold": 2,
+      "source": "110614",
+      "category": "sheep",
+      "sha256": "cf9681cb5a3eb18088228436c764006f9dfbcc1822274186eb680239435f6ed2"
+    },
+    {
+      "filename": "2-110614-B-8.wav",
+      "fold": 2,
+      "source": "110614",
+      "category": "sheep",
+      "sha256": "649518e19e3cdff90144e218ff607f0da2fa4328d8196f1748b8ab6f4b287a51"
+    },
+    {
+      "filename": "3-140199-A-8.wav",
+      "fold": 3,
+      "source": "140199",
+      "category": "sheep",
+      "sha256": "c116b33aac826c3bd03f90a5ae8026cb46d8f7c3cf9227b97e699ecfc6c7fe33"
+    },
+    {
+      "filename": "3-140199-B-8.wav",
+      "fold": 3,
+      "source": "140199",
+      "category": "sheep",
+      "sha256": "9f8be8ed939c5152f20743628ac84b6c8b98e90e08d17e8561368423486cbf0f"
+    },
+    {
+      "filename": "4-188703-A-8.wav",
+      "fold": 4,
+      "source": "188703",
+      "category": "sheep",
+      "sha256": "f63eb063826ed5b89d42165dd12490b1a3817588d59ee69bcdfb9b6957b89b70"
+    },
+    {
+      "filename": "4-188703-B-8.wav",
+      "fold": 4,
+      "source": "188703",
+      "category": "sheep",
+      "sha256": "d31b903428d76fc42a391ee8397957a994a33bc46c411c5b2cfe954cfda36b31"
+    },
+    {
+      "filename": "5-198891-A-8.wav",
+      "fold": 5,
+      "source": "198891",
+      "category": "sheep",
+      "sha256": "6f66eac808d2709bace36a2d911c704c66f84099824f249a1ae3d57e5639c4c7"
+    },
+    {
+      "filename": "5-198891-B-8.wav",
+      "fold": 5,
+      "source": "198891",
+      "category": "sheep",
+      "sha256": "6b487e7468849dc89506455d796b23b6222cefd29e35a0dad4696fc1325a62bc"
+    },
+    {
+      "filename": "1-31482-A-42.wav",
+      "fold": 1,
+      "source": "31482",
+      "category": "siren",
+      "sha256": "e4c640a001c2abe808389c90b90ba7084fb1922d58235e3ec95c18c4afb4ef5c"
+    },
+    {
+      "filename": "1-31482-B-42.wav",
+      "fold": 1,
+      "source": "31482",
+      "category": "siren",
+      "sha256": "2446a3eb69758de0ddde8962ab8966790a19960c71ab649cff52aae3d5d93a54"
+    },
+    {
+      "filename": "1-54084-A-42.wav",
+      "fold": 1,
+      "source": "54084",
+      "category": "siren",
+      "sha256": "b0ce84a3c012d144a1f97394cab2830512078d660e809eecb8abc4fa8ad0a9e1"
+    },
+    {
+      "filename": "1-76831-A-42.wav",
+      "fold": 1,
+      "source": "76831",
+      "category": "siren",
+      "sha256": "4b3084efd71e12121f459df54c21b24e4a4710f93dd4f1585d2c2d507b6ec365"
+    },
+    {
+      "filename": "1-76831-B-42.wav",
+      "fold": 1,
+      "source": "76831",
+      "category": "siren",
+      "sha256": "5e91fb8adabdc48483e968357f839d801e29054c7fdb1338f8781ececbd9e76c"
+    },
+    {
+      "filename": "1-76831-C-42.wav",
+      "fold": 1,
+      "source": "76831",
+      "category": "siren",
+      "sha256": "bed7848fd5b111ba310961c15e6a89520f14f5f3207178035a0807f5f60ab841"
+    },
+    {
+      "filename": "1-76831-D-42.wav",
+      "fold": 1,
+      "source": "76831",
+      "category": "siren",
+      "sha256": "6e69b25168dae7ff0833fd132c37fe599ed98a946cf1e44d702444e06b9a1913"
+    },
+    {
+      "filename": "1-76831-E-42.wav",
+      "fold": 1,
+      "source": "76831",
+      "category": "siren",
+      "sha256": "d45df4c567ab2398c4fae35654266e74f92de5022d36944fef4c9f79d919288a"
+    },
+    {
+      "filename": "2-43802-A-42.wav",
+      "fold": 2,
+      "source": "43802",
+      "category": "siren",
+      "sha256": "ba6777f4ea87490953ec0fe89499368ce993afb99ba9eec60747cbb94785eb4f"
+    },
+    {
+      "filename": "2-43806-A-42.wav",
+      "fold": 2,
+      "source": "43806",
+      "category": "siren",
+      "sha256": "376353be53fe9eff3dc25d6ff94fd685510a985ba11cdfea39ea5ae33bbd42c2"
+    },
+    {
+      "filename": "2-70052-A-42.wav",
+      "fold": 2,
+      "source": "70052",
+      "category": "siren",
+      "sha256": "012cf9bf49d8619a9c60cf0a606af4b0e32645d9220e9fa266865a858a906608"
+    },
+    {
+      "filename": "2-70052-B-42.wav",
+      "fold": 2,
+      "source": "70052",
+      "category": "siren",
+      "sha256": "65bf1c84e863a15e878f73c316d66df38872ec63462efc0989cf06538e01aa62"
+    },
+    {
+      "filename": "2-70936-A-42.wav",
+      "fold": 2,
+      "source": "70936",
+      "category": "siren",
+      "sha256": "187e6149565a5c95d350d672dfca2750e9471d6cad846ba5ddc998e7a3958f58"
+    },
+    {
+      "filename": "2-70938-A-42.wav",
+      "fold": 2,
+      "source": "70938",
+      "category": "siren",
+      "sha256": "942d1f4b4959e4f72b8176377934f26015f58863102188a25c07189bffe743d2"
+    },
+    {
+      "filename": "2-70939-A-42.wav",
+      "fold": 2,
+      "source": "70939",
+      "category": "siren",
+      "sha256": "a3b366a40193537c92bc4053a1691a36f102c6067514f116cf07773498a0decf"
+    },
+    {
+      "filename": "2-72688-A-42.wav",
+      "fold": 2,
+      "source": "72688",
+      "category": "siren",
+      "sha256": "406225783170623a673c8104c9eef1871d8a693f5f93372965e1041543530f30"
+    },
+    {
+      "filename": "3-51376-A-42.wav",
+      "fold": 3,
+      "source": "51376",
+      "category": "siren",
+      "sha256": "de32c52b3f928f02ad8dd388f424bbe7c7e22dbe4614cfcd2a271946aec3325a"
+    },
+    {
+      "filename": "3-51731-A-42.wav",
+      "fold": 3,
+      "source": "51731",
+      "category": "siren",
+      "sha256": "0268313151d1865b712d5556e6a0fc7fcf87807639c68de23d9951d38474208e"
+    },
+    {
+      "filename": "3-51731-B-42.wav",
+      "fold": 3,
+      "source": "51731",
+      "category": "siren",
+      "sha256": "4918f7e9c5b2056580ea7261db9b13d026c21aa132bcc6ff981e09c2b7d0518e"
+    },
+    {
+      "filename": "3-51909-A-42.wav",
+      "fold": 3,
+      "source": "51909",
+      "category": "siren",
+      "sha256": "5f5c273e29bd8fbcb52cecc798cbbcdb4497f503e04731ef7bcdc3094d0b046d"
+    },
+    {
+      "filename": "3-51909-B-42.wav",
+      "fold": 3,
+      "source": "51909",
+      "category": "siren",
+      "sha256": "75bf135fc612f63b9e79fcf0461c2ea30677d0254c84f43005cfc7d337da75e8"
+    },
+    {
+      "filename": "3-58772-A-42.wav",
+      "fold": 3,
+      "source": "58772",
+      "category": "siren",
+      "sha256": "b7b50b9bd964f0026d5d29d9bffd4b7be78171a231d4a190b9addd8ce3390352"
+    },
+    {
+      "filename": "3-62878-A-42.wav",
+      "fold": 3,
+      "source": "62878",
+      "category": "siren",
+      "sha256": "9a68c6a6678a7fda587c12dd45064d12093befd4b8b4b10e187ad2248c71e445"
+    },
+    {
+      "filename": "3-62878-B-42.wav",
+      "fold": 3,
+      "source": "62878",
+      "category": "siren",
+      "sha256": "387866faea68816ac73cf30fecf94ae886660fbce7e80992d23eaa108ba82990"
+    },
+    {
+      "filename": "4-102871-A-42.wav",
+      "fold": 4,
+      "source": "102871",
+      "category": "siren",
+      "sha256": "9dabae27ebcd55cc16ea57e813fc1984ec444159b62f246c0399cb4f920454ea"
+    },
+    {
+      "filename": "4-111671-A-42.wav",
+      "fold": 4,
+      "source": "111671",
+      "category": "siren",
+      "sha256": "365e4a2a7fcb455894d3b0a7b7ad08ac9725f6565fc4d3ace32876b5afc4c2cd"
+    },
+    {
+      "filename": "4-111671-B-42.wav",
+      "fold": 4,
+      "source": "111671",
+      "category": "siren",
+      "sha256": "7b862bec0a634cc342e53fe54fbac85c28801588903e2a35e9eff705b5593b05"
+    },
+    {
+      "filename": "4-121532-A-42.wav",
+      "fold": 4,
+      "source": "121532",
+      "category": "siren",
+      "sha256": "9f7d32892f55d06a7ce39a0c97c5fd24fcc477c3e517c6e34003a5a9d2c822f5"
+    },
+    {
+      "filename": "4-67358-A-42.wav",
+      "fold": 4,
+      "source": "67358",
+      "category": "siren",
+      "sha256": "3192ab47aff92ef5dcec1ce178e342e24ecadf826dc6c9dd3f0515a4c53c58d2"
+    },
+    {
+      "filename": "4-80761-A-42.wav",
+      "fold": 4,
+      "source": "80761",
+      "category": "siren",
+      "sha256": "d1301a63a3d7f4429b40244d7a52f11636c3ed28b846f6213bda6e0005b1c072"
+    },
+    {
+      "filename": "4-90014-A-42.wav",
+      "fold": 4,
+      "source": "90014",
+      "category": "siren",
+      "sha256": "bbde0117f66201fe236b2bedccd231efe8e74b5c3361471a32159bbef5777e9a"
+    },
+    {
+      "filename": "4-90014-B-42.wav",
+      "fold": 4,
+      "source": "90014",
+      "category": "siren",
+      "sha256": "7fc6af65b6c6bbbadf39426c3ce9300367f5fefce8725a7df990a58ffc9130fb"
+    },
+    {
+      "filename": "5-117118-A-42.wav",
+      "fold": 5,
+      "source": "117118",
+      "category": "siren",
+      "sha256": "79cbdaf2156d7af410fe97a5c131ee6f46f2f7a99f4051fadd01e931ad8c9e14"
+    },
+    {
+      "filename": "5-117120-A-42.wav",
+      "fold": 5,
+      "source": "117120",
+      "category": "siren",
+      "sha256": "b22c04d1ea6841f9a1b79e21f2d44c8f9f446a204d28f5a3e4b4f57071c669aa"
+    },
+    {
+      "filename": "5-117122-A-42.wav",
+      "fold": 5,
+      "source": "117122",
+      "category": "siren",
+      "sha256": "1b1d4849a6a95b40d9ac1ce01ff8f3ba5899bf1dc025da6646c1008e1a7caf65"
+    },
+    {
+      "filename": "5-133989-A-42.wav",
+      "fold": 5,
+      "source": "133989",
+      "category": "siren",
+      "sha256": "7521bb9b94ef12283db760cb97338b7c9a3145b8c78ce3931e03953c6d91f08e"
+    },
+    {
+      "filename": "5-133989-B-42.wav",
+      "fold": 5,
+      "source": "133989",
+      "category": "siren",
+      "sha256": "8b91f090b3339c1a4b780b454062ef65ba16c49a2a3c0068cced69b07ef3a119"
+    },
+    {
+      "filename": "5-150409-A-42.wav",
+      "fold": 5,
+      "source": "150409",
+      "category": "siren",
+      "sha256": "9e8901e0a7f22c3546c2f1b42bcc3e2ca8077e94f755702ba744feb2f39d55ac"
+    },
+    {
+      "filename": "5-160551-A-42.wav",
+      "fold": 5,
+      "source": "160551",
+      "category": "siren",
+      "sha256": "6cc7555cafe56d7ec8a9c1f672885a73601970ef0687f37a0445131bd5020650"
+    },
+    {
+      "filename": "5-184323-A-42.wav",
+      "fold": 5,
+      "source": "184323",
+      "category": "siren",
+      "sha256": "bc3d8abd08b3e37ed980c21972acb5ce5ba83ee001f7ddffd95f04e5e6b642ea"
+    },
+    {
+      "filename": "1-26143-A-21.wav",
+      "fold": 1,
+      "source": "26143",
+      "category": "sneezing",
+      "sha256": "8e32762c8c48e5414dbecc2979833748cb838ba476bac75d2a512262ef842eb0"
+    },
+    {
+      "filename": "1-29680-A-21.wav",
+      "fold": 1,
+      "source": "29680",
+      "category": "sneezing",
+      "sha256": "4c1cdb30db5fd43eb62c17c051efaf7dde38938c0449e6bfcfb998dba92cc443"
+    },
+    {
+      "filename": "2-109505-A-21.wav",
+      "fold": 2,
+      "source": "109505",
+      "category": "sneezing",
+      "sha256": "93f6ffc756ec82bf5e6be83ccc070415138b60fa00408734a78753089567e489"
+    },
+    {
+      "filename": "2-118104-A-21.wav",
+      "fold": 2,
+      "source": "118104",
+      "category": "sneezing",
+      "sha256": "c32ccc6f408d6546132b177036d7a1881bb8f3d9d42f9a2c2a1708c1afc84317"
+    },
+    {
+      "filename": "3-141684-A-21.wav",
+      "fold": 3,
+      "source": "141684",
+      "category": "sneezing",
+      "sha256": "6046ae5559d7ce126b25406ff8538214d66c73c77ba15cd9ecb4849513dd3d87"
+    },
+    {
+      "filename": "3-142601-A-21.wav",
+      "fold": 3,
+      "source": "142601",
+      "category": "sneezing",
+      "sha256": "ef15ba95b34a2a12a0b7f272d5b26422e828ceffa16613e3f89df1890d5f1d75"
+    },
+    {
+      "filename": "4-156843-A-21.wav",
+      "fold": 4,
+      "source": "156843",
+      "category": "sneezing",
+      "sha256": "915d649c4fbc6df93b6b6a94f45732e02e4a15728531ac114f867c969e989cbd"
+    },
+    {
+      "filename": "4-156844-A-21.wav",
+      "fold": 4,
+      "source": "156844",
+      "category": "sneezing",
+      "sha256": "6fbfe7a57440e68e7a3c1e46dc039df88cdf64f765c9eb2402e8352382078f78"
+    },
+    {
+      "filename": "5-187979-A-21.wav",
+      "fold": 5,
+      "source": "187979",
+      "category": "sneezing",
+      "sha256": "f9b1c8dcaebec0e9d7bba56142e831a6530ee06bd969e0b80c91bf7cd57e4b4f"
+    },
+    {
+      "filename": "5-194533-A-21.wav",
+      "fold": 5,
+      "source": "194533",
+      "category": "sneezing",
+      "sha256": "ecb5cab5084d452afe2cf0d65405ee8f38dcdddae32622b44cdd553d8e7975ec"
+    },
+    {
+      "filename": "1-20545-A-28.wav",
+      "fold": 1,
+      "source": "20545",
+      "category": "snoring",
+      "sha256": "417d56b2057b5e2b4e73eeffbef13a333e788fce95e9622ddad47e1867886c27"
+    },
+    {
+      "filename": "1-27403-A-28.wav",
+      "fold": 1,
+      "source": "27403",
+      "category": "snoring",
+      "sha256": "e62c4f2f7500f59d40754fcdb7c953f5f2237a597a9f5be0de0343e859f4856b"
+    },
+    {
+      "filename": "2-110417-A-28.wav",
+      "fold": 2,
+      "source": "110417",
+      "category": "snoring",
+      "sha256": "e90de80301191bd0dec7b67e93f326eb072b50e35abeb0435a72e6e4d2c5b7c2"
+    },
+    {
+      "filename": "2-110417-B-28.wav",
+      "fold": 2,
+      "source": "110417",
+      "category": "snoring",
+      "sha256": "98d6b276b5f6bdf7d8f8ef4b2e6b38dbd882ff5d8e4383edf9158c2f23762790"
+    },
+    {
+      "filename": "3-123086-A-28.wav",
+      "fold": 3,
+      "source": "123086",
+      "category": "snoring",
+      "sha256": "dd8ace67ea53d1e677fdcc34d65ba93db53aa91ca5e8d81a5db275ea6d5dd06d"
+    },
+    {
+      "filename": "3-124795-A-28.wav",
+      "fold": 3,
+      "source": "124795",
+      "category": "snoring",
+      "sha256": "3669264479d667b18a9cf0824c6a4292086d8f2c9850ff7c77b512b819b4ae5e"
+    },
+    {
+      "filename": "4-180337-A-28.wav",
+      "fold": 4,
+      "source": "180337",
+      "category": "snoring",
+      "sha256": "015f4b7643faf58d66478b19962e8aae1a66b17bf2930f768fc903bd14fe2d15"
+    },
+    {
+      "filename": "4-183882-A-28.wav",
+      "fold": 4,
+      "source": "183882",
+      "category": "snoring",
+      "sha256": "d80e203b4295fcd4d4ab92079372ac4017e7eccd44310c729b8e0d46a96e95a3"
+    },
+    {
+      "filename": "5-216368-A-28.wav",
+      "fold": 5,
+      "source": "216368",
+      "category": "snoring",
+      "sha256": "b3163718b6ef689ee635bb1d9429066ea198ccf101ded0b6ceaf5b55c1f7e460"
+    },
+    {
+      "filename": "5-233312-A-28.wav",
+      "fold": 5,
+      "source": "233312",
+      "category": "snoring",
+      "sha256": "3b2e676295ec6b3f3d7de721ae612f3514a3550bf046643f4676ee112eaf48e6"
+    },
+    {
+      "filename": "1-101296-A-19.wav",
+      "fold": 1,
+      "source": "101296",
+      "category": "thunderstorm",
+      "sha256": "b0323e17979ff3d840ce3f9b7f13bf800a69a48f62632162b964efc9bfe4ef10"
+    },
+    {
+      "filename": "1-101296-B-19.wav",
+      "fold": 1,
+      "source": "101296",
+      "category": "thunderstorm",
+      "sha256": "bdad401df959569dc44ad26fff3ff097de5ac98cde763eb37a557a4ab441440f"
+    },
+    {
+      "filename": "2-104105-A-19.wav",
+      "fold": 2,
+      "source": "104105",
+      "category": "thunderstorm",
+      "sha256": "2ee21d7425178ca938f3415c8f45682c908902f357a07f727749f863b670e655"
+    },
+    {
+      "filename": "2-104105-B-19.wav",
+      "fold": 2,
+      "source": "104105",
+      "category": "thunderstorm",
+      "sha256": "8a02fab36f501893605f9e5de65e96c5a6a0828245415991b89828caadfdf180"
+    },
+    {
+      "filename": "3-103050-A-19.wav",
+      "fold": 3,
+      "source": "103050",
+      "category": "thunderstorm",
+      "sha256": "0cdb8c8e21c3dc74b10c935bf43292c1e3d7d4e7bb7026a0d047054001813295"
+    },
+    {
+      "filename": "3-103051-A-19.wav",
+      "fold": 3,
+      "source": "103051",
+      "category": "thunderstorm",
+      "sha256": "527de954dc9d28a742146db130fbb8143a446cf88a487c2d43cd0ef22bbd3a3b"
+    },
+    {
+      "filename": "4-125070-A-19.wav",
+      "fold": 4,
+      "source": "125070",
+      "category": "thunderstorm",
+      "sha256": "61b68a9eb06ee056826f8ce06e56558bc46301a2f4df43b92d7619cd6b2e8475"
+    },
+    {
+      "filename": "4-125071-A-19.wav",
+      "fold": 4,
+      "source": "125071",
+      "category": "thunderstorm",
+      "sha256": "fe38b9a2a0f8ab43fd39cc1dc396218ffb42dfe9ee1e948db37ba036303adcff"
+    },
+    {
+      "filename": "5-156999-A-19.wav",
+      "fold": 5,
+      "source": "156999",
+      "category": "thunderstorm",
+      "sha256": "1c612563515cd4cde24c16a25fe1060958a83adb8c0768cc36b901fe78993826"
+    },
+    {
+      "filename": "5-156999-B-19.wav",
+      "fold": 5,
+      "source": "156999",
+      "category": "thunderstorm",
+      "sha256": "c793c4f1a0a03d26b5118a93fd8d164136d2f06c3c05c65625ac27fbd2a43a28"
+    },
+    {
+      "filename": "1-20736-A-18.wav",
+      "fold": 1,
+      "source": "20736",
+      "category": "toilet_flush",
+      "sha256": "1c32cacfad33e87fdfc37b9ddbc047161827b86a72d6d0e9fcbef61bff804572"
+    },
+    {
+      "filename": "1-28005-A-18.wav",
+      "fold": 1,
+      "source": "28005",
+      "category": "toilet_flush",
+      "sha256": "691ee5a062f2ef54b1ef77fd235a6800b847a7b256b7f08b18fc240e99916d0d"
+    },
+    {
+      "filename": "2-64332-A-18.wav",
+      "fold": 2,
+      "source": "64332",
+      "category": "toilet_flush",
+      "sha256": "1a06ca7a354ec65a6a07ad30d9b38bd3441a9d3f419d9bf4b30f87c83e8f2801"
+    },
+    {
+      "filename": "2-65484-A-18.wav",
+      "fold": 2,
+      "source": "65484",
+      "category": "toilet_flush",
+      "sha256": "34a4aedbfe753e8ee1d8ea4a2c99102fa4caaa08c359eb9b4e7123a47fe04163"
+    },
+    {
+      "filename": "3-100018-A-18.wav",
+      "fold": 3,
+      "source": "100018",
+      "category": "toilet_flush",
+      "sha256": "d234d3dfce197182b5b97291a262eb59bd1da646e279ad1ae45c3f351b032b41"
+    },
+    {
+      "filename": "3-108677-A-18.wav",
+      "fold": 3,
+      "source": "108677",
+      "category": "toilet_flush",
+      "sha256": "f03d95eb7766073c6a6d7f2fdf95a55ab13ec56e6832722aad09672afd436e00"
+    },
+    {
+      "filename": "4-119720-A-18.wav",
+      "fold": 4,
+      "source": "119720",
+      "category": "toilet_flush",
+      "sha256": "7ba566572f51a9c851f4853bc6206efa6483262af6b99f7e7f90f83dc05800f8"
+    },
+    {
+      "filename": "4-123680-A-18.wav",
+      "fold": 4,
+      "source": "123680",
+      "category": "toilet_flush",
+      "sha256": "37b6b220545df09fb3fe00c424f9aed9d9d0c1d0cc9932337b3151c919daef7b"
+    },
+    {
+      "filename": "5-156698-A-18.wav",
+      "fold": 5,
+      "source": "156698",
+      "category": "toilet_flush",
+      "sha256": "276b703a87be2d4703f89ad7412332720c73062f4c5147728b931ba26273ba46"
+    },
+    {
+      "filename": "5-177034-A-18.wav",
+      "fold": 5,
+      "source": "177034",
+      "category": "toilet_flush",
+      "sha256": "a20b707d80b8abf2cf12062328bd19d1f93d801f18a03aaceceecf153d818db0"
+    },
+    {
+      "filename": "1-119125-A-45.wav",
+      "fold": 1,
+      "source": "119125",
+      "category": "train",
+      "sha256": "d78fe04767546d49b741d9d7df6173152e06dcb4224d70f350c3cb73768f265d"
+    },
+    {
+      "filename": "1-54065-A-45.wav",
+      "fold": 1,
+      "source": "54065",
+      "category": "train",
+      "sha256": "db5b6aaa683dcc52b4868e3ad6799a1d2093228326283605aae671c0942fe9b1"
+    },
+    {
+      "filename": "2-122066-A-45.wav",
+      "fold": 2,
+      "source": "122066",
+      "category": "train",
+      "sha256": "6e714ae789c1fd82370ef6c0fa38d17bd2b685632ddbc5129d88f828c7d6618f"
+    },
+    {
+      "filename": "2-122066-B-45.wav",
+      "fold": 2,
+      "source": "122066",
+      "category": "train",
+      "sha256": "e98e2da52271b2a34d436f3ec8ad4098ad1e6b5ca444da6c0c529f72b25a6ccb"
+    },
+    {
+      "filename": "3-135650-A-45.wav",
+      "fold": 3,
+      "source": "135650",
+      "category": "train",
+      "sha256": "bf3702813123d2fd8ab091d08a7a7a48af204e9d51fe902da019a45f1c22b979"
+    },
+    {
+      "filename": "3-135650-B-45.wav",
+      "fold": 3,
+      "source": "135650",
+      "category": "train",
+      "sha256": "ab5ca531ce389a27cf92e44e6dc91f09d5c7c072aaf3c0e9f8bbb0cf2e914e34"
+    },
+    {
+      "filename": "4-165606-A-45.wav",
+      "fold": 4,
+      "source": "165606",
+      "category": "train",
+      "sha256": "8db18f72cf0a09b40b78b62146a946235bcf4be656de7e5594615a90f51c969e"
+    },
+    {
+      "filename": "4-165791-A-45.wav",
+      "fold": 4,
+      "source": "165791",
+      "category": "train",
+      "sha256": "c44684d4efe103b3d67b29a93c2ffa813b17b435074fed1e677d8690fa476e41"
+    },
+    {
+      "filename": "5-188796-A-45.wav",
+      "fold": 5,
+      "source": "188796",
+      "category": "train",
+      "sha256": "57c56816064b1af67c14df69c0af6a2b39555eaf6425329c062cabac2a3e9416"
+    },
+    {
+      "filename": "5-188945-A-45.wav",
+      "fold": 5,
+      "source": "188945",
+      "category": "train",
+      "sha256": "34782cd6f035dc77737dbc4a98fcfde13feadb483cbfa16d65302e7cf1e1fbb8"
+    },
+    {
+      "filename": "1-100210-A-36.wav",
+      "fold": 1,
+      "source": "100210",
+      "category": "vacuum_cleaner",
+      "sha256": "f97e97b0fe0afce323d858503b6fa3ffd6c8cb1162c43cf3b24461300fb9abf6"
+    },
+    {
+      "filename": "1-100210-B-36.wav",
+      "fold": 1,
+      "source": "100210",
+      "category": "vacuum_cleaner",
+      "sha256": "acfdccbb58647655b9b63ab5574c178783b969f56e05933f115ae4dd1878a524"
+    },
+    {
+      "filename": "2-106072-A-36.wav",
+      "fold": 2,
+      "source": "106072",
+      "category": "vacuum_cleaner",
+      "sha256": "48d6c73a9f124f3d9454d1c93bbd91e088c96e7cc88352419bdad3f73ba499cd"
+    },
+    {
+      "filename": "2-106073-A-36.wav",
+      "fold": 2,
+      "source": "106073",
+      "category": "vacuum_cleaner",
+      "sha256": "a578d3c4f74bc96341a041e63e8c3190b2c94d3ec3a306f4b7ac8fbe7e84c828"
+    },
+    {
+      "filename": "3-152020-A-36.wav",
+      "fold": 3,
+      "source": "152020",
+      "category": "vacuum_cleaner",
+      "sha256": "7ddbf7a38dc48773279a392aa8914c313481422b21ccbb221bb2f8321f39f06c"
+    },
+    {
+      "filename": "3-152020-B-36.wav",
+      "fold": 3,
+      "source": "152020",
+      "category": "vacuum_cleaner",
+      "sha256": "304f09ebbd0232d073c29d19903a48d02e442e5a161ec04d1afe9914572acf9d"
+    },
+    {
+      "filename": "4-146200-A-36.wav",
+      "fold": 4,
+      "source": "146200",
+      "category": "vacuum_cleaner",
+      "sha256": "41db87e753f13f238ba7f8ffca60421d08f8ab3e315c4d79f0557caed80ee9d8"
+    },
+    {
+      "filename": "4-172732-A-36.wav",
+      "fold": 4,
+      "source": "172732",
+      "category": "vacuum_cleaner",
+      "sha256": "e6e0690da254355cd5e8ae4bda3ea349c83d93b8ece5e140bfd6d467813a3c47"
+    },
+    {
+      "filename": "5-182007-A-36.wav",
+      "fold": 5,
+      "source": "182007",
+      "category": "vacuum_cleaner",
+      "sha256": "3da75e2e43452c3d1bc595b46a51e7a04bc6be977fc5b11e7adaa5e8e5877b0f"
+    },
+    {
+      "filename": "5-182010-A-36.wav",
+      "fold": 5,
+      "source": "182010",
+      "category": "vacuum_cleaner",
+      "sha256": "0ac4e7dd19c4f99e9453c79e0409650b1fb12972f9da4d15f96408788b015a07"
+    },
+    {
+      "filename": "1-21896-A-35.wav",
+      "fold": 1,
+      "source": "21896",
+      "category": "washing_machine",
+      "sha256": "1b4210c50a01cabab07065a112463fad4f82de60385ef9aaf6316afe7d4b976c"
+    },
+    {
+      "filename": "1-23996-A-35.wav",
+      "fold": 1,
+      "source": "23996",
+      "category": "washing_machine",
+      "sha256": "cbfd9239fcd7e10a936e6836bbcc8c5f391f89b6a1e12dfe159df717e2898657"
+    },
+    {
+      "filename": "2-102567-A-35.wav",
+      "fold": 2,
+      "source": "102567",
+      "category": "washing_machine",
+      "sha256": "fb6a18ab967f87466bb047e0165354e20fb1d33a8a6ea5810fa260645171b26b"
+    },
+    {
+      "filename": "2-102567-B-35.wav",
+      "fold": 2,
+      "source": "102567",
+      "category": "washing_machine",
+      "sha256": "f88e6e5e078013025b79671369cbe82dfc05290ae20857746e31b8c04b9d5f01"
+    },
+    {
+      "filename": "3-135469-A-35.wav",
+      "fold": 3,
+      "source": "135469",
+      "category": "washing_machine",
+      "sha256": "bb1ff8796acc0e66158abc5dfb1c97d6046eaf10eba825258486ef67c5a65703"
+    },
+    {
+      "filename": "3-151269-A-35.wav",
+      "fold": 3,
+      "source": "151269",
+      "category": "washing_machine",
+      "sha256": "a36007dc9716a76d7aedbd05afa4a99c72cacaccb442eccb2dda4cb74f3849db"
+    },
+    {
+      "filename": "4-218199-A-35.wav",
+      "fold": 4,
+      "source": "218199",
+      "category": "washing_machine",
+      "sha256": "02b6d846aff2d55f6372e5cebd1056db799b8a2487953d774d537bfa3bde7ddd"
+    },
+    {
+      "filename": "4-218199-B-35.wav",
+      "fold": 4,
+      "source": "218199",
+      "category": "washing_machine",
+      "sha256": "c65067dceb056c992f46e7c1c1110085d8d12b43666df2debf5221a450884a6a"
+    },
+    {
+      "filename": "5-141683-A-35.wav",
+      "fold": 5,
+      "source": "141683",
+      "category": "washing_machine",
+      "sha256": "c8ac3bafa369ff4bcfef515f00060c963f4c19d9275ada75edbc8cdb9c1ad591"
+    },
+    {
+      "filename": "5-181977-A-35.wav",
+      "fold": 5,
+      "source": "181977",
+      "category": "washing_machine",
+      "sha256": "f04401db719f20052c3c7497a5893f644473f08a05f4820200b36076079f7951"
+    },
+    {
+      "filename": "1-12653-A-15.wav",
+      "fold": 1,
+      "source": "12653",
+      "category": "water_drops",
+      "sha256": "9e8ec2f92df6dc2f9673f4c701ac327dc5455e6cfa8e108e0f5443aeaa535a65"
+    },
+    {
+      "filename": "1-12654-A-15.wav",
+      "fold": 1,
+      "source": "12654",
+      "category": "water_drops",
+      "sha256": "d2dd3a33d3187b9b643a345e768c4286a12a36fc23a3a2c2aaa525d1ce6e8658"
+    },
+    {
+      "filename": "2-124564-A-15.wav",
+      "fold": 2,
+      "source": "124564",
+      "category": "water_drops",
+      "sha256": "9b8cba3bb95b883c392c6dada8b256a7a8aa708f464de23c4d377fd321a2c38b"
+    },
+    {
+      "filename": "2-139748-A-15.wav",
+      "fold": 2,
+      "source": "139748",
+      "category": "water_drops",
+      "sha256": "a74cc5a21d30d16ec332bb086b6d1e42636bd8f277b3c7f904701839bc862c2f"
+    },
+    {
+      "filename": "3-156907-A-15.wav",
+      "fold": 3,
+      "source": "156907",
+      "category": "water_drops",
+      "sha256": "713f2d9acc4ea229c8cc0687e7d3b6282d21f861dedc96ced65cbb2389b0ad7c"
+    },
+    {
+      "filename": "3-160119-A-15.wav",
+      "fold": 3,
+      "source": "160119",
+      "category": "water_drops",
+      "sha256": "28c8678f97375100236a78fb738110aab8e571400a5c707fdcf5c49e0247e31f"
+    },
+    {
+      "filename": "4-168155-A-15.wav",
+      "fold": 4,
+      "source": "168155",
+      "category": "water_drops",
+      "sha256": "2cd2ad18953fa15ac00e34417479f1021d9f01afdfc193aeaa486c1a3473313e"
+    },
+    {
+      "filename": "4-174797-A-15.wav",
+      "fold": 4,
+      "source": "174797",
+      "category": "water_drops",
+      "sha256": "acdd567a1d75cf635a94d4566916b950b34ca9d153b13b601c659a9b86be69b4"
+    },
+    {
+      "filename": "5-241846-A-15.wav",
+      "fold": 5,
+      "source": "241846",
+      "category": "water_drops",
+      "sha256": "3e9224dba6e244668d5a597c89337a2417680c04ccc8c69132d16457fc9a462d"
+    },
+    {
+      "filename": "5-254832-A-15.wav",
+      "fold": 5,
+      "source": "254832",
+      "category": "water_drops",
+      "sha256": "7199846b3d895d85d87b1762427e219fab750d6c6e401dd99972cdf897f57066"
+    },
+    {
+      "filename": "1-137296-A-16.wav",
+      "fold": 1,
+      "source": "137296",
+      "category": "wind",
+      "sha256": "73e2dd5e66dda29f76a54b53c3c8e33441d105fc35c1d231bfbd8f7a18442969"
+    },
+    {
+      "filename": "1-29532-A-16.wav",
+      "fold": 1,
+      "source": "29532",
+      "category": "wind",
+      "sha256": "f7161457776ff69adbb903e870a3ecf532228a033de6896f25af2f4ce77c5f68"
+    },
+    {
+      "filename": "2-104952-A-16.wav",
+      "fold": 2,
+      "source": "104952",
+      "category": "wind",
+      "sha256": "d3f15c7eaac8332a48fb0aeb921d1b50ae8eba558928eaa4f7c30639018854df"
+    },
+    {
+      "filename": "2-104952-B-16.wav",
+      "fold": 2,
+      "source": "104952",
+      "category": "wind",
+      "sha256": "88d27648c6a78a46cebaba763af5e09dc491296dd49a0a928b1104c1cda1c735"
+    },
+    {
+      "filename": "3-117504-A-16.wav",
+      "fold": 3,
+      "source": "117504",
+      "category": "wind",
+      "sha256": "e8870d76a3bb29b43606231859c1b75ffc6dfaded319944028d122993470669e"
+    },
+    {
+      "filename": "3-117504-B-16.wav",
+      "fold": 3,
+      "source": "117504",
+      "category": "wind",
+      "sha256": "c57afdb76acf9b99fa15282bca63f411c280a158e905c2619488aabbf53ef04e"
+    },
+    {
+      "filename": "4-144083-A-16.wav",
+      "fold": 4,
+      "source": "144083",
+      "category": "wind",
+      "sha256": "a0b0bbb04a05542784cc031b2f806605d47f469c49576d8b903cebf9cc58f4b7"
+    },
+    {
+      "filename": "4-144083-B-16.wav",
+      "fold": 4,
+      "source": "144083",
+      "category": "wind",
+      "sha256": "6295c5592ebaa83de1109be26a2473912d15565d5594abb24784b89cb17d29ae"
+    },
+    {
+      "filename": "5-117773-A-16.wav",
+      "fold": 5,
+      "source": "117773",
+      "category": "wind",
+      "sha256": "d14a14512b9d39a4be54b218136bf188336f7798a193fd20623e4fdafa5fdf18"
+    },
+    {
+      "filename": "5-157204-A-16.wav",
+      "fold": 5,
+      "source": "157204",
+      "category": "wind",
+      "sha256": "5334617e6eb886d8dbdb1c19dedeb9a0e033e2d9448ce9ad409061db6f9324f6"
+    }
+  ]
+}
