@@ -7,6 +7,7 @@ import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performScrollTo
 import com.example.earview.detection.DangerSound
 import com.example.earview.detection.DetectionState
 import com.example.earview.theme.EarViewTheme
@@ -54,12 +55,12 @@ class MainScreenTest {
   fun detected_withOverflow_showsOverflowCount() {
     show(
       DetectionState.Detected(
-        listOf(DangerSound.FIRE_ALARM, DangerSound.SIREN, DangerSound.BABY_CRYING),
-        overflowCount = 2,
+        listOf(DangerSound.FIRE_ALARM, DangerSound.SIREN, DangerSound.GLASS_BREAKING),
+        overflowCount = 3,
       ),
     )
 
-    composeTestRule.onNodeWithText("화재경보, 사이렌, 아기 울음 외 2건 감지").assertExists()
+    composeTestRule.onNodeWithText("화재경보, 사이렌, 유리 깨짐 외 3건 감지").assertExists()
   }
 
   @Test
@@ -93,7 +94,16 @@ class MainScreenTest {
   fun listsAllTargetSounds() {
     show(DetectionState.Idle)
 
-    composeTestRule.onNode(hasText("감지 대상:", substring = true)).assertExists()
+    composeTestRule.onNodeWithContentDescription("감지 대상: 화재경보, 사이렌, 유리 깨짐, 초인종, 문 두드림, 차량 경적").performScrollTo().assertExists()
+    composeTestRule.onNode(hasText("아기 울음", substring = true)).assertDoesNotExist()
+  }
+
+  @Test
+  fun newSounds_areDisplayedAndReadByTalkBack() {
+    show(DetectionState.Detected(listOf(DangerSound.GLASS_BREAKING, DangerSound.DOOR_KNOCK), overflowCount = 0))
+
+    composeTestRule.onNodeWithText("유리 깨짐, 문 두드림 감지").assertExists()
+    composeTestRule.onNodeWithContentDescription("유리 깨짐, 문 두드림 감지됨").assertExists()
   }
 
   @Test

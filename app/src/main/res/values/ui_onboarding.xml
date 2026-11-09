@@ -1,0 +1,8 @@
+<resources>
+    <string name="onboarding_ui_tagline">소리를 알아차리는 또 하나의 방법</string>
+    <string name="onboarding_ui_privacy">소리는 기기 안에서만 분석해요</string>
+    <string name="onboarding_ui_step_microphone">01</string>
+    <string name="onboarding_ui_step_notification">02</string>
+    <string name="onboarding_ui_permissions">필요한 권한 두 가지</string>
+    <string name="onboarding_ui_disclaimer_title">함께 기억해 주세요</string>
+</resources>

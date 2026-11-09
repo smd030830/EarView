@@ -27,6 +27,20 @@ class ModelAssetTest {
     assertFalse(manifest.contains("android.permission.INTERNET"))
   }
 
+  @Test
+  fun ensembleAssetsMatchTheValidatedExports() {
+    val expected = mapOf(
+      "efficientat_mn04_as" to "06eae4a7c9c00652d292be324d0557b36c15e0fce08391d4b02d5b19cc62d31a",
+      "panns_mobilenetv2" to "407c06bda7f61975a917a29a004fb679bbb304191edc72279c63c967c53348d6",
+    )
+    expected.forEach { (name, hash) ->
+      val bytes = File(moduleDir, "src/main/assets/ensemble/$name.tflite").readBytes()
+      assertEquals("TFL3", String(bytes, 4, 4, Charsets.US_ASCII))
+      val actual = MessageDigest.getInstance("SHA-256").digest(bytes).joinToString("") { "%02x".format(it) }
+      assertEquals(name, hash, actual)
+    }
+  }
+
   private companion object {
     // lite-model_yamnet_classification_tflite_1.tflite, from
     // https://storage.googleapis.com/download.tensorflow.org/models/tflite/task_library/audio_classification/android/

@@ -1,20 +1,27 @@
 package com.example.earview.ui.main
 
 import androidx.annotation.StringRes
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Close
@@ -24,24 +31,33 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.LiveRegionMode
+import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.earview.R
@@ -106,14 +122,29 @@ internal fun MainScreenContent(
       Modifier
     }
 
-  Box(modifier.fillMaxSize().background(background).then(dismissModifier)) {
+  BoxWithConstraints(modifier.fillMaxSize().background(background).safeDrawingPadding().then(dismissModifier)) {
+    val minimumHeight = maxHeight
+    val compact = maxHeight < 700.dp
     Column(
-      modifier = Modifier.fillMaxSize().safeDrawingPadding().padding(16.dp),
+      modifier = Modifier.align(Alignment.TopCenter).widthIn(max = 560.dp).fillMaxWidth()
+        .verticalScroll(rememberScrollState()).heightIn(min = minimumHeight).padding(24.dp),
       horizontalAlignment = Alignment.CenterHorizontally,
+      verticalArrangement = Arrangement.SpaceBetween,
     ) {
-      StatusHeader(state)
-      Box(modifier = Modifier.weight(1f).fillMaxWidth(), contentAlignment = Alignment.Center) {
-        ToggleButton(isRunning = state != DetectionState.Off, contentColor = background, onClick = onToggleDetection)
+      BrandHeader()
+      Column(
+        modifier = Modifier.fillMaxWidth().padding(vertical = if (compact) 24.dp else 32.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(if (compact) 24.dp else 32.dp),
+      ) {
+        StatusHeader(state)
+        ToggleButton(isRunning = state != DetectionState.Off, contentColor = background, compact = compact, onClick = onToggleDetection)
+        Text(
+          text = stringResource(if (state is DetectionState.Detected) R.string.main_ui_dismiss_hint else R.string.main_ui_privacy),
+          color = Color.White.copy(alpha = 0.9f),
+          style = MaterialTheme.typography.bodyMedium,
+          textAlign = TextAlign.Center,
+        )
       }
       TargetSoundList()
     }
@@ -121,6 +152,27 @@ internal fun MainScreenContent(
 
   if (permissionGuideVisible) {
     PermissionGuideDialog(onOpenSettings = onOpenSettings, onDismiss = onDismissPermissionGuide)
+  }
+}
+
+@Composable
+private fun BrandHeader() {
+  if (LocalDensity.current.fontScale > 1.3f) {
+    Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+      Text("EarView", color = Color.White, style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.ExtraBold)
+      Text(stringResource(R.string.main_ui_tagline), color = Color.White.copy(alpha = 0.85f), style = MaterialTheme.typography.labelLarge)
+    }
+    return
+  }
+  Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
+    Text("EarView", color = Color.White, style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.ExtraBold)
+    Text(
+      stringResource(R.string.main_ui_tagline),
+      color = Color.White.copy(alpha = 0.85f),
+      style = MaterialTheme.typography.labelLarge,
+      textAlign = TextAlign.End,
+      modifier = Modifier.weight(1f).padding(start = 16.dp),
+    )
   }
 }
 
@@ -141,50 +193,93 @@ private fun PermissionGuideDialog(onOpenSettings: () -> Unit, onDismiss: () -> U
 private fun StatusHeader(state: DetectionState, modifier: Modifier = Modifier) {
   val text = state.statusText()
   val spoken = state.spokenText()
-  Row(
+  Column(
     modifier = modifier.fillMaxWidth().semantics(mergeDescendants = true) {
       contentDescription = spoken
       liveRegion = LiveRegionMode.Polite
+      heading()
     },
-    verticalAlignment = Alignment.CenterVertically,
-    horizontalArrangement = Arrangement.Center,
+    horizontalAlignment = Alignment.CenterHorizontally,
+    verticalArrangement = Arrangement.spacedBy(12.dp),
   ) {
-    Icon(imageVector = state.icon(), contentDescription = null, tint = Color.White, modifier = Modifier.size(48.dp))
-    Spacer(Modifier.width(12.dp))
+    Surface(shape = RoundedCornerShape(20.dp), color = Color.White.copy(alpha = 0.12f)) {
+      Icon(imageVector = state.icon(), contentDescription = null, tint = Color.White, modifier = Modifier.padding(14.dp).size(32.dp))
+    }
     Text(
       text = text,
       style = MaterialTheme.typography.headlineMedium,
-      fontWeight = FontWeight.Bold,
+      fontWeight = FontWeight.ExtraBold,
       color = Color.White,
       textAlign = TextAlign.Center,
-      modifier = Modifier.weight(1f, fill = false),
+    )
+    Text(
+      text = stringResource(
+        when (state) {
+          DetectionState.Off -> R.string.main_ui_off_description
+          DetectionState.Idle -> R.string.main_ui_idle_description
+          is DetectionState.Detected -> R.string.main_ui_detected_description
+        },
+      ),
+      color = Color.White.copy(alpha = 0.9f),
+      style = MaterialTheme.typography.bodyLarge,
+      textAlign = TextAlign.Center,
     )
   }
 }
 
 @Composable
-private fun ToggleButton(isRunning: Boolean, contentColor: Color, onClick: () -> Unit) {
+private fun ToggleButton(isRunning: Boolean, contentColor: Color, compact: Boolean, onClick: () -> Unit) {
   val label = stringResource(if (isRunning) R.string.button_stop else R.string.button_start)
   val spoken = stringResource(if (isRunning) R.string.button_stop_a11y else R.string.button_start_a11y)
-  Button(
-    onClick = onClick,
-    shape = CircleShape,
-    colors = ButtonDefaults.buttonColors(containerColor = Color.White, contentColor = contentColor),
-    modifier = Modifier.size(200.dp).semantics { contentDescription = spoken },
+  Box(
+    modifier = Modifier.size(if (compact) 224.dp else 256.dp).border(1.dp, Color.White.copy(alpha = 0.18f), CircleShape)
+      .padding(12.dp).border(1.dp, Color.White.copy(alpha = 0.25f), CircleShape).padding(12.dp),
+    contentAlignment = Alignment.Center,
   ) {
-    Text(text = label, style = MaterialTheme.typography.headlineLarge, fontWeight = FontWeight.Bold)
+    Button(
+      onClick = onClick,
+      shape = CircleShape,
+      colors = ButtonDefaults.buttonColors(containerColor = Color.White, contentColor = contentColor),
+      contentPadding = PaddingValues(12.dp),
+      modifier = Modifier.fillMaxSize().semantics { contentDescription = spoken },
+    ) {
+      Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(10.dp)) {
+        Canvas(Modifier.size(34.dp)) {
+          val stroke = 3.dp.toPx()
+          drawArc(contentColor, -55f, 290f, false, Offset(stroke, stroke), Size(size.width - stroke * 2, size.height - stroke * 2), style = Stroke(stroke, cap = StrokeCap.Round))
+          drawLine(contentColor, Offset(size.width / 2, 0f), Offset(size.width / 2, size.height * .45f), stroke, StrokeCap.Round)
+        }
+        Text(text = label, fontSize = 32.sp, lineHeight = 40.sp, fontWeight = FontWeight.Bold)
+      }
+    }
   }
 }
 
 @Composable
 private fun TargetSoundList(modifier: Modifier = Modifier) {
-  Text(
-    text = stringResource(R.string.target_sounds, DangerSound.entries.joinedNames()),
-    style = MaterialTheme.typography.bodyLarge,
-    color = Color.White,
-    textAlign = TextAlign.Center,
-    modifier = modifier.fillMaxWidth(),
-  )
+  val spoken = stringResource(R.string.target_sounds, DangerSound.entries.joinedNames())
+  Surface(modifier = modifier.fillMaxWidth(), shape = RoundedCornerShape(24.dp), color = Color.White.copy(alpha = 0.10f)) {
+    Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
+      Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
+        Text(stringResource(R.string.main_ui_targets), color = Color.White, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+        Text(stringResource(R.string.main_ui_target_count), color = Color.White.copy(alpha = 0.85f), style = MaterialTheme.typography.labelLarge)
+      }
+      Column(Modifier.clearAndSetSemantics { contentDescription = spoken }, verticalArrangement = Arrangement.spacedBy(10.dp)) {
+        DangerSound.entries.chunked(2).forEach { pair ->
+          Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+            pair.forEach { sound ->
+              Text(
+                text = stringResource(sound.labelRes()),
+                color = Color.White,
+                style = MaterialTheme.typography.bodyLarge,
+                modifier = Modifier.weight(1f).background(Color.White.copy(alpha = 0.08f), RoundedCornerShape(12.dp)).padding(horizontal = 12.dp, vertical = 10.dp),
+              )
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 private fun DetectionState.backgroundColor(): Color = when (this) {
@@ -236,8 +331,9 @@ private fun List<DangerSound>.joinedNames(): String {
 private fun DangerSound.labelRes(): Int = when (this) {
   DangerSound.FIRE_ALARM -> R.string.sound_fire_alarm
   DangerSound.SIREN -> R.string.sound_siren
-  DangerSound.BABY_CRYING -> R.string.sound_baby_crying
+  DangerSound.GLASS_BREAKING -> R.string.sound_glass_breaking
   DangerSound.DOORBELL -> R.string.sound_doorbell
+  DangerSound.DOOR_KNOCK -> R.string.sound_door_knock
   DangerSound.CAR_HORN -> R.string.sound_car_horn
 }
 
@@ -258,7 +354,7 @@ private fun MainScreenIdlePreview() {
 private fun MainScreenDetectedPreview() {
   EarViewTheme {
     MainScreenContent(
-      DetectionState.Detected(listOf(DangerSound.FIRE_ALARM, DangerSound.SIREN, DangerSound.BABY_CRYING), overflowCount = 2),
+      DetectionState.Detected(listOf(DangerSound.FIRE_ALARM, DangerSound.SIREN, DangerSound.GLASS_BREAKING), overflowCount = 3),
       onToggleDetection = {},
       onDismissDetection = {},
     )

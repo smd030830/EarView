@@ -1,0 +1,155 @@
+# Three-model detection experiment (BL-001, BL-003, BL-005, BL-006)
+
+The target ensemble is YAMNet + EfficientAT mn04_as + PANNs MobileNetV2.
+All inference stays on-device. Microphone audio is processed in memory only.
+
+`EarViewApplication` loads all three bundled models through `loadEnsemble`.
+A missing or incompatible model fails detection startup; it never silently
+switches to a different number of models. Already opened models are released.
+The existing foreground service, permissions and two screens are preserved.
+
+Export instructions and upstream attribution are in `tools/ensemble_export/README.md`.
+Bundled `assets/ensemble/validation.json` records conversion parity and asset hashes;
+`provenance.json` records source checkpoints and build versions.
+
+## Shared contract
+
+- Input: mono float PCM, 16,000 Hz, values in [-1, 1].
+- Output: six independent scores in this exact order: FIRE_ALARM, SIREN,
+  GLASS_BREAKING, DOORBELL, DOOR_KNOCK, CAR_HORN. Multiple sounds may exceed their thresholds.
+- Map each model's labels by name, never by another model's numerical indices.
+- Combine related labels using their maximum score, matching the existing YAMNet
+  grouping. Apply sigmoid to logits where required; never softmax across sounds.
+- Align input windows at the newest sample. Different window lengths are allowed.
+- Keep the shortest model's half-window decision cadence (YAMNet: 7,800 samples,
+  487.5 ms), rather than slowing decisions to half the longest model's window.
+- Convert each mapped confidence with its model/sound-specific internal correction,
+  then take the arithmetic mean of the three corrected scores for each sound.
+
+## Initial score correction implementation (2026-11-01, BL-003/BL-006)
+
+This section records the initial identity configuration. The current pilot
+coefficients and acceptance results are in [mentoring-follow-up.md](mentoring-follow-up.md)
+and `tools/model_evaluation/tuning-report.json` (2026-11-02).
+
+`ScoreCalibration.kt` is the single configuration point for 18 corrections:
+YAMNet, EfficientAT and PANNs each have one entry for every target sound.
+`ScoreCorrection(scale, offset)` computes `clamp(raw * scale + offset, 0, 1)`.
+`loadEnsemble` attaches the matching correction to each model by name before
+passing its scores to `EnsembleClassifier`. The final average is compared with
+the existing per-sound threshold; windows, cadence, model weights and UI are unchanged.
+Invalid raw scores fail before conversion so clipping cannot hide corrupt output.
+
+Example only: scales `5/3`, `0.8`, `1` convert raw scores `0.3`, `0.5`, `0.6`
+into `0.5`, `0.4`, `0.6`; their mean is `0.5`. This example is covered by a test,
+not deployed as fitted parameters. All production scales are initially 1 and
+offsets 0, intentionally preserving behavior until measured coefficients exist.
+Applying arbitrary example coefficients would change recall and false alarms
+without evidence. Score conversion alone does not calibrate probabilities.
+
+For future tuning, fit coefficients on separate calibration fixtures and evaluate
+the complete corrected-average decision on held-out sources. Fire alarm/doorbell
+still lack positive evaluation fixtures. Existing PC reports and Python evaluation
+describe raw means, numerically identical to the current identity configuration;
+nonidentity corrections require updating that offline evaluator before using it
+to validate app behavior.
+
+Verification on 2026-11-01: 101 JVM tests passed (including nine score-correction
+tests covering the numeric example, corrected-average detection, range limits,
+invalid inputs/configuration, unchanged defaults and resource/timing delegation).
+Debug application and Android-test APKs built; Android lint and ktlint passed.
+Android instrumented tests and physical-device measurements were not rerun for
+this correction-layer change. No fitted accuracy improvement is claimed.
+
+## Experimental limits
+
+Scores in [0, 1] are not necessarily calibrated probabilities. This initial
+experiment uses bounded confidences without claiming statistical calibration.
+The additional checkpoints expect 32 kHz audio. Their exported wrappers resample
+the shared 16 kHz microphone input to 32 kHz; this does not recover frequencies
+above 8 kHz. Evaluate these deployed wrappers, not just their original checkpoints.
+Existing thresholds (horn 0.3, others 0.5) are provisional and were measured only
+for YAMNet; they are not validated for this ensemble.
+
+Before release, use a calibration split to fit per-model/per-sound calibration
+and select ensemble thresholds, then a separate held-out evaluation split to
+compare recall, false alarms per hour, and end-to-end latency against YAMNet.
+Include fire alarm, glass breaking, doorbell and door knock, overlapping sounds, distant sounds, silence,
+speech, music and household background sounds. Do not collect microphone audio
+through the app. Use separately supplied evaluation fixtures.
+
+Verify the PRD's 3-second notification target and battery target on real devices.
+Model conversion parity alone does not establish detection accuracy.
+
+## Historical verification on 2026-10-29 (previous five-sound model)
+
+- 88 JVM unit tests passed, including averaging, alias grouping, window alignment,
+  resource cleanup, invalid scores and hashes of the deployed model assets.
+- Debug application and instrumented-test APKs built successfully.
+- `EnsembleModelsTest` passed on the Medium_Phone Android emulator using the
+  application's LiteRT 1.4.2 runtime. It opens all three actual assets and invokes
+  the ensemble twice with synthetic silence, checking five finite bounded scores.
+- Original PyTorch versus exported LiteRT maximum absolute errors across four
+  deterministic synthetic inputs: EfficientAT 8.44e-9, PANNs 3.44e-7.
+- Physical-device detection accuracy, calibration, battery and latency are pending.
+- Kotlin style checks and Android lint were attempted but could not complete:
+  compiler/IntelliJ/Groovy checker dependencies were missing from the local cache
+  and their network downloads did not complete. `git diff --check` passed.
+  Gradle's connected-test launcher also lacked its UTP dependency; the compiled
+  instrumented test was installed and executed directly with `adb am instrument`.
+
+## Six-sound target update on 2026-10-30
+
+The approved targets remove baby crying and add glass breaking (`Shatter`) and
+door knock (`Knock`). Generic `Glass` or `Engine knocking` scores do not trigger
+these new targets. YAMNet uses its matching class indices; the other two bundled
+models must export the same six-score order. New thresholds remain provisional
+at 0.5, and neither class has a validated real-device detection rate.
+Historical five-sound evaluation results must not be presented as six-sound
+validation. The UI, TalkBack labels, vibration patterns and overflow handling
+follow the six-sound contract; at most three names remain displayed.
+
+The bundled EfficientAT/PANNs files now output all six scores. Their final label
+grouping was retargeted without changing pretrained weights or preprocessing;
+218 inputs per model passed comparison against original full AudioSet outputs,
+including checks that the retained four sound scores were unchanged.
+`validation-five-sounds.json` preserves the original conversion evidence.
+
+PC evaluation with the actual assets on 252 ESC-50 clips (40 positives per
+available target) produced the following recall at the provisional thresholds:
+
+| Model | Glass breaking | Door knock |
+|---|---:|---:|
+| YAMNet | 11/40 (27.5%) | 14/40 (35%) |
+| EfficientAT | 0/40 (0%) | 29/40 (72.5%) |
+| PANNs | 3/40 (7.5%) | 31/40 (77.5%) |
+| Three-model average | 4/40 (10%) | 23/40 (57.5%) |
+
+The low glass-breaking recall is a known limitation of the current deployed
+window/score/threshold combination. No calibration or threshold tuning was done
+on this evaluation set. These results do not establish real-device accuracy.
+The nominal negative clips yielded zero glass/knock detections at 0.5, which
+does not establish zero false alarms in use. Source labels do not rule out
+overlapping sounds. Complete scores, model hashes and conditions are recorded
+in `tools/model_evaluation/report.json`; the prior five-sound benchmark is kept
+in `report-five-sounds.json`.
+
+Verification after the six-target change:
+
+- 92 JVM unit tests passed, including exact new label mapping, ignoring isolated
+  baby-cry/generic-glass/engine-knock scores, six-way overflow, vibration and return.
+- 18 Android instrumented tests passed on Medium_Phone (API 37), including actual
+  bundled LiteRT inference returning six finite scores and new UI/TalkBack labels.
+- Debug APK build, Android lint and ktlint passed. Lint retains an API-level warning
+  in the pre-existing foreground service; it was not introduced by this change.
+- Four evaluation-runner tests passed; model hashes/order and 252 report records
+  were checked. `git diff --check` passed.
+- Real-device microphone accuracy, calibration, notification latency and battery
+  remain unverified. New thresholds are provisional, not release-validated.
+
+## Future iOS
+
+iOS implementation remains outside this Android change. Preserve model versions,
+preprocessing constants, label mapping, output order and score fusion rules as
+the portable contract. Validate the same supplied fixtures on both platforms;
+do not assume bit-identical output across inference delegates.

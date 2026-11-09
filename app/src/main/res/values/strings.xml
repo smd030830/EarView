@@ -4,10 +4,11 @@
     <!-- Danger sounds -->
     <string name="sound_fire_alarm">화재경보</string>
     <string name="sound_siren">사이렌</string>
-    <string name="sound_baby_crying">아기 울음</string>
+    <string name="sound_glass_breaking">유리 깨짐</string>
     <string name="sound_doorbell">초인종</string>
+    <string name="sound_door_knock">문 두드림</string>
     <string name="sound_car_horn">차량 경적</string>
-    <string name="sound_separator">, </string>
+    <string name="sound_separator">", "</string>
 
     <!-- Status text (shown on screen) -->
     <string name="status_off">꺼져 있음</string>
@@ -33,7 +34,7 @@
     <!-- Target list -->
     <string name="target_sounds">감지 대상: %1$s</string>
     <!-- Permission onboarding -->
-    <string name="onboarding_title">시작하기 전에 권한이 필요해요</string>
+    <string name="onboarding_title">시작 전,\n권한을 확인해요</string>
     <string name="onboarding_intro">EarView는 주변의 위험한 소리를 감지해 진동과 화면으로 알려 드립니다. 아래 두 가지 권한을 허용해 주세요.</string>
     <string name="onboarding_start">시작하기</string>
     <string name="permission_microphone">마이크</string>
