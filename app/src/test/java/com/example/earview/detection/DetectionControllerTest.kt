@@ -249,7 +249,7 @@ class DetectionControllerTest {
     detect(*DangerSound.entries.reversed().toTypedArray())
 
     assertEquals(
-      detected(DangerSound.FIRE_ALARM, DangerSound.SIREN, DangerSound.GLASS_BREAKING, overflow = 3),
+      DetectionState.Detected(DangerSound.entries.take(3), 3, activeSounds = DangerSound.entries),
       controller.state.value,
     )
   }

@@ -1,5 +1,6 @@
 package com.example.earview.ui.main
 
+import androidx.compose.runtime.mutableStateOf
 import androidx.activity.ComponentActivity
 import androidx.compose.ui.test.hasContentDescription
 import androidx.compose.ui.test.hasText
@@ -104,6 +105,26 @@ class MainScreenTest {
 
     composeTestRule.onNodeWithText("유리 깨짐, 문 두드림 감지").assertExists()
     composeTestRule.onNodeWithContentDescription("유리 깨짐, 문 두드림 감지됨").assertExists()
+  }
+
+  @Test
+  fun detectedTiles_includeOverflow_andResetWhenStateChanges() {
+    val state = mutableStateOf<DetectionState>(DetectionState.Detected(
+      DangerSound.entries.take(3), 3, activeSounds = DangerSound.entries,
+    ))
+    composeTestRule.setContent {
+      EarViewTheme { MainScreenContent(state.value, {}, {}) }
+    }
+    composeTestRule.onNodeWithContentDescription("차량 경적 감지").performScrollTo().assertExists()
+    composeTestRule.runOnIdle {
+      state.value = DetectionState.Detected(listOf(DangerSound.SIREN), 0)
+    }
+    composeTestRule.onNodeWithContentDescription("차량 경적 감지").assertDoesNotExist()
+    composeTestRule.onNodeWithContentDescription("차량 경적").assertExists()
+    composeTestRule.onNodeWithContentDescription("사이렌 감지").assertExists()
+    composeTestRule.runOnIdle { state.value = DetectionState.Idle }
+    composeTestRule.onNodeWithContentDescription("사이렌 감지").assertDoesNotExist()
+    composeTestRule.onNodeWithContentDescription("사이렌").assertExists()
   }
 
   @Test

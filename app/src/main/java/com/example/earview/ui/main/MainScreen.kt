@@ -146,7 +146,7 @@ internal fun MainScreenContent(
           textAlign = TextAlign.Center,
         )
       }
-      TargetSoundList()
+      TargetSoundList(activeSounds = (state as? DetectionState.Detected)?.activeSounds.orEmpty())
     }
   }
 
@@ -256,7 +256,7 @@ private fun ToggleButton(isRunning: Boolean, contentColor: Color, compact: Boole
 }
 
 @Composable
-private fun TargetSoundList(modifier: Modifier = Modifier) {
+private fun TargetSoundList(activeSounds: List<DangerSound>, modifier: Modifier = Modifier) {
   val spoken = stringResource(R.string.target_sounds, DangerSound.entries.joinedNames())
   Surface(modifier = modifier.fillMaxWidth(), shape = RoundedCornerShape(24.dp), color = Color.White.copy(alpha = 0.10f)) {
     Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
@@ -264,16 +264,32 @@ private fun TargetSoundList(modifier: Modifier = Modifier) {
         Text(stringResource(R.string.main_ui_targets), color = Color.White, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
         Text(stringResource(R.string.main_ui_target_count), color = Color.White.copy(alpha = 0.85f), style = MaterialTheme.typography.labelLarge)
       }
-      Column(Modifier.clearAndSetSemantics { contentDescription = spoken }, verticalArrangement = Arrangement.spacedBy(10.dp)) {
+      Column(Modifier.semantics { contentDescription = spoken }, verticalArrangement = Arrangement.spacedBy(10.dp)) {
         DangerSound.entries.chunked(2).forEach { pair ->
           Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
             pair.forEach { sound ->
-              Text(
-                text = stringResource(sound.labelRes()),
-                color = Color.White,
-                style = MaterialTheme.typography.bodyLarge,
-                modifier = Modifier.weight(1f).background(Color.White.copy(alpha = 0.08f), RoundedCornerShape(12.dp)).padding(horizontal = 12.dp, vertical = 10.dp),
-              )
+              val detected = sound in activeSounds
+              val name = stringResource(sound.labelRes())
+              val label = if (detected) stringResource(R.string.status_detected, name) else name
+              Row(
+                modifier = Modifier.weight(1f)
+                  .background(if (detected) Color(0xFFFFE2A8) else Color.White.copy(alpha = 0.08f), RoundedCornerShape(12.dp))
+                  .clearAndSetSemantics { contentDescription = label }
+                  .padding(horizontal = 12.dp, vertical = 10.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(6.dp),
+              ) {
+                if (detected) {
+                  Icon(Icons.Filled.Warning, contentDescription = null, tint = StatusDetected, modifier = Modifier.size(20.dp))
+                }
+                Text(
+                  text = label,
+                  color = if (detected) StatusDetected else Color.White,
+                  style = MaterialTheme.typography.bodyLarge,
+                  fontWeight = if (detected) FontWeight.Bold else FontWeight.Normal,
+                  modifier = Modifier.weight(1f),
+                )
+              }
             }
           }
         }
