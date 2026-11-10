@@ -34,7 +34,11 @@ sealed interface DetectionState {
    * detected sounds, most dangerous first, and [overflowCount] is how many more are not listed.
    * [sounds] can be empty while the screen is still red, once every sound has aged out of the list.
    */
-  data class Detected(val sounds: List<DangerSound>, val overflowCount: Int) : DetectionState
+  data class Detected(
+    val sounds: List<DangerSound>,
+    val overflowCount: Int,
+    val activeSounds: List<DangerSound> = sounds,
+  ) : DetectionState
 }
 
 /** Why detection stopped. */
@@ -151,6 +155,7 @@ class DetectionController(
           val sorted = activeSounds.sorted()
           DetectionState.Detected(
             sounds = sorted.take(MAX_DISPLAYED_SOUNDS),
+            activeSounds = sorted,
             overflowCount = (sorted.size - MAX_DISPLAYED_SOUNDS).coerceAtLeast(0),
           )
         }
