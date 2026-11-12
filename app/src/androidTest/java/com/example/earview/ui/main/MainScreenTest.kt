@@ -92,10 +92,13 @@ class MainScreenTest {
   }
 
   @Test
-  fun listsAllTargetSounds() {
+  fun listsFourVisibleTargetSounds() {
     show(DetectionState.Idle)
 
-    composeTestRule.onNodeWithContentDescription("감지 대상: 화재경보, 사이렌, 유리 깨짐, 초인종, 문 두드림, 차량 경적").performScrollTo().assertExists()
+    composeTestRule.onNodeWithContentDescription("감지 대상: 화재경보, 사이렌, 유리 깨짐, 차량 경적").performScrollTo().assertExists()
+    composeTestRule.onNodeWithText("4종").assertExists()
+    composeTestRule.onNodeWithContentDescription("초인종").assertDoesNotExist()
+    composeTestRule.onNodeWithContentDescription("문 두드림").assertDoesNotExist()
     composeTestRule.onNode(hasText("아기 울음", substring = true)).assertDoesNotExist()
   }
 

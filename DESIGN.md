@@ -25,7 +25,7 @@
 ## Information architecture
 - Primary navigation: 최초 권한 안내 → 메인. 새 화면 없음.
 - Core routes/screens: 현재 두 화면 유지.
-- Content hierarchy: 메인 브랜드 → 상태/설명 → 큰 시작·종료 버튼 → 감지 대상 6종.
+- Content hierarchy: 메인 브랜드 → 상태/설명 → 큰 시작·종료 버튼 → 감지 대상 4종 목록.
 - 권한 안내: 브랜드/소개 → 마이크/알림 권한 카드 → 시작하기 → 보조 도구 고지.
 
 ## Design principles
@@ -44,7 +44,7 @@
 
 ## Components
 - Existing components to reuse: Material3 버튼·카드·대화상자, 기존 상태/권한 함수.
-- New/changed components: 브랜드 헤더, 상태 설명, 원형 조작 버튼 외곽 링, 6종 이름 배열, 권한 카드.
+- New/changed components: 브랜드 헤더, 상태 설명, 원형 조작 버튼 외곽 링, 4종 이름 배열, 권한 카드.
 - Variants and states: Off/Idle/Detected, 권한 Required/Granted/Denied.
 - Token/component ownership: theme/Color.kt·Theme.kt·Type.kt, 두 화면의 로컬 컴포넌트.
 
