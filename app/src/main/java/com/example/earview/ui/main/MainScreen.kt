@@ -76,6 +76,7 @@ import com.example.earview.theme.StatusOff
 fun MainScreen(
   modifier: Modifier = Modifier,
   viewModel: MainScreenViewModel = defaultMainScreenViewModel(),
+  onOpenFeatureSettings: (() -> Unit)? = null,
 ) {
   val context = LocalContext.current
   val state by viewModel.uiState.collectAsStateWithLifecycle()
@@ -91,6 +92,7 @@ fun MainScreen(
       viewModel.onDismissPermissionGuide()
       context.openAppSettings()
     },
+    onOpenFeatureSettings = onOpenFeatureSettings,
   )
 }
 
@@ -102,7 +104,7 @@ private fun defaultMainScreenViewModel(): MainScreenViewModel {
   }
 }
 
-/** Stateless main screen. Every status is shown with color + icon + text (FR-12). */
+/** Every detection status is shown with color + icon + text (FR-12). */
 @Composable
 internal fun MainScreenContent(
   state: DetectionState,
@@ -112,6 +114,7 @@ internal fun MainScreenContent(
   permissionGuideVisible: Boolean = false,
   onDismissPermissionGuide: () -> Unit = {},
   onOpenSettings: () -> Unit = {},
+  onOpenFeatureSettings: (() -> Unit)? = null,
 ) {
   val background = state.backgroundColor()
   val dismissLabel = stringResource(R.string.action_dismiss_detection)
@@ -146,7 +149,14 @@ internal fun MainScreenContent(
           textAlign = TextAlign.Center,
         )
       }
-      TargetSoundList(activeSounds = (state as? DetectionState.Detected)?.activeSounds.orEmpty())
+      Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+        TargetSoundList(activeSounds = (state as? DetectionState.Detected)?.activeSounds.orEmpty())
+        if (state !is DetectionState.Detected && onOpenFeatureSettings != null) {
+          Button(onClick = onOpenFeatureSettings, modifier = Modifier.fillMaxWidth()) {
+            Text(stringResource(R.string.feature_settings_open))
+          }
+        }
+      }
     }
   }
 
@@ -257,15 +267,16 @@ private fun ToggleButton(isRunning: Boolean, contentColor: Color, compact: Boole
 
 @Composable
 private fun TargetSoundList(activeSounds: List<DangerSound>, modifier: Modifier = Modifier) {
-  val spoken = stringResource(R.string.target_sounds, DangerSound.entries.joinedNames())
+  val visibleSounds = DangerSound.entries.filterNot { it == DangerSound.DOORBELL || it == DangerSound.DOOR_KNOCK }
+  val spoken = stringResource(R.string.target_sounds, visibleSounds.joinedNames())
   Surface(modifier = modifier.fillMaxWidth(), shape = RoundedCornerShape(24.dp), color = Color.White.copy(alpha = 0.10f)) {
     Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
       Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
         Text(stringResource(R.string.main_ui_targets), color = Color.White, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
-        Text(stringResource(R.string.main_ui_target_count), color = Color.White.copy(alpha = 0.85f), style = MaterialTheme.typography.labelLarge)
+        Text(stringResource(R.string.main_ui_target_count, visibleSounds.size), color = Color.White.copy(alpha = 0.85f), style = MaterialTheme.typography.labelLarge)
       }
       Column(Modifier.semantics { contentDescription = spoken }, verticalArrangement = Arrangement.spacedBy(10.dp)) {
-        DangerSound.entries.chunked(2).forEach { pair ->
+        visibleSounds.chunked(2).forEach { pair ->
           Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
             pair.forEach { sound ->
               val detected = sound in activeSounds
