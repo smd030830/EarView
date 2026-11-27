@@ -128,13 +128,8 @@ internal fun MainScreenContent(
   BoxWithConstraints(modifier.fillMaxSize().background(background).safeDrawingPadding().then(dismissModifier)) {
     val minimumHeight = maxHeight
     val compact = maxHeight < 700.dp
-    Column(
-      modifier = Modifier.align(Alignment.TopCenter).widthIn(max = 560.dp).fillMaxWidth()
-        .verticalScroll(rememberScrollState()).heightIn(min = minimumHeight).padding(24.dp),
-      horizontalAlignment = Alignment.CenterHorizontally,
-      verticalArrangement = Arrangement.SpaceBetween,
-    ) {
-      BrandHeader()
+    val wide = maxWidth >= 840.dp && maxWidth > maxHeight && LocalDensity.current.fontScale <= 1.3f
+    val controls: @Composable () -> Unit = {
       Column(
         modifier = Modifier.fillMaxWidth().padding(vertical = if (compact) 24.dp else 32.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -149,6 +144,8 @@ internal fun MainScreenContent(
           textAlign = TextAlign.Center,
         )
       }
+    }
+    val targets: @Composable () -> Unit = {
       Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
         TargetSoundList(activeSounds = (state as? DetectionState.Detected)?.activeSounds.orEmpty())
         if (state !is DetectionState.Detected && onOpenFeatureSettings != null) {
@@ -156,6 +153,23 @@ internal fun MainScreenContent(
             Text(stringResource(R.string.feature_settings_open))
           }
         }
+      }
+    }
+    Column(
+      modifier = Modifier.align(Alignment.TopCenter).widthIn(max = if (wide) 1200.dp else if (maxWidth >= 600.dp) 720.dp else 560.dp).fillMaxWidth()
+        .verticalScroll(rememberScrollState()).heightIn(min = minimumHeight).padding(24.dp),
+      horizontalAlignment = Alignment.CenterHorizontally,
+      verticalArrangement = if (wide) Arrangement.spacedBy(32.dp, Alignment.CenterVertically) else Arrangement.SpaceBetween,
+    ) {
+      BrandHeader()
+      if (wide) {
+        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(32.dp), verticalAlignment = Alignment.CenterVertically) {
+          Box(Modifier.weight(1f)) { controls() }
+          Box(Modifier.weight(1f)) { targets() }
+        }
+      } else {
+        controls()
+        targets()
       }
     }
   }
@@ -364,18 +378,21 @@ private fun DangerSound.labelRes(): Int = when (this) {
   DangerSound.CAR_HORN -> R.string.sound_car_horn
 }
 
+@Preview(showBackground = true, widthDp = 1280, heightDp = 800, name = "Tablet landscape")
 @Preview(showBackground = true)
 @Composable
 private fun MainScreenOffPreview() {
   EarViewTheme { MainScreenContent(DetectionState.Off, onToggleDetection = {}, onDismissDetection = {}) }
 }
 
+@Preview(showBackground = true, widthDp = 1280, heightDp = 800, name = "Tablet landscape")
 @Preview(showBackground = true)
 @Composable
 private fun MainScreenIdlePreview() {
   EarViewTheme { MainScreenContent(DetectionState.Idle, onToggleDetection = {}, onDismissDetection = {}) }
 }
 
+@Preview(showBackground = true, widthDp = 1280, heightDp = 800, name = "Tablet landscape")
 @Preview(showBackground = true)
 @Composable
 private fun MainScreenDetectedPreview() {

@@ -9,6 +9,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -41,6 +42,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
@@ -116,9 +118,10 @@ internal fun OnboardingContent(
   onStart: () -> Unit,
   modifier: Modifier = Modifier,
 ) {
-  Box(modifier.fillMaxSize().background(MaterialTheme.colorScheme.background).safeDrawingPadding(), contentAlignment = Alignment.TopCenter) {
+  BoxWithConstraints(modifier.fillMaxSize().background(MaterialTheme.colorScheme.background).safeDrawingPadding(), contentAlignment = Alignment.TopCenter) {
+    val wide = maxWidth >= 840.dp && LocalDensity.current.fontScale <= 1.3f
     Column(
-      modifier = Modifier.widthIn(max = 560.dp).fillMaxWidth().verticalScroll(rememberScrollState()).padding(24.dp),
+      modifier = Modifier.widthIn(max = if (wide) 960.dp else if (maxWidth >= 600.dp) 720.dp else 560.dp).fillMaxWidth().verticalScroll(rememberScrollState()).padding(24.dp),
       verticalArrangement = Arrangement.spacedBy(24.dp),
     ) {
       Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
@@ -167,24 +170,37 @@ internal fun OnboardingContent(
           color = MaterialTheme.colorScheme.onSurface,
           modifier = Modifier.semantics { heading() },
         )
-        PermissionCard(
-          stepRes = R.string.onboarding_ui_step_microphone,
-          nameRes = R.string.permission_microphone,
-          reasonRes = R.string.permission_microphone_reason,
-          status = state.microphone,
-          allowRes = R.string.permission_microphone_allow,
-          allowInSettingsRes = R.string.permission_microphone_allow_in_settings,
-          onClick = onMicrophoneClick,
-        )
-        PermissionCard(
-          stepRes = R.string.onboarding_ui_step_notification,
-          nameRes = R.string.permission_notification,
-          reasonRes = R.string.permission_notification_reason,
-          status = state.notification,
-          allowRes = R.string.permission_notification_allow,
-          allowInSettingsRes = R.string.permission_notification_allow_in_settings,
-          onClick = onNotificationClick,
-        )
+        val microphoneCard: @Composable () -> Unit = {
+          PermissionCard(
+            stepRes = R.string.onboarding_ui_step_microphone,
+            nameRes = R.string.permission_microphone,
+            reasonRes = R.string.permission_microphone_reason,
+            status = state.microphone,
+            allowRes = R.string.permission_microphone_allow,
+            allowInSettingsRes = R.string.permission_microphone_allow_in_settings,
+            onClick = onMicrophoneClick,
+          )
+        }
+        val notificationCard: @Composable () -> Unit = {
+          PermissionCard(
+            stepRes = R.string.onboarding_ui_step_notification,
+            nameRes = R.string.permission_notification,
+            reasonRes = R.string.permission_notification_reason,
+            status = state.notification,
+            allowRes = R.string.permission_notification_allow,
+            allowInSettingsRes = R.string.permission_notification_allow_in_settings,
+            onClick = onNotificationClick,
+          )
+        }
+        if (wide) {
+          Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+            Box(Modifier.weight(1f)) { microphoneCard() }
+            Box(Modifier.weight(1f)) { notificationCard() }
+          }
+        } else {
+          microphoneCard()
+          notificationCard()
+        }
       }
 
       Button(onClick = onStart, shape = RoundedCornerShape(18.dp), modifier = Modifier.fillMaxWidth().heightIn(min = 60.dp)) {
@@ -280,6 +296,7 @@ private fun PermissionStatus.color(): Color = when (this) {
   PermissionStatus.Denied -> MaterialTheme.colorScheme.error
 }
 
+@Preview(showBackground = true, widthDp = 1280, heightDp = 800, name = "Tablet landscape")
 @Preview(showBackground = true)
 @Composable
 private fun OnboardingInitialPreview() {
@@ -293,6 +310,7 @@ private fun OnboardingInitialPreview() {
   }
 }
 
+@Preview(showBackground = true, widthDp = 1280, heightDp = 800, name = "Tablet landscape")
 @Preview(showBackground = true)
 @Composable
 private fun OnboardingMixedPreview() {
